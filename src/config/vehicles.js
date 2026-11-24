@@ -20,12 +20,12 @@ export const CAR = {
   defaultPaint: 'racing-red',
   paintMaterials: [{ name: 'paint', role: 'main' }],
   poster: '/images/car-stage.webp',
-  heroCamera: { position: [6.4, 2.15, 6.4], target: [0, 0.55, 0] },
+  heroCamera: { position: [6.2, 1.4, 5.4], target: [0, 0.52, 0] },
   presets: [
     {
       id: 'front',
       label: 'Front',
-      camera: { position: [7.2, 1.45, 0.12], target: [0, 0.55, 0] },
+      camera: { position: [4.6, 1.3, 0.1], target: [0, 0.52, 0] },
     },
     {
       id: 'three-quarter',
@@ -40,7 +40,7 @@ export const CAR = {
     {
       id: 'rear',
       label: 'Rear',
-      camera: { position: [-7.0, 1.5, 0.15], target: [0, 0.55, 0] },
+      camera: { position: [-4.6, 1.3, 0.12], target: [0, 0.52, 0] },
     },
     {
       id: 'detail',
@@ -61,7 +61,7 @@ export const CAR = {
       title: 'One continuous gesture.',
       text: 'A low nose, a cab-forward canopy and an exposed rear deck resolve into a surface that looks fast at rest. There is no decoration that does not serve the form.',
       note: 'Hand-finished body / exposed carbon lower',
-      camera: { position: [5.6, 1.75, 5.4], target: [0, 0.55, 0] },
+      camera: { position: [4.9, 1.6, 4.8], target: [0, 0.52, 0] },
     },
     {
       id: 'aerodynamics',
@@ -97,7 +97,7 @@ export const CAR = {
       title: 'Everything you need. Nothing else.',
       text: 'A single curved display, machined controls and a driving position set low and forward. The cabin is trimmed in wool, leather and brushed aluminium.',
       note: 'Curved display / machined controls',
-      camera: { position: [0.5, 2.3, 3.0], target: [0, 0.85, 0] },
+      camera: { position: [1.4, 2.15, 2.5], target: [0.3, 0.92, 0.15] },
     },
     {
       id: 'complete',
@@ -106,7 +106,7 @@ export const CAR = {
       title: 'VX-01.',
       text: 'The first NOVARIS. A concept study, presented as it would be built. Register your interest and we will open the studio when the first prototype is complete.',
       note: 'Concept study / not for sale',
-      camera: { position: [0.2, 1.5, 8.0], target: [0, 0.55, 0] },
+      camera: { position: [0.2, 1.4, 7.0], target: [0, 0.52, 0] },
     },
   ],
   specs: [
@@ -150,27 +150,27 @@ export const BIKE = {
     { name: 'Fairing paint, gloss black', role: 'dark' },
   ],
   poster: '/images/bike-stage.webp',
-  heroCamera: { position: [2.8, 1.25, 3.1], target: [0, 0.55, 0] },
+  heroCamera: { position: [2.2, 1.15, 2.4], target: [0, 0.55, 0] },
   presets: [
     {
       id: 'front',
       label: 'Front',
-      camera: { position: [0, 1.1, 3.5], target: [0, 0.6, 0] },
+      camera: { position: [0, 1.05, 2.3], target: [0, 0.58, 0] },
     },
     {
       id: 'three-quarter',
       label: 'Three-quarter',
-      camera: { position: [2.8, 1.25, 3.1], target: [0, 0.55, 0] },
+      camera: { position: [2.2, 1.15, 2.4], target: [0, 0.55, 0] },
     },
     {
       id: 'side',
       label: 'Side',
-      camera: { position: [3.7, 0.98, 0.05], target: [0, 0.54, 0] },
+      camera: { position: [3.0, 0.95, 0.05], target: [0, 0.54, 0] },
     },
     {
       id: 'rear',
       label: 'Rear',
-      camera: { position: [0, 1.1, -3.5], target: [0, 0.55, 0] },
+      camera: { position: [0, 1.05, -2.3], target: [0, 0.55, 0] },
     },
     {
       id: 'detail',
@@ -191,7 +191,7 @@ export const BIKE = {
       title: 'A face in the dark.',
       text: 'Twin projector lamps sit inside a compact fairing. The signature light line is the only decoration on the front of the machine.',
       note: 'Twin projector / signature light line',
-      camera: { position: [0.9, 1.05, 2.5], target: [0, 0.75, 0.62] },
+      camera: { position: [1.5, 1.05, 2.6], target: [0, 0.62, 0.5] },
     },
     {
       id: 'fairing',
@@ -209,7 +209,7 @@ export const BIKE = {
       title: 'The narrow line.',
       text: 'A narrow tank, clip-on bars and a short screen keep the rider inside the airflow. The seat is a single piece of trimmed foam, shaped for one job.',
       note: 'Clip-on bars / 830 mm seat height',
-      camera: { position: [0.9, 1.9, 1.4], target: [0, 0.82, 0.15] },
+      camera: { position: [1.1, 1.7, 1.8], target: [0, 0.78, 0.15] },
     },
     {
       id: 'engine',
@@ -227,7 +227,7 @@ export const BIKE = {
       title: 'Mass in motion.',
       text: 'A 1,690 mm wheelbase, a high tail and a low centre of mass. The R-01 looks like it is already moving, even under studio light.',
       note: '1,690 mm wheelbase / 186 kg target',
-      camera: { position: [4.0, 1.0, 0.1], target: [0, 0.54, 0] },
+      camera: { position: [3.2, 0.95, 0.1], target: [0, 0.54, 0] },
     },
     {
       id: 'rear',
@@ -245,7 +245,7 @@ export const BIKE = {
       title: 'R-01.',
       text: 'A race-replica study, translated for the road. The second machine in the NOVARIS language, and the one that asks the fewest questions.',
       note: 'Concept study / not for sale',
-      camera: { position: [2.6, 1.5, 3.2], target: [0, 0.56, 0] },
+      camera: { position: [2.1, 1.25, 2.6], target: [0, 0.56, 0] },
     },
   ],
   specs: [

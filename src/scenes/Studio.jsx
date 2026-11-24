@@ -10,12 +10,19 @@ import * as THREE from 'three'
 export function Studio({ quality = 'high' }) {
   const low = quality === 'low'
   const alphaMap = useMemo(createRadialAlpha, [])
+  const edgeFade = useMemo(createEdgeFade, [])
 
-  useEffect(() => () => alphaMap.dispose(), [alphaMap])
+  useEffect(
+    () => () => {
+      alphaMap.dispose()
+      edgeFade.dispose()
+    },
+    [alphaMap, edgeFade],
+  )
 
   return (
     <>
-      <fog attach="fog" args={['#060708', 10, 30]} />
+      <fog attach="fog" args={['#060708', 9, 30]} />
       <ambientLight intensity={0.16} />
       <directionalLight position={[5, 7, 4]} intensity={2.8} color="#FFF4E6" />
       <directionalLight position={[-6, 3, -4]} intensity={0.85} color="#AFC3D2" />
@@ -89,22 +96,33 @@ export function Studio({ quality = 'high' }) {
             resolution={512}
             blur={[420, 140]}
             mixBlur={1.2}
-            mixStrength={2.2}
-            mirror={0.3}
+            mixStrength={2.0}
+            mirror={0.22}
             depthScale={1.1}
             minDepthThreshold={0.4}
             maxDepthThreshold={1.4}
             color="#070809"
-            metalness={0.5}
-            roughness={0.92}
-            envMapIntensity={0.16}
+            metalness={0.32}
+            roughness={0.95}
+            envMapIntensity={0.08}
           />
         </mesh>
       )}
 
+      {/* radial edge fade: hides the floor rim and seats the car in darkness */}
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.006, 0]}>
+        <circleGeometry args={[18, 96]} />
+        <meshBasicMaterial
+          color="#060708"
+          transparent
+          alphaMap={edgeFade}
+          depthWrite={false}
+        />
+      </mesh>
+
       <ContactShadows
         position={[0, 0.012, 0]}
-        opacity={0.8}
+        opacity={0.88}
         scale={14}
         blur={2.6}
         far={4.8}
@@ -144,5 +162,33 @@ function createRadialAlpha() {
   ctx.fillRect(0, 0, size, size)
   const texture = new THREE.CanvasTexture(canvas)
   texture.colorSpace = THREE.NoColorSpace
+  return texture
+}
+
+/** Black at the centre, opaque at the rim: a soft vignette over the floor. */
+function createEdgeFade() {
+  const size = 512
+  const canvas = document.createElement('canvas')
+  canvas.width = size
+  canvas.height = size
+  const ctx = canvas.getContext('2d')
+  const gradient = ctx.createRadialGradient(
+    size / 2,
+    size / 2,
+    size * 0.16,
+    size / 2,
+    size / 2,
+    size * 0.5,
+  )
+  gradient.addColorStop(0, '#000000')
+  gradient.addColorStop(0.6, '#1A1A1A')
+  gradient.addColorStop(1, '#FFFFFF')
+  ctx.fillStyle = gradient
+  ctx.fillRect(0, 0, size, size)
+  const texture = new THREE.CanvasTexture(canvas)
+  texture.colorSpace = THREE.NoColorSpace
+ 姹 pattern
+  return姫 decoded
+  return姫[c] = 姫立afety gradient.姫啊, no texture姫附 THREE.Color works姉车2 = material姫过 texture gradient.姫心Dodge the姫糊FillColor (姫想 texture. Three姫用 colorSpace.姫影, do.姫一叶 floor(姫压片ectSpace姒, 0, 0)
   return texture
 }
