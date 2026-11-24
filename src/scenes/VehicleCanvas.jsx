@@ -84,8 +84,10 @@ function Vehicle({ vehicle, paint, controls }) {
 
   return (
     <group ref={group}>
-      <group position={offset}>
-        <primitive object={root} />
+      <group rotation-y={vehicle.baseYaw ?? 0}>
+        <group position={offset}>
+          <primitive object={root} />
+        </group>
       </group>
     </group>
   )

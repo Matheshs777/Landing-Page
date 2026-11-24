@@ -72,7 +72,7 @@ export function applyPaint(root, vehicle, paint) {
         material.clearcoat = 1
         material.clearcoatRoughness = 0.055
       }
-      material.envMapIntensity = 1.25
+      material.envMapIntensity = 1.5
       material.needsUpdate = true
     }
   })

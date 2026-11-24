@@ -15,9 +15,9 @@ export function Studio({ quality = 'high' }) {
 
   return (
     <>
-      <fog attach="fog" args={['#060708', 15, 34]} />
+      <fog attach="fog" args={['#060708', 10, 30]} />
       <ambientLight intensity={0.16} />
-      <directionalLight position={[5, 7, 4]} intensity={2.4} color="#FFF4E6" />
+      <directionalLight position={[5, 7, 4]} intensity={2.8} color="#FFF4E6" />
       <directionalLight position={[-6, 3, -4]} intensity={0.85} color="#AFC3D2" />
       <directionalLight position={[-4, 2.4, 5]} intensity={0.45} color="#C6A97E" />
       <spotLight
@@ -70,7 +70,7 @@ export function Studio({ quality = 'high' }) {
 
       {low ? (
         <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
-          <circleGeometry args={[11, 64]} />
+          <circleGeometry args={[18, 64]} />
           <meshStandardMaterial
             color="#08090A"
             roughness={0.46}
@@ -84,20 +84,20 @@ export function Studio({ quality = 'high' }) {
         </mesh>
       ) : (
         <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
-          <circleGeometry args={[11, 96]} />
+          <circleGeometry args={[18, 96]} />
           <MeshReflectorMaterial
             resolution={512}
             blur={[420, 140]}
-            mixBlur={1.1}
-            mixStrength={2.6}
-            mirror={0.42}
+            mixBlur={1.2}
+            mixStrength={2.2}
+            mirror={0.3}
             depthScale={1.1}
             minDepthThreshold={0.4}
             maxDepthThreshold={1.4}
-            color="#08090A"
-            metalness={0.62}
-            roughness={0.86}
-            envMapIntensity={0.35}
+            color="#070809"
+            metalness={0.5}
+            roughness={0.92}
+            envMapIntensity={0.16}
           />
         </mesh>
       )}

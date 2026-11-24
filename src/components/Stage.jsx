@@ -26,7 +26,7 @@ export function Stage({ vehicle, paint }) {
   const { progress, index } = useScrollStage(
     stageRef,
     vehicle.chapters.length,
-    () => setPresetId((current) => (current === null ? null : null)),
+    () => setPresetId(null),
   )
 
   const reduced = usePrefersReducedMotion()
@@ -110,6 +110,7 @@ export function Stage({ vehicle, paint }) {
         className={`stage__sticky ${dragging ? 'is-dragging' : ''}`}
         ref={stickyRef}
         tabIndex={0}
+        data-loaded={loaded}
         onKeyDown={view.onKeyDown}
         {...handlers}
         aria-label={`${vehicle.fullName} interactive 3D model. Drag horizontally to rotate, use arrow keys to rotate, plus and minus to zoom.`}

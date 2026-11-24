@@ -24,6 +24,7 @@ export function VehicleViewer({ vehicle, paint }) {
     <div
       className={`viewer ${dragging ? 'is-dragging' : ''}`}
       ref={frameRef}
+      data-loaded={loaded}
       {...handlers}
     >
       <img
