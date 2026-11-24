@@ -1,10 +1,11 @@
 import { useEffect, useMemo } from 'react'
-import { ContactShadows, Environment, Lightformer } from '@react-three/drei'
+import { ContactShadows, Environment, Lightformer, MeshReflectorMaterial } from '@react-three/drei'
 import * as THREE from 'three'
 
 /**
- * A photographic studio built from area lights, not an HDR download.
- * Warm key, cool fill, a champagne rim and one soft overhead box.
+ * A photographic studio built from area lights rather than a downloaded HDR.
+ * Warm key, cool fill, a champagne rim, and one soft overhead box.
+ * Reflections are only enabled for the high-quality desktop path.
  */
 export function Studio({ quality = 'high' }) {
   const low = quality === 'low'
@@ -14,21 +15,22 @@ export function Studio({ quality = 'high' }) {
 
   return (
     <>
-      <ambientLight intensity={0.18} />
-      <directionalLight position={[5, 7, 4]} intensity={2.6} color="#FFF4E6" />
-      <directionalLight position={[-6, 3, -4]} intensity={0.9} color="#AFC3D2" />
-      <directionalLight position={[-4, 2.4, 5]} intensity={0.5} color="#C6A97E" />
+      <fog attach="fog" args={['#060708', 15, 34]} />
+      <ambientLight intensity={0.16} />
+      <directionalLight position={[5, 7, 4]} intensity={2.4} color="#FFF4E6" />
+      <directionalLight position={[-6, 3, -4]} intensity={0.85} color="#AFC3D2" />
+      <directionalLight position={[-4, 2.4, 5]} intensity={0.45} color="#C6A97E" />
       <spotLight
         position={[1, 9, 2]}
         angle={0.5}
         penumbra={1}
-        intensity={1.6}
+        intensity={1.4}
         color="#FFFFFF"
-        distance={24}
+        distance={26}
       />
 
-      <Environment resolution={low ? 128 : 256} frames={1}>
-        <color attach="background" args={['#090A0B']} />
+      <Environment resolution={low ? 96 : 192} frames={1}>
+        <color attach="background" args={['#08090A']} />
         <Lightformer
           form="rect"
           intensity={5}
@@ -45,7 +47,7 @@ export function Studio({ quality = 'high' }) {
         />
         <Lightformer
           form="rect"
-          intensity={3}
+          intensity={3.2}
           position={[7, 2, -3]}
           scale={[2, 9, 1]}
           color="#FFFFFF"
@@ -59,43 +61,62 @@ export function Studio({ quality = 'high' }) {
         />
         <Lightformer
           form="ring"
-          intensity={1}
+          intensity={0.9}
           position={[0, -3.5, 2]}
           scale={5}
           color="#C6A97E"
         />
       </Environment>
 
-      {/* floor, fading into the page background */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, -0.02, 0]}>
-        <circleGeometry args={[9.5, 72]} />
-        <meshStandardMaterial
-          color="#08090A"
-          roughness={0.42}
-          metalness={0.45}
-          envMapIntensity={0.55}
-          transparent
-          opacity={0.94}
-          alphaMap={alphaMap}
-          depthWrite={false}
-        />
-      </mesh>
+      {low ? (
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
+          <circleGeometry args={[11, 64]} />
+          <meshStandardMaterial
+            color="#08090A"
+            roughness={0.46}
+            metalness={0.4}
+            envMapIntensity={0.5}
+            transparent
+            opacity={0.96}
+            alphaMap={alphaMap}
+            depthWrite={false}
+          />
+        </mesh>
+      ) : (
+        <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0, 0]}>
+          <circleGeometry args={[11, 96]} />
+          <MeshReflectorMaterial
+            resolution={512}
+            blur={[420, 140]}
+            mixBlur={1.1}
+            mixStrength={2.6}
+            mirror={0.42}
+            depthScale={1.1}
+            minDepthThreshold={0.4}
+            maxDepthThreshold={1.4}
+            color="#08090A"
+            metalness={0.62}
+            roughness={0.86}
+            envMapIntensity={0.35}
+          />
+        </mesh>
+      )}
 
       <ContactShadows
-        position={[0, 0.004, 0]}
-        opacity={0.82}
-        scale={13}
-        blur={2.4}
-        far={4.5}
-        resolution={low ? 256 : 512}
-        frames={1}
+        position={[0, 0.012, 0]}
+        opacity={0.8}
+        scale={14}
+        blur={2.6}
+        far={4.8}
+        resolution={low ? 128 : 256}
+        frames={Infinity}
         color="#000000"
       />
 
       {/* turntable reference ring */}
-      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.006, 0]}>
-        <ringGeometry args={[5.15, 5.17, 120]} />
-        <meshBasicMaterial color="#C6A97E" transparent opacity={0.14} depthWrite={false} />
+      <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.02, 0]}>
+        <ringGeometry args={[5.4, 5.415, 160]} />
+        <meshBasicMaterial color="#C6A97E" transparent opacity={0.16} depthWrite={false} />
       </mesh>
     </>
   )
@@ -111,7 +132,7 @@ function createRadialAlpha() {
   const gradient = ctx.createRadialGradient(
     size / 2,
     size / 2,
-    size * 0.12,
+    size * 0.1,
     size / 2,
     size / 2,
     size * 0.5,

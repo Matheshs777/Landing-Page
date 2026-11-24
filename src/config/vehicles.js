@@ -3,9 +3,9 @@ import { BIKE_PAINTS, CAR_PAINTS } from './paints'
 /**
  * Vehicle content and camera choreography.
  *
- * Camera positions are in metres, in the model's own space. The car is
- * modelled along +X with the floor at y=0; the bike runs along +Z and is
- * rotated into the same orientation by the scene.
+ * Camera positions are metres in the model's own space, after the scene has
+ * centred the model on X/Z and dropped its floor to y = 0.
+ * The automobile runs along +X; the motorcycle runs along +Z.
  */
 
 export const CAR = {
@@ -17,10 +17,38 @@ export const CAR = {
   modelUrl: '/models/car/supercar.glb',
   paints: CAR_PAINTS,
   defaultPaint: 'racing-red',
-  paintMaterials: ['paint'],
+  paintMaterials: [{ name: 'paint', role: 'main' }],
+  poster: '/images/car-stage.webp',
   heroCamera: { position: [6.4, 2.15, 6.4], target: [0, 0.55, 0] },
+  presets: [
+    {
+      id: 'front',
+      label: 'Front',
+      camera: { position: [7.2, 1.45, 0.12], target: [0, 0.55, 0] },
+    },
+    {
+      id: 'three-quarter',
+      label: 'Three-quarter',
+      camera: { position: [5.2, 1.8, 5.0], target: [0, 0.55, 0] },
+    },
+    {
+      id: 'side',
+      label: 'Side',
+      camera: { position: [0.12, 1.3, 7.4], target: [0, 0.55, 0] },
+    },
+    {
+      id: 'rear',
+      label: 'Rear',
+      camera: { position: [-7.0, 1.5, 0.15], target: [0, 0.55, 0] },
+    },
+    {
+      id: 'detail',
+      label: 'Detail',
+      camera: { position: [3.0, 0.85, 3.9], target: [1.35, 0.45, 0.65] },
+    },
+  ],
   intro: {
-    eyebrow: 'Automobile / VX-01',
+    eyebrow: 'Automobile / 01',
     title: 'The first NOVARIS.',
     text: 'A mid-engine grand tourer drawn as one continuous gesture. It is the clearest statement of what the marque believes: performance should feel inevitable, not aggressive.',
   },
@@ -32,7 +60,7 @@ export const CAR = {
       title: 'One continuous gesture.',
       text: 'A low nose, a cab-forward canopy and an exposed rear deck resolve into a surface that looks fast at rest. There is no decoration that does not serve the form.',
       note: 'Hand-finished body / exposed carbon lower',
-      camera: { position: [6.2, 1.8, 6.0], target: [0, 0.55, 0] },
+      camera: { position: [5.6, 1.75, 5.4], target: [0, 0.55, 0] },
     },
     {
       id: 'aerodynamics',
@@ -41,7 +69,7 @@ export const CAR = {
       title: 'Air, given direction.',
       text: 'A flat underbody, a full-width diffuser and an active rear element manage the wake. Downforce arrives quietly, without a wing that announces itself.',
       note: 'Active rear element / flat floor',
-      camera: { position: [5.6, 0.8, 4.4], target: [0.7, 0.42, 0] },
+      camera: { position: [4.8, 0.78, 4.0], target: [0.6, 0.4, 0] },
     },
     {
       id: 'wheels',
@@ -50,7 +78,7 @@ export const CAR = {
       title: 'Unsprung, uncompromised.',
       text: 'Forged centre-lock wheels sit over carbon-ceramic discs. Calipers are machined from billet, then left unpolished. The hardware is part of the design.',
       note: 'Centre-lock forged / carbon-ceramic',
-      camera: { position: [2.6, 0.72, 4.6], target: [1.55, 0.38, 0.72] },
+      camera: { position: [2.5, 0.72, 4.2], target: [1.45, 0.4, 0.6] },
     },
     {
       id: 'powertrain',
@@ -59,7 +87,7 @@ export const CAR = {
       title: 'Mid-mounted. Purpose-built.',
       text: 'A twin-turbo V8 is paired with an axial-flux electric module. Combined output is a concept target of 850 hp, delivered without drama until you ask for it.',
       note: 'Twin-turbo V8 / axial-flux hybrid',
-      camera: { position: [-4.4, 1.45, 4.2], target: [-1.3, 0.72, 0] },
+      camera: { position: [-4.6, 1.35, 3.8], target: [-1.2, 0.7, 0] },
     },
     {
       id: 'cockpit',
@@ -68,7 +96,7 @@ export const CAR = {
       title: 'Everything you need. Nothing else.',
       text: 'A single curved display, machined controls and a driving position set low and forward. The cabin is trimmed in wool, leather and brushed aluminium.',
       note: 'Curved display / machined controls',
-      camera: { position: [0.6, 2.35, 3.4], target: [0, 0.82, 0] },
+      camera: { position: [0.5, 2.3, 3.0], target: [0, 0.85, 0] },
     },
     {
       id: 'complete',
@@ -77,7 +105,7 @@ export const CAR = {
       title: 'VX-01.',
       text: 'The first NOVARIS. A concept study, presented as it would be built. Register your interest and we will open the studio when the first prototype is complete.',
       note: 'Concept study / not for sale',
-      camera: { position: [0.1, 1.55, 8.4], target: [0, 0.58, 0] },
+      camera: { position: [0.2, 1.5, 8.0], target: [0, 0.55, 0] },
     },
   ],
   specs: [
@@ -89,9 +117,9 @@ export const CAR = {
     { group: 'Performance', label: '0–100 km/h', value: '2.9 s target' },
     { group: 'Performance', label: 'Top speed', value: '330 km/h target' },
     { group: 'Performance', label: 'Dry weight', value: '1,420 kg target' },
-    { group: 'Dimensions', label: 'Length', value: '4,630 mm' },
+    { group: 'Dimensions', label: 'Length', value: '4,631 mm' },
     { group: 'Dimensions', label: 'Width', value: '2,090 mm' },
-    { group: 'Dimensions', label: 'Height', value: '1,190 mm' },
+    { group: 'Dimensions', label: 'Height', value: '1,189 mm' },
     { group: 'Dimensions', label: 'Wheelbase', value: '2,700 mm' },
     { group: 'Chassis', label: 'Brakes', value: 'Carbon-ceramic, 410 mm front' },
     { group: 'Chassis', label: 'Wheels', value: '21 in front / 22 in rear' },
@@ -119,9 +147,37 @@ export const BIKE = {
     { name: 'Fairing paint, white', role: 'accent' },
     { name: 'Fairing paint, gloss black', role: 'dark' },
   ],
-  heroCamera: { position: [3.4, 1.35, 3.8], target: [0, 0.55, 0] },
+  poster: '/images/bike-stage.webp',
+  heroCamera: { position: [3.0, 1.35, 3.3], target: [0, 0.56, 0] },
+  presets: [
+    {
+      id: 'front',
+      label: 'Front',
+      camera: { position: [0, 1.15, 4.0], target: [0, 0.6, 0] },
+    },
+    {
+      id: 'three-quarter',
+      label: 'Three-quarter',
+      camera: { position: [3.0, 1.35, 3.3], target: [0, 0.56, 0] },
+    },
+    {
+      id: 'side',
+      label: 'Side',
+      camera: { position: [4.2, 1.05, 0.05], target: [0, 0.54, 0] },
+    },
+    {
+      id: 'rear',
+      label: 'Rear',
+      camera: { position: [0, 1.15, -4.0], target: [0, 0.55, 0] },
+    },
+    {
+      id: 'detail',
+      label: 'Detail',
+      camera: { position: [1.8, 0.7, 2.0], target: [0.15, 0.45, 0.55] },
+    },
+  ],
   intro: {
-    eyebrow: 'Superbike / R-01',
+    eyebrow: 'Superbike / 02',
     title: 'The same language, stripped bare.',
     text: 'The R-01 takes the principles of the VX-01 and removes everything that is not required. A race-replica study with road manners in mind.',
   },
@@ -133,7 +189,7 @@ export const BIKE = {
       title: 'A face in the dark.',
       text: 'Twin projector lamps sit inside a compact fairing. The signature light line is the only decoration on the front of the machine.',
       note: 'Twin projector / signature light line',
-      camera: { position: [2.5, 1.0, 2.5], target: [0.6, 0.65, 0] },
+      camera: { position: [0.9, 1.05, 2.5], target: [0, 0.75, 0.62] },
     },
     {
       id: 'fairing',
@@ -142,7 +198,7 @@ export const BIKE = {
       title: 'Form at speed.',
       text: 'The fairing is shaped around the radiator and the rider, not around a styling idea. Every vent has a job, and every edge is there to move air.',
       note: 'Pressure-formed fairing / radiator ducts',
-      camera: { position: [3.0, 0.92, 2.1], target: [0.45, 0.56, 0.1] },
+      camera: { position: [2.0, 1.0, 1.7], target: [0.1, 0.62, 0.5] },
     },
     {
       id: 'tank',
@@ -151,7 +207,7 @@ export const BIKE = {
       title: 'The narrow line.',
       text: 'A narrow tank, clip-on bars and a short screen keep the rider inside the airflow. The seat is a single piece of trimmed foam, shaped for one job.',
       note: 'Clip-on bars / 830 mm seat height',
-      camera: { position: [1.3, 1.75, 2.3], target: [0, 0.78, 0] },
+      camera: { position: [0.9, 1.9, 1.4], target: [0, 0.82, 0.15] },
     },
     {
       id: 'engine',
@@ -160,7 +216,7 @@ export const BIKE = {
       title: 'Mechanical honesty.',
       text: 'The engine is a stressed member of the frame. Nothing is covered that does not need to be. The mechanical parts are the most interesting parts.',
       note: 'Stressed-member inline four',
-      camera: { position: [2.1, 0.55, 2.4], target: [0, 0.42, 0] },
+      camera: { position: [1.7, 0.62, 1.6], target: [0, 0.45, 0.15] },
     },
     {
       id: 'side',
@@ -169,7 +225,7 @@ export const BIKE = {
       title: 'Mass in motion.',
       text: 'A 1,690 mm wheelbase, a high tail and a low centre of mass. The R-01 looks like it is already moving, even under studio light.',
       note: '1,690 mm wheelbase / 186 kg target',
-      camera: { position: [0, 0.9, 4.1], target: [0, 0.53, 0] },
+      camera: { position: [4.0, 1.0, 0.1], target: [0, 0.54, 0] },
     },
     {
       id: 'rear',
@@ -178,7 +234,7 @@ export const BIKE = {
       title: 'The exit.',
       text: 'A short side silencer, a compact tail and an exposed rear wheel. The rear of the bike is deliberately reduced to what the machine needs.',
       note: 'Short side silencer / exposed rear',
-      camera: { position: [-2.7, 1.0, 2.5], target: [-0.55, 0.5, 0] },
+      camera: { position: [-2.0, 1.1, -2.2], target: [0, 0.55, -0.55] },
     },
     {
       id: 'complete',
@@ -187,7 +243,7 @@ export const BIKE = {
       title: 'R-01.',
       text: 'A race-replica study, translated for the road. The second machine in the NOVARIS language, and the one that asks the fewest questions.',
       note: 'Concept study / not for sale',
-      camera: { position: [0.2, 1.2, 4.6], target: [0, 0.54, 0] },
+      camera: { position: [2.6, 1.5, 3.2], target: [0, 0.56, 0] },
     },
   ],
   specs: [
