@@ -1,32 +1,48 @@
 import { useEffect, useState } from 'react'
 
 /**
- * Tracks which section owns the reading position. Uses the top third of the
- * viewport so a section becomes active as it settles under the nav.
+ * Picks the section currently under the reading line. Works with nested
+ * sections (the configurator lives inside the automobile chapter), because it
+ * compares absolute document offsets rather than intersection ratios.
  */
-export function useActiveSection(ids, { rootMargin = '-32% 0px -58% 0px' } = {}) {
+export function useActiveSection(ids) {
   const [active, setActive] = useState(ids[0] ?? '')
 
   useEffect(() => {
-    if (typeof IntersectionObserver === 'undefined') return
-    const elements = ids
-      .map((id) => document.getElementById(id))
-      .filter(Boolean)
-    if (!elements.length) return
+    let frame = 0
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        const visible = entries
-          .filter((entry) => entry.isIntersecting)
-          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
-        if (visible[0]) setActive(visible[0].target.id)
-      },
-      { rootMargin, threshold: [0, 0.15, 0.4, 0.75] },
-    )
+    const update = () => {
+      frame = 0
+      const marker = window.scrollY + window.innerHeight * 0.34
+      let bestId = ids[0]
+      let bestTop = -Infinity
 
-    elements.forEach((element) => observer.observe(element))
-    return () => observer.disconnect()
-  }, [ids, rootMargin])
+      for (const id of ids) {
+        const element = document.getElementById(id)
+        if (!element) continue
+        const top = element.getBoundingClientRect().top + window.scrollY
+        if (top <= marker && top > bestTop) {
+          bestTop = top
+          bestId = id
+        }
+      }
+
+      setActive((previous) => (previous === bestId ? previous : bestId))
+    }
+
+    const schedule = () => {
+      if (!frame) frame = requestAnimationFrame(update)
+    }
+
+    update()
+    window.addEventListener('scroll', schedule, { passive: true })
+    window.addEventListener('resize', schedule)
+    return () => {
+      if (frame) cancelAnimationFrame(frame)
+      window.removeEventListener('scroll', schedule)
+      window.removeEventListener('resize', schedule)
+    }
+  }, [ids])
 
   return active
 }
