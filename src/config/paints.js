@@ -1,10 +1,3 @@
-/**
- * Paint studies for each vehicle.
- *
- * `main` is the body colour. `accent` is used only where the model has a
- * secondary livery panel, so the two-tone design survives a colour change.
- * `metalness` and `roughness` describe the finish, not the colour.
- */
 export const CAR_PAINTS = [
   {
     id: 'obsidian',
@@ -13,6 +6,7 @@ export const CAR_PAINTS = [
     color: '#0B0C0E',
     accent: '#23262A',
     swatch: '#101214',
+    finish: 'Gloss solid',
     metalness: 0.55,
     roughness: 0.24,
   },
@@ -23,6 +17,7 @@ export const CAR_PAINTS = [
     color: '#A7ABB0',
     accent: '#D6D8D5',
     swatch: '#A7ABB0',
+    finish: 'Fine metallic',
     metalness: 0.78,
     roughness: 0.2,
   },
@@ -33,6 +28,7 @@ export const CAR_PAINTS = [
     color: '#E8E5DD',
     accent: '#F5F2EA',
     swatch: '#E8E5DD',
+    finish: 'Tri-coat pearl',
     metalness: 0.28,
     roughness: 0.3,
   },
@@ -43,6 +39,7 @@ export const CAR_PAINTS = [
     color: '#9E1B24',
     accent: '#D94A4F',
     swatch: '#9E1B24',
+    finish: 'Gloss solid',
     metalness: 0.45,
     roughness: 0.24,
   },
@@ -53,6 +50,7 @@ export const CAR_PAINTS = [
     color: '#4A4E52',
     accent: '#7C8186',
     swatch: '#4A4E52',
+    finish: 'Metallic',
     metalness: 0.62,
     roughness: 0.26,
   },
@@ -63,6 +61,7 @@ export const CAR_PAINTS = [
     color: '#B7A181',
     accent: '#DCC9A8',
     swatch: '#B7A181',
+    finish: 'Warm metallic',
     metalness: 0.7,
     roughness: 0.22,
   },
@@ -76,6 +75,7 @@ export const BIKE_PAINTS = [
     color: '#0C0D0F',
     accent: '#C9CBC7',
     swatch: '#0C0D0F',
+    finish: 'Gloss solid',
     metalness: 0.35,
     roughness: 0.22,
   },
@@ -86,6 +86,7 @@ export const BIKE_PAINTS = [
     color: '#9EA2A6',
     accent: '#E8E5DD',
     swatch: '#9EA2A6',
+    finish: 'Fine metallic',
     metalness: 0.72,
     roughness: 0.24,
   },
@@ -96,6 +97,7 @@ export const BIKE_PAINTS = [
     color: '#A61B24',
     accent: '#F0EDE5',
     swatch: '#A61B24',
+    finish: 'Gloss solid',
     metalness: 0.4,
     roughness: 0.24,
   },
@@ -106,6 +108,7 @@ export const BIKE_PAINTS = [
     color: '#E8E5DD',
     accent: '#A61B24',
     swatch: '#E8E5DD',
+    finish: 'Tri-coat pearl',
     metalness: 0.3,
     roughness: 0.28,
   },
@@ -116,6 +119,7 @@ export const BIKE_PAINTS = [
     color: '#5A5E62',
     accent: '#C9CBC7',
     swatch: '#5A5E62',
+    finish: 'Satin metallic',
     metalness: 0.6,
     roughness: 0.26,
   },
