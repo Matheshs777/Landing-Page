@@ -28,6 +28,13 @@
       "sourceType": "github",
       "skillPath": "prisma-database-setup/SKILL.md",
       "computedHash": "79848d903a92d69c3ee173fe26e565381b7b8a2ca66f82da156093e981087ce5"
+    },
+    "threejs-react-three-fiber": {
+      "source": "emiliodominguez/threejs-skills",
+      "commit": "ac4464c88ea395fc7df938de8db912b81d18c768",
+      "sourceType": "github",
+      "skillPath": "skills/threejs-react-three-fiber/SKILL.md",
+      "computedHash": "4390e38edc3f05f99c49f68940738bad181442c2460d1d049c229f5e55b06f54"
     }
   }
 }
