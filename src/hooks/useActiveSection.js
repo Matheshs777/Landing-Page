@@ -1,36 +1,32 @@
 import { useEffect, useState } from 'react'
 
 /**
- * Tracks which major section is in the reading position so the
- * navigation can show a single active marker.
+ * Tracks which section owns the reading position. Uses the top third of the
+ * viewport so a section becomes active as it settles under the nav.
  */
-export function useActiveSection(ids) {
-  const [active, setActive] = useState('')
+export function useActiveSection(ids, { rootMargin = '-32% 0px -58% 0px' } = {}) {
+  const [active, setActive] = useState(ids[0] ?? '')
 
   useEffect(() => {
-    const sections = ids
+    if (typeof IntersectionObserver === 'undefined') return
+    const elements = ids
       .map((id) => document.getElementById(id))
       .filter(Boolean)
-
-    if (!sections.length) return undefined
+    if (!elements.length) return
 
     const observer = new IntersectionObserver(
       (entries) => {
         const visible = entries
           .filter((entry) => entry.isIntersecting)
           .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
-
         if (visible[0]) setActive(visible[0].target.id)
       },
-      {
-        rootMargin: '-24% 0px -58% 0px',
-        threshold: [0, 0.1, 0.25, 0.5, 0.75],
-      },
+      { rootMargin, threshold: [0, 0.15, 0.4, 0.75] },
     )
 
-    sections.forEach((section) => observer.observe(section))
+    elements.forEach((element) => observer.observe(element))
     return () => observer.disconnect()
-  }, [ids.join('|')])
+  }, [ids, rootMargin])
 
   return active
 }

@@ -1,0 +1,375 @@
+﻿
+=== public/models/car/supercar.glb ===
+generator glTF-Transform v4.5.1 extensions [
+  'EXT_mesh_gpu_instancing',
+  'EXT_meshopt_compression',
+  'KHR_materials_clearcoat',
+  'KHR_materials_ior',
+  'KHR_materials_transmission',
+  'KHR_mesh_quantization'
+]
+materials [
+  {
+    name: 'black.001',
+    base: [
+      0.008848452948685238,
+      0.0119465921450097,
+      0.015599503109859972,
+      1
+    ],
+    metal: 0.05000000074505806,
+    rough: 0.47999998927116394,
+    tex: false
+  },
+  {
+    name: 'paint',
+    base: [ 0.3993615253186351, 0.0119465921450097, 0.017221716109020773, 1 ],
+    metal: 0.6499999761581421,
+    rough: 0.23999999463558197,
+    tex: false
+  },
+  {
+    name: 'red.001',
+    base: [
+      0.5488626804418452,
+      0.019832442797354456,
+      0.009424970888153314,
+      1
+    ],
+    metal: 0.30000001192092896,
+    rough: 0.30000001192092896,
+    tex: false
+  },
+  {
+    name: 'glass.001',
+    base: [ 0.49990455668116507, 0.5939049941620316, 0.6341716262012937, 1 ],
+    metal: 0,
+    rough: 0.06499999761581421,
+    tex: false
+  },
+  {
+    name: 'chrome',
+    base: [ 0.6138457167696907, 0.6831084450117328, 0.7341800625715853, 1 ],
+    metal: 0.9599999785423279,
+    rough: 0.17000000178813934,
+    tex: false
+  },
+  {
+    name: 'rubber.001',
+    base: [
+      0.012631959808899283,
+      0.015599503109859972,
+      0.0189382944587212,
+      1
+    ],
+    metal: 0,
+    rough: 0.7799999713897705,
+    tex: false
+  },
+  {
+    name: 'steel.001',
+    base: [
+      0.19980834956372268,
+      0.24817520536406093,
+      0.27678110300517084,
+      1
+    ],
+    metal: 0.7799999713897705,
+    rough: 0.3199999928474426,
+    tex: false
+  },
+  {
+    name: 'redlens',
+    base: [
+      0.3993615253186351,
+      0.0049768372480455455,
+      0.012631959808899283,
+      1
+    ],
+    metal: 0.10000000149011612,
+    rough: 0.14000000059604645,
+    tex: false
+  },
+  {
+    name: 'interior',
+    base: [
+      0.03754355295026937,
+      0.0459221726539417,
+      0.053666897640514216,
+      1
+    ],
+    metal: 0,
+    rough: 0.75,
+    tex: false
+  },
+  {
+    name: 'seat',
+    base: [
+      0.11825048220473264,
+      0.10823840071756667,
+      0.09873909239811549,
+      1
+    ],
+    metal: 0,
+    rough: 0.8600000143051147,
+    tex: false
+  },
+  {
+    name: 'white',
+    base: [ 0.7567278210076626, 0.7874122893910657, 0.7951947534868922, 1 ],
+    metal: 0.11999999731779099,
+    rough: 0.30000001192092896,
+    tex: false
+  },
+  {
+    name: 'clearlens',
+    base: [ 0.8920905418704014, 0.9343925555253274, 0.9690599963114533, 1 ],
+    metal: 0,
+    rough: 0.05999999865889549,
+    tex: false
+  }
+]
+meshes 14 prims 15
+nodes 14 [
+  'Aerodynamic mirror lower housing',
+  'Aerodynamic mirror painted cap',
+  'Brake caliper',
+  'Canopy side door glass',
+  'Central exhaust tip',
+  'Continuous circumferential tread rib',
+  'Cross-drilled brake disc',
+  'Full-width tail lamp bar',
+  'High centre tunnel',
+  'Integrated seat head restraint',
+  'Original mid-engine supercar sculpted body shell',
+  'Rear registration plate',
+  'Slim headlamp clear lens'
+]
+images undefined undefined
+animations undefined
+accessor count 62 buffer bytes 1021312
+
+=== public/models/bike/superbike.glb ===
+generator glTF-Transform v4.5.1 extensions [
+  'EXT_meshopt_compression',
+  'EXT_texture_webp',
+  'KHR_materials_clearcoat',
+  'KHR_mesh_quantization'
+]
+materials [
+  {
+    name: 'Aluminium frame spars',
+    base: undefined,
+    metal: undefined,
+    rough: 0.4000000059604645,
+    tex: true
+  },
+  {
+    name: 'Amber indicator lens',
+    base: [
+      0.8030219030293438,
+      0.2140411404715882,
+      0.0049768372480455455,
+      1
+    ],
+    metal: 0,
+    rough: 0.15000000596046448,
+    tex: false
+  },
+  {
+    name: 'Black rubber and plastic',
+    base: undefined,
+    metal: 0,
+    rough: 0.699999988079071,
+    tex: true
+  },
+  {
+    name: 'Blank number plate',
+    base: undefined,
+    metal: 0,
+    rough: 0.44999998807907104,
+    tex: true
+  },
+  {
+    name: 'Brake disc steel',
+    base: undefined,
+    metal: undefined,
+    rough: 0.2800000011920929,
+    tex: true
+  },
+  {
+    name: 'Brushed steel',
+    base: undefined,
+    metal: undefined,
+    rough: 0.3199999928474426,
+    tex: true
+  },
+  {
+    name: 'Cast aluminium',
+    base: undefined,
+    metal: undefined,
+    rough: 0.3799999952316284,
+    tex: true
+  },
+  {
+    name: 'Clear lamp lens (alpha-blended)',
+    base: [
+      0.6689098006289909,
+      0.7120291564100351,
+      0.7567278210076626,
+      0.3799999952316284
+    ],
+    metal: 0,
+    rough: 0.05000000074505806,
+    tex: false
+  },
+  {
+    name: 'Dark steel (chain, fasteners)',
+    base: undefined,
+    metal: 0.800000011920929,
+    rough: 0.44999998807907104,
+    tex: true
+  },
+  {
+    name: 'Engine castings, black',
+    base: undefined,
+    metal: 0.30000001192092896,
+    rough: 0.5,
+    tex: true
+  },
+  {
+    name: 'Fairing paint, gloss black',
+    base: undefined,
+    metal: 0,
+    rough: 0.30000001192092896,
+    tex: true
+  },
+  {
+    name: 'Fairing paint, red',
+    base: undefined,
+    metal: 0,
+    rough: 0.30000001192092896,
+    tex: true
+  },
+  {
+    name: 'Fairing paint, white',
+    base: undefined,
+    metal: 0,
+    rough: 0.30000001192092896,
+    tex: true
+  },
+  {
+    name: 'Gold anodised / TiN coating',
+    base: [ 0.5488626804418452, 0.33953417291391447, 0.08757415698403592, 1 ],
+    metal: undefined,
+    rough: 0.30000001192092896,
+    tex: false
+  },
+  {
+    name: 'Lamp reflector',
+    base: [ 0.4314170219381227, 0.44242411849648744, 0.4649252901450078, 1 ],
+    metal: undefined,
+    rough: 0.18000000715255737,
+    tex: false
+  },
+  {
+    name: 'Radiator core',
+    base: undefined,
+    metal: 0.4000000059604645,
+    rough: 0.6000000238418579,
+    tex: true
+  },
+  {
+    name: 'Red tail lamp lens',
+    base: [
+      0.3993615253186351,
+      0.004205748028068035,
+      0.0067512276308807784,
+      1
+    ],
+    metal: 0,
+    rough: 0.15000000596046448,
+    tex: false
+  },
+  {
+    name: 'Satin black',
+    base: undefined,
+    metal: 0,
+    rough: 0.44999998807907104,
+    tex: true
+  },
+  {
+    name: 'Seat, black vinyl',
+    base: undefined,
+    metal: 0,
+    rough: 0.699999988079071,
+    tex: true
+  },
+  {
+    name: 'Tyre rubber',
+    base: undefined,
+    metal: 0,
+    rough: 0.8500000238418579,
+    tex: true
+  },
+  {
+    name: 'Wheel paint, dark grey',
+    base: [
+      0.04160988766456061,
+      0.044457162828855736,
+      0.05048448421504115,
+      1
+    ],
+    metal: 0.5,
+    rough: 0.3499999940395355,
+    tex: false
+  },
+  {
+    name: 'Windscreen, smoked (alpha-blended)',
+    base: [
+      0.044457162828855736,
+      0.053666897640514216,
+      0.06754835084576591,
+      0.5
+    ],
+    metal: 0,
+    rough: 0.05000000074505806,
+    tex: false
+  }
+]
+meshes 22 prims 22
+nodes 22 [
+  'Superbike - Aluminium frame spars',
+  'Superbike - Amber indicator lens',
+  'Superbike - Black rubber and plastic',
+  'Superbike - Blank number plate',
+  'Superbike - Brake disc steel',
+  'Superbike - Brushed steel',
+  'Superbike - Cast aluminium',
+  'Superbike - Clear lamp lens (alpha-blended)',
+  'Superbike - Dark steel (chain, fasteners)',
+  'Superbike - Engine castings, black',
+  'Superbike - Fairing paint, gloss black',
+  'Superbike - Fairing paint, red',
+  'Superbike - Fairing paint, white',
+  'Superbike - Gold anodised / TiN coating',
+  'Superbike - Lamp reflector',
+  'Superbike - Radiator core',
+  'Superbike - Red tail lamp lens',
+  'Superbike - Satin black',
+  'Superbike - Seat, black vinyl',
+  'Superbike - Tyre rubber',
+  'Superbike - Wheel paint, dark grey',
+  'Superbike - Windscreen, smoked (alpha-blended)'
+]
+images 13 [
+  'image/webp', 'image/webp',
+  'image/webp', 'image/webp',
+  'image/webp', 'image/webp',
+  'image/webp', 'image/webp',
+  'image/webp', 'image/webp',
+  'image/webp', 'image/webp',
+  'image/webp'
+]
+animations undefined
+accessor count 88 buffer bytes 1567824
