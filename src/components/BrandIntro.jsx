@@ -53,9 +53,9 @@ export function BrandIntro() {
               alt="Close studio view of the VX-01 rear deck, carbon diffuser and titanium exhaust."
               amount={4}
             />
-            <figcaption className="brand-intro__caption">
+            <p className="brand-intro__caption">
               VX-01, rear deck. Exposed carbon, hand-finished titanium.
-            </figcaption>
+            </p>
           </Reveal>
 
           <ol className="principles">

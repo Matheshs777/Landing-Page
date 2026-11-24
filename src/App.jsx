@@ -1,31 +1,52 @@
-import { ColorwayProvider } from './hooks/ColorwayContext'
-import { Navbar } from './components/Navbar'
+import { useEffect } from 'react'
+import { ConfiguratorProvider } from './hooks/ConfiguratorContext'
+import { Nav } from './components/Nav'
 import { Hero } from './components/Hero'
-import { FeatureSection } from './components/FeatureSection'
-import { SoundExperience } from './components/SoundExperience'
-import { Specifications } from './components/Specifications'
-import { ColorSelector } from './components/ColorSelector'
-import { Testimonials } from './components/Testimonials'
-import { PreOrder } from './components/PreOrder'
+import { BrandIntro } from './components/BrandIntro'
+import { CarSection } from './components/CarSection'
+import { BikeSection } from './components/BikeSection'
+import { Specs } from './components/Specs'
+import { Gallery } from './components/Gallery'
+import { Philosophy } from './components/Philosophy'
+import { Finale } from './components/Finale'
 import { Footer } from './components/Footer'
+import { RenderStudio } from './components/RenderStudio'
+import { ScrollTrigger } from './lib/gsap'
+
+const isRenderView =
+  import.meta.env.DEV &&
+  typeof window !== 'undefined' &&
+  new URLSearchParams(window.location.search).has('render')
 
 export default function App() {
+  useEffect(() => {
+    if (isRenderView) return undefined
+    ScrollTrigger.config({ ignoreMobileResize: true })
+    const refresh = () => ScrollTrigger.refresh()
+    document.fonts?.ready.then(refresh)
+    window.addEventListener('load', refresh)
+    return () => window.removeEventListener('load', refresh)
+  }, [])
+
+  if (isRenderView) return <RenderStudio />
+
   return (
-    <ColorwayProvider>
+    <ConfiguratorProvider>
       <a className="skip-link" href="#main">
         Skip to content
       </a>
-      <Navbar />
+      <Nav />
       <main id="main">
         <Hero />
-        <FeatureSection />
-        <SoundExperience />
-        <Specifications />
-        <ColorSelector />
-        <Testimonials />
-        <PreOrder />
+        <BrandIntro />
+        <CarSection />
+        <BikeSection />
+        <Specs />
+        <Gallery />
+        <Philosophy />
+        <Finale />
       </main>
       <Footer />
-    </ColorwayProvider>
+    </ConfiguratorProvider>
   )
 }
