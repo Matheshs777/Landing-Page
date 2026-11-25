@@ -15,7 +15,7 @@ import { ErrorBoundary } from './ui/ErrorBoundary'
  * drives the camera through the chapter keyframes, drag turns the vehicle,
  * and the preset row cuts straight to a view.
  */
-export function Stage({ vehicle, paint }) {
+export function Stage({ vehicle }) {
   const stageRef = useRef(null)
   const stickyRef = useRef(null)
   const controls = useRef({ yaw: 0, zoom: 1 })
@@ -132,7 +132,6 @@ export function Stage({ vehicle, paint }) {
               <Suspense fallback={null}>
                 <VehicleCanvas
                   vehicle={vehicle}
-                  paint={paint}
                   progress={progress}
                   preset={preset}
                   controls={controls}

@@ -4,6 +4,8 @@ import * as THREE from 'three'
 import { Studio } from './Studio'
 import { usePreparedModel, useVehiclePaint } from './model'
 
+const ORIGINAL_FINISH = { original: true }
+
 /**
  * One canvas for both stage and configurator use.
  *
@@ -12,7 +14,6 @@ import { usePreparedModel, useVehiclePaint } from './model'
  */
 export default function VehicleCanvas({
   vehicle,
-  paint,
   progress = null,
   preset = null,
   still = null,
@@ -47,7 +48,6 @@ export default function VehicleCanvas({
         <Studio quality={quality} />
         <Vehicle
           vehicle={vehicle}
-          paint={paint}
           controls={controls}
           quality={quality}
           autoRotate={autoRotate}
@@ -65,9 +65,9 @@ export default function VehicleCanvas({
   )
 }
 
-function Vehicle({ vehicle, paint, controls, autoRotate }) {
+function Vehicle({ vehicle, controls, autoRotate }) {
   const { root, offset } = usePreparedModel(vehicle)
-  useVehiclePaint(root, vehicle, paint)
+  useVehiclePaint(root, vehicle, ORIGINAL_FINISH)
   const group = useRef()
 
   useFrame((_, delta) => {

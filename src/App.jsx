@@ -1,5 +1,4 @@
 import { useEffect } from 'react'
-import { ConfiguratorProvider } from './hooks/ConfiguratorContext'
 import { Nav } from './components/Nav'
 import { Hero } from './components/Hero'
 import { Ticker } from './components/ui/Ticker'
@@ -32,7 +31,7 @@ export default function App() {
   if (isRenderView) return <RenderStudio />
 
   return (
-    <ConfiguratorProvider>
+    <>
       <a className="skip-link" href="#main">
         Skip to content
       </a>
@@ -49,6 +48,6 @@ export default function App() {
         <Finale />
       </main>
       <Footer />
-    </ConfiguratorProvider>
+    </>
   )
 }

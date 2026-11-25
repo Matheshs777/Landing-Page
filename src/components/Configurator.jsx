@@ -1,4 +1,3 @@
-import { PaintPicker } from './ui/PaintPicker'
 import { SectionHead } from './ui/SectionHead'
 import { VehicleViewer } from './VehicleViewer'
 import { Reveal } from './ui/Reveal'
@@ -6,8 +5,6 @@ import { Reveal } from './ui/Reveal'
 export function Configurator({
   id,
   vehicle,
-  paint,
-  onSelect,
   index,
   title,
   lead,
@@ -20,34 +17,16 @@ export function Configurator({
           <Reveal>
             <SectionHead
               index={index}
-              label={`${vehicle.name} / Configurator`}
+              label={`${vehicle.name} / Original finish`}
               title={title}
               text={lead}
             />
           </Reveal>
 
-          <Reveal delay={0.05}>
-            <PaintPicker
-              paints={vehicle.paints}
-              activeId={paint.id}
-              onSelect={onSelect}
-              label={`${vehicle.fullName} body paint`}
-            />
-          </Reveal>
-
           <Reveal className="config__selection" delay={0.08}>
-            <span
-              className="config__chip"
-              style={{ '--swatch': paint.swatch }}
-              aria-hidden="true"
-            />
             <div>
-              <p className="config__paint">{paint.name}</p>
-              <p className="config__finish">
-                {paint.original
-                  ? 'Unmodified model materials'
-                  : `${paint.finish} — body panels only`}
-              </p>
+              <p className="config__paint">Original finish</p>
+              <p className="config__finish">Unmodified model materials</p>
             </div>
           </Reveal>
 
@@ -71,10 +50,9 @@ export function Configurator({
         </div>
 
         <Reveal className="config__viewer" delay={0.06}>
-          <VehicleViewer vehicle={vehicle} paint={paint} />
+          <VehicleViewer vehicle={vehicle} />
           <p className="config__caption">
-            {vehicle.fullName} — {paint.name.toLowerCase()}. Concept finish, studio
-            lighting.
+            {vehicle.fullName} — original finish. Concept materials, studio lighting.
           </p>
         </Reveal>
       </div>

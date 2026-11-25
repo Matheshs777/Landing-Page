@@ -8,7 +8,7 @@ import { VehicleCanvas } from '../scenes/lazy'
 import { ErrorBoundary } from './ui/ErrorBoundary'
 
 /** Smaller, always-available studio used beside each configurator. */
-export function VehicleViewer({ vehicle, paint }) {
+export function VehicleViewer({ vehicle }) {
   const frameRef = useRef(null)
   const controls = useRef({ yaw: 0, zoom: 1 })
   const [loaded, setLoaded] = useState(false)
@@ -43,7 +43,6 @@ export function VehicleViewer({ vehicle, paint }) {
             <Suspense fallback={null}>
               <VehicleCanvas
                 vehicle={vehicle}
-                paint={paint}
                 still={vehicle.presets[1].camera}
                 controls={controls}
                 active={visible}
@@ -57,7 +56,7 @@ export function VehicleViewer({ vehicle, paint }) {
       ) : null}
 
       <div className="viewer__chrome">
-        <span className="viewer__badge">{paint.name}</span>
+        <span className="viewer__badge">Original finish</span>
         <span className="viewer__hint">
           <span aria-hidden="true">↔</span> Drag to rotate
         </span>

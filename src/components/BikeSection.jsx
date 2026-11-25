@@ -1,5 +1,4 @@
 import { BIKE } from '../config/vehicles'
-import { useConfigurator } from '../hooks/ConfiguratorContext'
 import { VehicleIntro } from './VehicleIntro'
 import { Stage } from './Stage'
 import { StatBand } from './StatBand'
@@ -12,12 +11,10 @@ const FACTS = [
 ]
 
 export function BikeSection() {
-  const { bikePaint, setBikePaintId } = useConfigurator()
-
   return (
     <section id="superbike" className="vehicle-block">
       <VehicleIntro vehicle={BIKE} number="02" facts={FACTS} />
-      <Stage vehicle={BIKE} paint={bikePaint} />
+      <Stage vehicle={BIKE} />
 
       <StatBand
         index="05"
@@ -34,11 +31,9 @@ export function BikeSection() {
         id="bike-configurator"
         index="06"
         vehicle={BIKE}
-        paint={bikePaint}
-        onSelect={setBikePaintId}
-        title="Six finishes. One purpose."
-        lead="The R-01 is presented exactly as supplied, or in one of five NOVARIS finishes. Each keeps the same mechanical hardware and structural parts, so the livery never argues with the engineering."
-        note="Paint updates the fairing and wheel accents only. Engine castings, frame, brakes, tyres and lamps are untouched."
+        title="Original model finish."
+        lead="The R-01 keeps the colors and materials authored in its 3D model in every view."
+        note="Fairing, engine, frame, brakes and lamps are shown as supplied."
       />
     </section>
   )

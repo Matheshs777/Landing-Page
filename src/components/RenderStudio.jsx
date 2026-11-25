@@ -22,10 +22,6 @@ const CAPTURES = {
 export function RenderStudio() {
   const params = new URLSearchParams(window.location.search)
   const vehicle = params.get('render') === 'bike' ? BIKE : CAR
-  const paint =
-    vehicle.paints.find((item) => item.id === params.get('paint')) ??
-    vehicle.paints.find((item) => item.id === vehicle.defaultPaint) ??
-    vehicle.paints[0]
   const view = params.get('view') ?? 'hero'
   const camera =
     CAPTURES[vehicle.id]?.[view] ??
@@ -40,7 +36,6 @@ export function RenderStudio() {
       <Suspense fallback={null}>
         <VehicleCanvas
           vehicle={vehicle}
-          paint={paint}
           still={camera}
           active
           quality="high"

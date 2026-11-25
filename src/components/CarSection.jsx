@@ -1,5 +1,4 @@
 import { CAR } from '../config/vehicles'
-import { useConfigurator } from '../hooks/ConfiguratorContext'
 import { VehicleIntro } from './VehicleIntro'
 import { Stage } from './Stage'
 import { StatBand } from './StatBand'
@@ -12,12 +11,10 @@ const FACTS = [
 ]
 
 export function CarSection() {
-  const { carPaint, setCarPaintId } = useConfigurator()
-
   return (
     <section id="automobile" className="vehicle-block">
       <VehicleIntro vehicle={CAR} number="01" facts={FACTS} />
-      <Stage vehicle={CAR} paint={carPaint} />
+      <Stage vehicle={CAR} />
 
       <StatBand
         index="02"
@@ -34,11 +31,9 @@ export function CarSection() {
         id="configurator"
         index="03"
         vehicle={CAR}
-        paint={carPaint}
-        onSelect={setCarPaintId}
-        title="One body. Seven finishes."
-        lead="The VX-01 is presented exactly as supplied, or in one of six NOVARIS paint studies. Choose a body colour; the carbon, glass, lenses and hardware stay exactly as designed."
-        note="Paint updates the body panels only. Glass, wheels, brakes, lamps and interior trim are untouched, because those materials are part of the engineering, not the finish."
+        title="Original model finish."
+        lead="The VX-01 keeps the colors and materials authored in its 3D model in every view."
+        note="Bodywork, carbon, glass, lenses and hardware are shown as supplied."
       />
     </section>
   )
