@@ -18,7 +18,22 @@ export function usePreparedModel(vehicle) {
 
   return useMemo(() => {
     const root = SkeletonUtils.clone(scene)
-    const box = new THREE.Box3().setFromObject(root)
+
+    // Some supplied files are authored at miniature scale (the automobile is
+    // roughly 1:96). Normalise the overall scale to the real-world length
+    // declared in config; geometry, hierarchy and materials stay untouched.
+    let box = new THREE.Box3().setFromObject(root)
+    const size = box.getSize(new THREE.Vector3())
+    const longest = Math.max(size.x, size.z)
+    if (vehicle.length && longest > 0) {
+      const factor = vehicle.length / longest
+      if (Math.abs(factor - 1) > 0.001) {
+        root.scale.setScalar(factor)
+        root.updateMatrixWorld(true)
+        box = new THREE.Box3().setFromObject(root)
+      }
+    }
+
     const center = box.getCenter(new THREE.Vector3())
 
     root.traverse((object) => {
@@ -48,7 +63,7 @@ export function usePreparedModel(vehicle) {
       root,
       offset: [-center.x, -box.min.y, -center.z],
     }
-  }, [scene])
+  }, [scene, vehicle.length])
 }
 
 /**
