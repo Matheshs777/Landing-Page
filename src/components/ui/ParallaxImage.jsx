@@ -15,6 +15,17 @@ export function ParallaxImage({ src, alt, className = '', imgClassName = '', amo
     if (reduced || !frame.current || !image.current) return undefined
     const context = gsap.context(() => {
       gsap.fromTo(
+        frame.current,
+        { clipPath: 'inset(9% 7% 9% 7%)' },
+        {
+          clipPath: 'inset(0% 0% 0% 0%)',
+          duration: 1.35,
+          ease: 'power3.out',
+          scrollTrigger: { trigger: frame.current, start: 'top 90%', once: true },
+        },
+      )
+
+      gsap.fromTo(
         image.current,
         { yPercent: -amount },
         {

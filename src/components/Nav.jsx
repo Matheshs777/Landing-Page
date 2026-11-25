@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion'
 import { BRAND } from '../config/brand'
 import { useActiveSection } from '../hooks/useActiveSection'
 import { useBodyScrollLock } from '../hooks/useBodyScrollLock'
@@ -22,6 +22,12 @@ export function Nav() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const active = useActiveSection(OBSERVED)
+  const { scrollYProgress } = useScroll()
+  const progress = useSpring(scrollYProgress, {
+    stiffness: 140,
+    damping: 30,
+    mass: 0.25,
+  })
   useBodyScrollLock(open)
 
   useEffect(() => {
@@ -88,6 +94,11 @@ export function Nav() {
           </div>
         </div>
         <div className="nav__rule" aria-hidden="true" />
+        <motion.span
+          className="nav__progress"
+          style={{ scaleX: progress }}
+          aria-hidden="true"
+        />
       </header>
 
       <AnimatePresence>

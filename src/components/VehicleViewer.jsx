@@ -48,6 +48,7 @@ export function VehicleViewer({ vehicle, paint }) {
                 controls={controls}
                 active={visible}
                 quality={quality}
+                autoRotate={!dragging}
                 onReady={() => setLoaded(true)}
               />
             </Suspense>

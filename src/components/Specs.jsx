@@ -1,7 +1,9 @@
 import { useId, useState } from 'react'
+import { motion } from 'framer-motion'
 import { BIKE, CAR } from '../config/vehicles'
 import { SectionHead } from './ui/SectionHead'
 import { Reveal } from './ui/Reveal'
+import { EASE } from '../lib/motion'
 
 const TABS = [
   { id: 'car', label: 'VX-01', kind: 'Automobile', vehicle: CAR },
@@ -75,12 +77,15 @@ export function Specs() {
           </Reveal>
         </div>
 
-        <div
+        <motion.div
           className="specs__panel"
           role="tabpanel"
           id={`${baseId}-panel-${active}`}
           aria-labelledby={`${baseId}-tab-${active}`}
           key={active}
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.55, ease: EASE }}
         >
           <div className="specs__heading">
             <h3>{vehicle.fullName}</h3>
@@ -109,7 +114,7 @@ export function Specs() {
             Concept targets only. NOVARIS is a fictional marque and these vehicles do
             not represent a production programme.
           </p>
-        </div>
+        </motion.div>
       </div>
     </section>
   )

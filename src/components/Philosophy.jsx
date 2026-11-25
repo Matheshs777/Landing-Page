@@ -1,5 +1,6 @@
 import { ParallaxImage } from './ui/ParallaxImage'
 import { Reveal } from './ui/Reveal'
+import { LineReveal } from './ui/LineReveal'
 
 export function Philosophy() {
   return (
@@ -11,11 +12,12 @@ export function Philosophy() {
           </p>
         </Reveal>
 
-        <Reveal as="h2" className="philosophy__statement" distance={34}>
-          Speed is not the point.
-          <br />
-          <em>Control is.</em>
-        </Reveal>
+        <LineReveal
+          as="h2"
+          className="philosophy__statement"
+          lines={['Speed is not the point.', 'Control is.']}
+          emphasis={1}
+        />
 
         <div className="philosophy__grid">
           <Reveal className="philosophy__media">

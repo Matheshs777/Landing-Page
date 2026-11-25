@@ -6,8 +6,8 @@ import { StatBand } from './StatBand'
 import { Configurator } from './Configurator'
 
 const FACTS = [
-  { label: 'Capacity', value: '999 cc inline-four' },
-  { label: 'Output', value: '214 hp target' },
+  { label: 'Capacity', value: '1,198 cc V-twin' },
+  { label: 'Output', value: '200 hp target' },
   { label: 'Status', value: 'Concept study' },
 ]
 
@@ -23,7 +23,7 @@ export function BikeSection() {
         index="05"
         label="Motorcycle engineering"
         title="Everything visible. Nothing wasted."
-        text="A stressed-member inline four, a short side silencer and a tail that ends where the seat ends. The R-01 is designed to be understood at a glance, then rewarded on the second look."
+        text="A stressed-member 90° V-twin, a short side silencer and a tail that ends where the seat ends. The R-01 is designed to be understood at a glance, then rewarded on the second look."
         image="/images/bike-engine.webp"
         alt="Engine, frame spar and exhaust detail of the R-01 superbike."
         stats={BIKE.stats}
@@ -37,8 +37,8 @@ export function BikeSection() {
         paint={bikePaint}
         onSelect={setBikePaintId}
         title="Five paints. One purpose."
-        lead="The R-01 is offered in five finishes. Each keeps the black secondary panel and the same mechanical hardware, so the livery never argues with the engineering."
-        note="Paint updates the fairing panels only. The black secondary panel is intentional and stays fixed. Engine castings, frame, brakes, tyres and lamps are untouched."
+        lead="The R-01 is offered in five finishes. Each keeps the same mechanical hardware and the same black structural parts, so the livery never argues with the engineering."
+        note="Paint updates the fairing and wheel accents only. Engine castings, frame, brakes, tyres and lamps are untouched."
       />
     </section>
   )

@@ -2030,6 +2030,133 @@ ol {
    responsive
    ============================================================ */
 
+/* ---------- motion details ---------- */
+
+.line-reveal__mask {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 0.09em;
+  margin-bottom: -0.09em;
+}
+
+.line-reveal__inner {
+  display: block;
+  will-change: transform;
+}
+
+.hero__image {
+  transform-origin: 62% 50%;
+  will-change: transform;
+}
+
+.hero__glow {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(
+    620px circle at var(--gx, 68%) var(--gy, 46%),
+    rgba(198, 169, 126, 0.12),
+    transparent 58%
+  );
+  transition: opacity 0.9s var(--ease);
+}
+
+.hero:hover .hero__glow {
+  opacity: 1;
+}
+
+.ticker {
+  position: relative;
+  z-index: 3;
+  overflow: hidden;
+  padding: 15px 0;
+  border-top: 1px solid var(--line-soft);
+  border-bottom: 1px solid var(--line-soft);
+  background: var(--ink);
+}
+
+.ticker__track {
+  display: flex;
+  width: max-content;
+  animation: ticker 52s linear infinite;
+}
+
+.ticker:hover .ticker__track {
+  animation-play-state: paused;
+}
+
+.ticker__group {
+  display: flex;
+  align-items: center;
+}
+
+.ticker__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 26px;
+  padding-right: 26px;
+  font-size: 9px;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  color: var(--muted);
+}
+
+.ticker__dot {
+  width: 4px;
+  height: 4px;
+  background: var(--champagne);
+  transform: rotate(45deg);
+  opacity: 0.8;
+}
+
+@keyframes ticker {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.nav__progress {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: 6;
+  width: 100%;
+  height: 1px;
+  background: var(--champagne);
+  transform-origin: 0 50%;
+  opacity: 0.85;
+}
+
+.stage__sticky[data-loaded='true'] .stage__hud {
+  animation: hud-in 0.9s var(--ease) both;
+}
+
+.stage__sticky[data-loaded='true'] .stage__tools {
+  animation: hud-in 0.9s 0.08s var(--ease) both;
+}
+
+.stage__sticky[data-loaded='true'] .stage__rail {
+  animation: hud-in 0.9s 0.14s var(--ease) both;
+}
+
+@keyframes hud-in {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.gallery__item {
+  will-change: transform, clip-path;
+}
+
 @media (max-width: 1180px) {
   .hero__rail,
   .stage__rail {
@@ -2392,5 +2519,14 @@ ol {
 
   .hero__media {
     transform: none !important;
+  }
+
+  .ticker__track {
+    animation: none;
+    transform: none;
+  }
+
+  .hero__glow {
+    display: none;
   }
 }

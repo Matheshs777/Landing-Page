@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { ConfiguratorProvider } from './hooks/ConfiguratorContext'
 import { Nav } from './components/Nav'
 import { Hero } from './components/Hero'
+import { Ticker } from './components/ui/Ticker'
 import { BrandIntro } from './components/BrandIntro'
 import { CarSection } from './components/CarSection'
 import { BikeSection } from './components/BikeSection'
@@ -38,6 +39,7 @@ export default function App() {
       <Nav />
       <main id="main">
         <Hero />
+        <Ticker />
         <BrandIntro />
         <CarSection />
         <BikeSection />

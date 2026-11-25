@@ -1,3 +1,6 @@
+import { useEffect, useRef } from 'react'
+import { gsap } from '../lib/gsap'
+import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 import { Reveal } from './ui/Reveal'
 import { SectionHead } from './ui/SectionHead'
 
@@ -47,6 +50,38 @@ const ITEMS = [
 ]
 
 export function Gallery() {
+  const grid = useRef(null)
+  const reduced = usePrefersReducedMotion()
+
+  useEffect(() => {
+    if (reduced || !grid.current) return undefined
+    const items = grid.current.querySelectorAll('.gallery__item')
+
+    const context = gsap.context(() => {
+      items.forEach((item, index) => {
+        gsap.fromTo(
+          item,
+          {
+            clipPath: 'inset(11% 7% 11% 7%)',
+            y: 38,
+            opacity: 0,
+          },
+          {
+            clipPath: 'inset(0% 0% 0% 0%)',
+            y: 0,
+            opacity: 1,
+            duration: 1.4,
+            delay: (index % 3) * 0.07,
+            ease: 'power3.out',
+            scrollTrigger: { trigger: item, start: 'top 92%', once: true },
+          },
+        )
+      })
+    }, grid.current)
+
+    return () => context.revert()
+  }, [reduced])
+
   return (
     <section className="gallery section" id="gallery">
       <div className="container">
@@ -59,13 +94,11 @@ export function Gallery() {
           />
         </Reveal>
 
-        <div className="gallery__grid">
-          {ITEMS.map((item, index) => (
-            <Reveal
-              as="figure"
+        <div className="gallery__grid" ref={grid}>
+          {ITEMS.map((item) => (
+            <figure
               className={`gallery__item gallery__item--${item.span}`}
               key={item.src}
-              delay={(index % 3) * 0.04}
             >
               <img
                 src={item.src}
@@ -79,7 +112,7 @@ export function Gallery() {
                 <span>{item.title}</span>
                 <span>{item.meta}</span>
               </figcaption>
-            </Reveal>
+            </figure>
           ))}
         </div>
       </div>

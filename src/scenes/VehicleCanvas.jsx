@@ -4,8 +4,6 @@ import * as THREE from 'three'
 import { Studio } from './Studio'
 import { usePreparedModel, useVehiclePaint } from './model'
 
-const DEFAULT_CONTROLS = { yaw: 0, zoom: 1 }
-
 /**
  * One canvas for both stage and configurator use.
  *
@@ -21,6 +19,7 @@ export default function VehicleCanvas({
   controls = null,
   active = true,
   quality = 'high',
+  autoRotate = false,
   onReady,
 }) {
   const handleReady = useRef(onReady)
@@ -51,6 +50,7 @@ export default function VehicleCanvas({
           paint={paint}
           controls={controls}
           quality={quality}
+          autoRotate={autoRotate}
         />
         <CameraRig
           vehicle={vehicle}
@@ -65,18 +65,19 @@ export default function VehicleCanvas({
   )
 }
 
-function Vehicle({ vehicle, paint, controls }) {
+function Vehicle({ vehicle, paint, controls, autoRotate }) {
   const { root, offset } = usePreparedModel(vehicle)
   useVehiclePaint(root, vehicle, paint)
   const group = useRef()
 
   useFrame((_, delta) => {
     if (!group.current) return
-    const state = controls?.current ?? DEFAULT_CONTROLS
+    const state = controls?.current
     const dt = Math.min(delta, 0.05)
+    if (autoRotate && state) state.yaw += dt * 0.11
     group.current.rotation.y = THREE.MathUtils.damp(
       group.current.rotation.y,
-      state.yaw,
+      state?.yaw ?? 0,
       7,
       dt,
     )
@@ -100,6 +101,7 @@ function CameraRig({ vehicle, progress, preset, still, controls }) {
   const desiredPosition = useMemo(() => new THREE.Vector3(), [])
   const desiredTarget = useMemo(() => new THREE.Vector3(), [])
   const first = useRef(true)
+  const float = useRef(0)
 
   const chapters = vehicle.chapters
 
@@ -158,6 +160,14 @@ function CameraRig({ vehicle, progress, preset, still, controls }) {
       2.1,
     )
     desiredPosition.sub(desiredTarget).multiplyScalar(zoom).add(desiredTarget)
+
+    // A barely-there camera breath keeps the studio from feeling like a freeze
+    // frame. It is disabled for fixed stills and explicit presets.
+    if (!still && !preset) {
+      float.current += dt
+      desiredPosition.x += Math.sin(float.current * 0.32) * 0.045
+      desiredPosition.y += Math.cos(float.current * 0.27) * 0.03
+    }
 
     const ease = first.current ? 1 : 1 - Math.exp(-dt * 3.2)
     camera.position.lerp(desiredPosition, ease)

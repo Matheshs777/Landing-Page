@@ -72,8 +72,8 @@ export function applyPaint(root, vehicle, paint) {
       if (role === 'main') {
         material.map = null
         material.color.set(paint.color)
-        material.metalness = paint.metalness
-        material.roughness = paint.roughness
+        material.metalness = Math.min(paint.metalness, 0.5)
+        material.roughness = Math.max(paint.roughness, 0.24)
       } else if (role === 'accent') {
         material.map = null
         material.color.set(paint.accent)
@@ -88,9 +88,9 @@ export function applyPaint(root, vehicle, paint) {
 
       if ('clearcoat' in material) {
         material.clearcoat = 1
-        material.clearcoatRoughness = 0.055
+        material.clearcoatRoughness = 0.07
       }
-      material.envMapIntensity = 1.5
+      material.envMapIntensity = 1.12
       material.needsUpdate = true
     }
   })

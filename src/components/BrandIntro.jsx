@@ -1,5 +1,6 @@
 import { ParallaxImage } from './ui/ParallaxImage'
 import { Reveal } from './ui/Reveal'
+import { LineReveal } from './ui/LineReveal'
 
 const PRINCIPLES = [
   {
@@ -28,11 +29,12 @@ export function BrandIntro() {
         </Reveal>
 
         <div className="brand-intro__statement">
-          <Reveal as="h2" className="brand-intro__title" distance={34}>
-            We build fewer things,
-            <br />
-            <em>more carefully.</em>
-          </Reveal>
+          <LineReveal
+            as="h2"
+            className="brand-intro__title"
+            lines={['We build fewer things,', 'more carefully.']}
+            emphasis={1}
+          />
           <Reveal className="brand-intro__aside" delay={0.08}>
             <p>
               NOVARIS is a design-led performance marque working between Stuttgart and

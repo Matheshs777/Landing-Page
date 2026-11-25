@@ -1,5 +1,6 @@
 import { ParallaxImage } from './ui/ParallaxImage'
 import { Reveal } from './ui/Reveal'
+import { CountUp } from './ui/CountUp'
 
 export function StatBand({ index, label, title, text, image, alt, stats, footnote }) {
   return (
@@ -29,7 +30,7 @@ export function StatBand({ index, label, title, text, image, alt, stats, footnot
             <Reveal as="div" className="stat" key={stat.label} delay={statIndex * 0.04}>
               <dt className="stat__label">{stat.label}</dt>
               <dd className="stat__value">
-                {stat.value}
+                <CountUp value={stat.value} />
                 <span className="stat__unit">{stat.unit}</span>
               </dd>
             </Reveal>

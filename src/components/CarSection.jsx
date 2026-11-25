@@ -6,8 +6,8 @@ import { StatBand } from './StatBand'
 import { Configurator } from './Configurator'
 
 const FACTS = [
-  { label: 'Layout', value: 'Mid-engine / AWD' },
-  { label: 'Output', value: '850 hp target' },
+  { label: 'Layout', value: 'Rear-engine / RWD' },
+  { label: 'Output', value: '565 hp target' },
   { label: 'Status', value: 'Concept study' },
 ]
 
@@ -23,7 +23,7 @@ export function CarSection() {
         index="02"
         label="Performance"
         title="The numbers follow the form."
-        text="A hybrid V8, an eight-speed dual-clutch and a chassis tuned around a single idea: the car should feel smaller the faster it goes. Everything below is a concept target, stated without theatre."
+        text="A naturally aspirated flat-six, a six-speed sequential gearbox and a chassis tuned around a single idea: the car should feel smaller the faster it goes. Everything below is a concept target, stated without theatre."
         image="/images/car-wheel.webp"
         alt="Forged centre-lock wheel and carbon-ceramic brake of the VX-01."
         stats={CAR.stats}

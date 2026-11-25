@@ -9,6 +9,7 @@ fs.mkdirSync(OUT, { recursive: true })
 
 const [, , render = 'car', view = 'hero', width = '1400', height = '900', name] =
   process.argv
+const paint = process.env.PAINT
 
 const browser = await puppeteer.launch({
   executablePath: CHROME,
@@ -27,7 +28,7 @@ page.on('console', (message) => {
   if (message.type() === 'error') console.log('CONSOLE', message.text())
 })
 await page.setViewport({ width: Number(width), height: Number(height) })
-await page.goto(`${BASE}/?render=${render}&view=${view}`, {
+await page.goto(`${BASE}/?render=${render}&view=${view}${paint ? `&paint=${paint}` : ''}`, {
   waitUntil: 'networkidle0',
   timeout: 120000,
 })

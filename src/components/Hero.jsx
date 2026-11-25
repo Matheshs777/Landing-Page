@@ -5,6 +5,7 @@ import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 export function Hero() {
   const root = useRef(null)
   const media = useRef(null)
+  const image = useRef(null)
   const content = useRef(null)
   const reduced = usePrefersReducedMotion()
 
@@ -39,7 +40,22 @@ export function Hero() {
           { autoAlpha: 0, y: 12, duration: 0.7, stagger: 0.06 },
           '-=0.55',
         )
+        .from(
+          '.hero__rail-line',
+          { scaleY: 0, duration: 1.4, transformOrigin: 'top' },
+          '-=0.9',
+        )
         .from(media.current, { scale: 1.07, duration: 2.2 }, 0)
+
+      // A very slow breath on the still, so the frame never feels frozen.
+      gsap.to(image.current, {
+        scale: 1.055,
+        duration: 18,
+        delay: 2.2,
+        ease: 'sine.inOut',
+        yoyo: true,
+        repeat: -1,
+      })
 
       gsap.to(content.current, {
         yPercent: -7,
@@ -69,10 +85,18 @@ export function Hero() {
     return () => context.revert()
   }, [reduced])
 
+  const onPointerMove = (event) => {
+    if (reduced || !root.current || event.pointerType !== 'mouse') return
+    const rect = root.current.getBoundingClientRect()
+    root.current.style.setProperty('--gx', `${((event.clientX - rect.left) / rect.width) * 100}%`)
+    root.current.style.setProperty('--gy', `${((event.clientY - rect.top) / rect.height) * 100}%`)
+  }
+
   return (
-    <section className="hero" id="home" ref={root}>
+    <section className="hero" id="home" ref={root} onPointerMove={onPointerMove}>
       <div className="hero__media" ref={media}>
         <img
+          ref={image}
           className="hero__image"
           src="/images/hero-car.webp"
           alt="The NOVARIS VX-01 concept automobile, lit in a dark photographic studio."
@@ -83,6 +107,7 @@ export function Hero() {
         />
       </div>
       <div className="hero__scrim" aria-hidden="true" />
+      <div className="hero__glow" aria-hidden="true" />
       <div className="hero__grain" aria-hidden="true" />
 
       <div className="hero__rail" aria-hidden="true">
