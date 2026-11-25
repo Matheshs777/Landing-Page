@@ -36,8 +36,8 @@ export function BikeSection() {
         vehicle={BIKE}
         paint={bikePaint}
         onSelect={setBikePaintId}
-        title="Five paints. One purpose."
-        lead="The R-01 is offered in five finishes. Each keeps the same mechanical hardware and the same black structural parts, so the livery never argues with the engineering."
+        title="Six finishes. One purpose."
+        lead="The R-01 is presented exactly as supplied, or in one of five NOVARIS finishes. Each keeps the same mechanical hardware and structural parts, so the livery never argues with the engineering."
         note="Paint updates the fairing and wheel accents only. Engine castings, frame, brakes, tyres and lamps are untouched."
       />
     </section>

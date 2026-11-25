@@ -1,5 +1,15 @@
 export const CAR_PAINTS = [
   {
+    id: 'original',
+    name: 'Original finish',
+    short: 'Original',
+    original: true,
+    color: '#C9CBC7',
+    accent: '#D8D9D5',
+    swatch: 'linear-gradient(140deg, #C9CBC7, #8C9196 48%, #2A2D31)',
+    finish: 'As supplied',
+  },
+  {
     id: 'obsidian',
     name: 'Obsidian Black',
     short: 'Obsidian',
@@ -68,6 +78,16 @@ export const CAR_PAINTS = [
 ]
 
 export const BIKE_PAINTS = [
+  {
+    id: 'original',
+    name: 'Original finish',
+    short: 'Original',
+    original: true,
+    color: '#C4262F',
+    accent: '#F0EDE5',
+    swatch: 'linear-gradient(140deg, #C4262F, #8A1219 52%, #1B1D20)',
+    finish: 'As supplied',
+  },
   {
     id: 'gloss-black',
     name: 'Gloss Black',

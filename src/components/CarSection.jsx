@@ -36,8 +36,8 @@ export function CarSection() {
         vehicle={CAR}
         paint={carPaint}
         onSelect={setCarPaintId}
-        title="Six paints. One body."
-        lead="Every VX-01 study is finished in the same six colours. Choose a body colour; the carbon, glass, lenses and hardware stay exactly as designed."
+        title="One body. Seven finishes."
+        lead="The VX-01 is presented exactly as supplied, or in one of six NOVARIS paint studies. Choose a body colour; the carbon, glass, lenses and hardware stay exactly as designed."
         note="Paint updates the body panels only. Glass, wheels, brakes, lamps and interior trim are untouched, because those materials are part of the engineering, not the finish."
       />
     </section>

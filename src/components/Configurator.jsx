@@ -43,7 +43,11 @@ export function Configurator({
             />
             <div>
               <p className="config__paint">{paint.name}</p>
-              <p className="config__finish">{paint.finish} — body panels only</p>
+              <p className="config__finish">
+                {paint.original
+                  ? 'Unmodified model materials'
+                  : `${paint.finish} — body panels only`}
+              </p>
             </div>
           </Reveal>
 
