@@ -16,6 +16,12 @@ export function usePreparedModel(vehicle) {
     const box = new THREE.Box3().setFromObject(root)
     const center = box.getCenter(new THREE.Vector3())
 
+    const debadge = new Map(
+      (vehicle.debadge ?? []).map((item) =>
+        typeof item === 'string' ? [item, '#0B0C0E'] : [item.name, item.color],
+      ),
+    )
+
     root.traverse((object) => {
       if (!object.isMesh) return
       object.castShadow = true
@@ -23,6 +29,15 @@ export function usePreparedModel(vehicle) {
       const next = (material) => {
         const cloned = material.clone()
         cloned.envMapIntensity = 1.15
+        // Supplied production models carry manufacturer livery. Replacing the
+        // decal atlas with a solid trim colour removes every trademark while
+        // keeping the geometry (badge shapes, grilles, dash bezels) intact.
+        if (debadge.has(cloned.name)) {
+          cloned.map = null
+          cloned.color.set(debadge.get(cloned.name))
+          cloned.metalness = 0.35
+          cloned.roughness = 0.42
+        }
         return cloned
       }
       object.material = Array.isArray(object.material)
@@ -55,14 +70,17 @@ export function applyPaint(root, vehicle, paint) {
       const role = typeof entry === 'string' ? 'main' : entry.role
 
       if (role === 'main') {
+        material.map = null
         material.color.set(paint.color)
         material.metalness = paint.metalness
         material.roughness = paint.roughness
       } else if (role === 'accent') {
+        material.map = null
         material.color.set(paint.accent)
         material.metalness = Math.max(0.25, paint.metalness - 0.15)
         material.roughness = Math.min(0.42, paint.roughness + 0.08)
       } else {
+        material.map = null
         material.color.set(paint.dark ?? '#0B0C0E')
         material.metalness = 0.35
         material.roughness = 0.24

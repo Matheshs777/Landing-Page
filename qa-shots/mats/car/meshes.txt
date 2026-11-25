@@ -1,0 +1,151 @@
+Object_0 | EXT_RIM_BLUR | image/png 512x512
+Object_1 | EXT_RIM | 
+Object_2 | EXT_RIM_0 | 
+Object_3 | MI_Tyre_Flex_Dry_R | image/png 1024x256
+Object_4 | EXT_RIM_BLUR_0 | image/png 512x512
+Object_5 | EXT_RIM_1 | 
+Object_6 | EXT_RIM_2 | 
+Object_7 | MI_Tyre_Flex_Dry_R_0 | image/png 1024x256
+Object_8 | EXT_RIM_3 | 
+Object_9 | EXT_RIM_BLUR_1 | image/png 512x512
+Object_10 | EXT_RIM_4 | 
+Object_11 | MI_Tyre_Flex_Dry_R_1 | image/png 1024x256
+Object_12 | EXT_RIM_BLUR_2 | image/png 512x512
+Object_13 | EXT_RIM_5 | 
+Object_14 | EXT_RIM_6 | 
+Object_15 | MI_Tyre_Flex_Dry_R_2 | image/png 1024x256
+Object_16 | EXT_Glass_Emissive_Rear | image/png 1024x1024
+Object_17 | EXT_Glass_Emissive_Front | image/png 1024x1024
+Object_18 | EXT_Emissive_Light_Rear | image/png 1024x1024
+Object_19 | EXT_Emissive_Light_Front | image/png 1024x1024
+Object_20 | EXT_Windows | image/png 1024x1024
+Object_21 | EXT_Banner | image/png 1024x1024
+Object_22 | EXT_Grid_2 | image/png 128x128
+Object_23 | EXT_Details | image/png 1024x512
+Object_24 | EXT_Mechanics | 
+Object_25 | EXT_Carpaint_Inst | image/png 4096x4096
+Object_26 | EXT_Emissive_Light_Rear_0 | image/png 1024x1024
+Object_27 | AUX_LIGHT_Porsche992 | image/png 256x256
+Object_28 | AUX_LIGHT_Porsche992 | image/png 256x256
+Object_29 | EXT_Emissive_Light_Rear_0 | image/png 1024x1024
+Object_30 | EXT_Emissive_Light_Rear_0 | image/png 1024x1024
+Object_31 | EXT_Emissive_Light_Rear_0 | image/png 1024x1024
+Object_32 | AUX_LIGHT_Porsche992 | image/png 256x256
+Object_33 | AUX_LIGHT_Porsche992 | image/png 256x256
+Object_34 | AUX_LIGHT_Porsche992 | image/png 256x256
+Object_35 | AUX_LIGHT_Porsche992 | image/png 256x256
+Object_36 | AUX_LIGHT_Porsche992 | image/png 256x256
+Object_37 | AUX_LIGHT_Porsche992 | image/png 256x256
+Object_38 | EXT_RADIATOR | 
+Object_39 | CHASSIS_KEVLAR | 
+Object_40 | EXT_EXALTS | 
+Object_41 | EXT_Emissive_Light_Rear_0 | image/png 1024x1024
+Object_42 | EXT_Emissive_Light_Front_0 | image/png 1024x1024
+Object_43 | EXT_Emissive_Light_Front_0 | image/png 1024x1024
+Object_44 | EXT_TAMP_FUEL | 
+Object_45 | INT_NET | image/png 256x512
+Object_46 | BELT_Schroth_2 | image/png 512x512
+Object_47 | EXT_Disc | image/png 1024x512
+Object_48 | EXT_Disc_0 | image/png 1024x512
+Object_49 | EXT_Disc_1 | image/png 1024x512
+Object_50 | EXT_Disc_2 | image/png 1024x512
+Object_51 | EXT_Details_0 | image/png 1024x512
+Object_52 | EXT_CALIPER | 
+Object_53 | EXT_Details_1 | image/png 1024x512
+Object_54 | EXT_CALIPER_0 | 
+Object_55 | EXT_CALIPER_1 | 
+Object_56 | EXT_Details_1 | image/png 1024x512
+Object_57 | EXT_CALIPER_1 | 
+Object_58 | EXT_Details_1 | image/png 1024x512
+Object_59 | EXT_Carpaint_Inst | image/png 4096x4096
+Object_60 | EXT_Windows_0 | image/png 1024x1024
+Object_61 | INT_Windows | image/png 1024x1024
+Object_62 | INT_ELECTRONICS | 
+Object_63 | INT_DECALS | image/png 1024x512
+Object_64 | EXT_Details_1 | image/png 1024x512
+Object_65 | INT_ELECTRONICS_0 | 
+Object_66 | INT_Carbon | 
+Object_67 | MIRROR | image/png 128x64
+Object_68 | INT_Occlusion_Inst | 
+Object_69 | INT_Carbon_0 | 
+Object_70 | EXT_Carpaint_Inst | image/png 4096x4096
+Object_71 | EXT_Windows_0 | image/png 1024x1024
+Object_72 | INT_Windows | image/png 1024x1024
+Object_73 | INT_ELECTRONICS_1 | 
+Object_74 | INT_DECALS | image/png 1024x512
+Object_75 | EXT_Details_1 | image/png 1024x512
+Object_76 | MIRROR | image/png 128x64
+Object_77 | INT_ELECTRONICS_2 | 
+Object_78 | INT_Occlusion_Inst | 
+Object_79 | INT_NET | image/png 256x512
+Object_80 | INT_METAL_PARTS | 
+Object_81 | INT_DECALS | image/png 1024x512
+Object_82 | INT_Steer_Carbon | 
+Object_83 | STEER_PLASTIC | 
+Object_84 | INT_Steer | image/png 512x512
+Object_85 | WorldGridMaterial | 
+Object_86 | INT_Racelogic | 
+Object_87 | INT_SAS | 
+Object_88 | SPARCO_FOAM_ROLLCAGE | 
+Object_89 | INT_LED | image/png 256x256
+Object_90 | INT_ELECTRONICS_2_64 | image/png 1024x1024
+Object_91 | INT_DECALS | image/png 1024x512
+Object_92 | INT_Glass | image/png 1024x1024
+Object_93 | INT_ELECTRONICS_3 | 
+Object_94 | INT_CARBON_BAGE | 
+Object_95 | INT_Carbon_1 | 
+Object_96 | INT_Occlusion_Inst | 
+Object_97 | INT_Windows | image/png 1024x1024
+Object_98 | INT_Windshield | image/png 1024x1024
+Object_99 | INT_WELDING | image/png 512x512
+Object_100 | INT_BORRACHAS | 
+Object_101 | INT_DASH_PANEL | 
+Object_102 | SPARCO_FOAM | 
+Object_103 | SEAT_ALCANTARA | 
+Object_104 | SEAT_ALCANTARA | 
+Object_105 | INT_BANNER | image/png 1024x1024
+Object_106 | DISPLAY | image/png 1024x512
+Object_107 | INT_Racelogic | 
+Object_108 | DISPLAY_SAS | image/png 512x512
+Object_109 | INT_CABLES | 
+Object_110 | INT_MANG_AR | 
+Object_111 | INT_MANGUEIRAS | 
+Object_112 | INT_ELECTRONICS_4 | 
+Object_113 | INT_ELECTRONICS_4 | 
+Object_114 | INT_PLASTIC_BLACK | 
+Object_115 | INT_LED | image/png 256x256
+Object_116 | INT_LED | image/png 256x256
+Object_117 | INT_LED | image/png 256x256
+Object_118 | INT_LED | image/png 256x256
+Object_119 | INT_LED | image/png 256x256
+Object_120 | INT_LED | image/png 256x256
+Object_121 | INT_LED | image/png 256x256
+Object_122 | INT_LED | image/png 256x256
+Object_123 | INT_LED | image/png 256x256
+Object_124 | INT_LED | image/png 256x256
+Object_125 | INT_LED | image/png 256x256
+Object_126 | INT_LED | image/png 256x256
+Object_127 | INT_LED | image/png 256x256
+Object_128 | INT_LED | image/png 256x256
+Object_129 | INT_LED | image/png 256x256
+Object_130 | PHISICS_DASH | image/png 4x4
+Object_131 | PHISICS_DASH_0 | image/png 4x4
+Object_132 | PHISICS_DASH_1 | image/png 4x4
+Object_133 | PHISICS_DASH_1 | image/png 4x4
+Object_134 | PHISICS_DASH_1 | image/png 4x4
+Object_135 | PHISICS_DASH_1 | image/png 4x4
+Object_136 | PHISICS_DASH_1 | image/png 4x4
+Object_137 | PHISICS_DASH_1 | image/png 4x4
+Object_138 | PHISICS_DASH_1 | image/png 4x4
+Object_139 | PHISICS_DASH_1 | image/png 4x4
+Object_140 | PHISICS_DASH_1 | image/png 4x4
+Object_141 | PHISICS_DASH_1 | image/png 4x4
+Object_142 | PHISICS_DASH_1 | image/png 4x4
+Object_143 | PHISICS_DASH_1 | image/png 4x4
+Object_144 | PHISICS_DASH_1 | image/png 4x4
+Object_145 | PHISICS_DASH_1 | image/png 4x4
+Object_146 | PHISICS_DASH_1 | image/png 4x4
+Object_147 | LED_RACELOGIC | image/png 1024x1024
+Object_148 | MIRROR | image/png 128x64
+Object_149 | EXT_Mechanics_0 | 
+Object_150 | EXT_Mechanics_1 | 
