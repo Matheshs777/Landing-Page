@@ -109,7 +109,7 @@ export function Studio({ quality = 'high' }) {
         </mesh>
       )}
 
-      {/* radial edge fade: hides the floor rim and seats the car in darkness */}
+      {/* radial edge fade: hides the floor rim and seats the vehicle in darkness */}
       <mesh rotation={[-Math.PI / 2, 0, 0]} position={[0, 0.006, 0]}>
         <circleGeometry args={[18, 96]} />
         <meshBasicMaterial
@@ -187,8 +187,5 @@ function createEdgeFade() {
   ctx.fillRect(0, 0, size, size)
   const texture = new THREE.CanvasTexture(canvas)
   texture.colorSpace = THREE.NoColorSpace
- 姹 pattern
-  return姫 decoded
-  return姫[c] = 姫立afety gradient.姫啊, no texture姫附 THREE.Color works姉车2 = material姫过 texture gradient.姫心Dodge the姫糊FillColor (姫想 texture. Three姫用 colorSpace.姫影, do.姫一叶 floor(姫压片ectSpace姒, 0, 0)
   return texture
 }
