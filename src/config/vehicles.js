@@ -26,6 +26,10 @@ export const CAR = {
     { name: 'EXT_Details_1', color: '#17191C' },
     { name: 'INT_DECALS', color: '#0C0D0F' },
     { name: 'INT_BANNER', color: '#0C0D0F' },
+    { name: 'MI_Tyre_Flex_Dry_R', color: '#0A0A0B', roughness: 0.92, metalness: 0 },
+    { name: 'MI_Tyre_Flex_Dry_R_0', color: '#0A0A0B', roughness: 0.92, metalness: 0 },
+    { name: 'MI_Tyre_Flex_Dry_R_1', color: '#0A0A0B', roughness: 0.92, metalness: 0 },
+    { name: 'MI_Tyre_Flex_Dry_R_2', color: '#0A0A0B', roughness: 0.92, metalness: 0 },
   ],
   poster: '/images/car-stage.webp',
   heroCamera: { position: [6.6, 1.45, 5.7], target: [0, 0.55, 0] },
@@ -43,7 +47,7 @@ export const CAR = {
     {
       id: 'side',
       label: 'Side',
-      camera: { position: [0.12, 1.3, 7.4], target: [0, 0.55, 0] },
+      camera: { position: [0.12, 1.3, 8.7], target: [0, 0.55, 0] },
     },
     {
       id: 'rear',
@@ -105,7 +109,7 @@ export const CAR = {
       title: 'Everything you need. Nothing else.',
       text: 'A welded cage, a single curved display and machined controls. The cabin is trimmed in alcantara, leather and brushed aluminium, and nothing else.',
       note: 'Welded cage / curved display',
-      camera: { position: [1.4, 2.15, 2.5], target: [0.3, 0.92, 0.15] },
+      camera: { position: [0.9, 2.0, 2.3], target: [-0.5, 0.95, 0.05] },
     },
     {
       id: 'complete',
@@ -114,7 +118,7 @@ export const CAR = {
       title: 'VX-01.',
       text: 'The first NOVARIS. A concept study, presented as it would be built. Register your interest and we will open the studio when the first prototype is complete.',
       note: 'Concept study / not for sale',
-      camera: { position: [0.2, 1.4, 7.0], target: [0, 0.55, 0] },
+      camera: { position: [0.2, 1.4, 7.7], target: [0, 0.55, 0] },
     },
   ],
   specs: [
@@ -163,27 +167,27 @@ export const BIKE = {
     {
       id: 'front',
       label: 'Front',
-      camera: { position: [0, 1.05, 2.3], target: [0, 0.58, 0] },
+      camera: { position: [0, 1.05, 2.7], target: [0, 0.58, 0] },
     },
     {
       id: 'three-quarter',
       label: 'Three-quarter',
-      camera: { position: [2.2, 1.15, 2.4], target: [0, 0.55, 0] },
+      camera: { position: [2.6, 1.25, 2.8], target: [0, 0.55, 0] },
     },
     {
       id: 'side',
       label: 'Side',
-      camera: { position: [3.0, 0.95, 0.05], target: [0, 0.54, 0] },
+      camera: { position: [3.9, 0.95, 0.05], target: [0, 0.54, 0] },
     },
     {
       id: 'rear',
       label: 'Rear',
-      camera: { position: [0, 1.05, -2.3], target: [0, 0.55, 0] },
+      camera: { position: [0, 1.05, -2.7], target: [0, 0.55, 0] },
     },
     {
       id: 'detail',
       label: 'Detail',
-      camera: { position: [1.6, 0.7, 1.9], target: [0.15, 0.45, 0.55] },
+      camera: { position: [1.8, 0.75, 2.1], target: [0.15, 0.45, 0.55] },
     },
   ],
   intro: {
@@ -208,7 +212,7 @@ export const BIKE = {
       title: 'Form at speed.',
       text: 'The fairing is shaped around the radiator and the rider, not around a styling idea. Every vent has a job, and every edge is there to move air.',
       note: 'Pressure-formed fairing / radiator ducts',
-      camera: { position: [2.0, 1.0, 1.7], target: [0.1, 0.62, 0.5] },
+      camera: { position: [2.3, 1.05, 2.0], target: [0.1, 0.62, 0.5] },
     },
     {
       id: 'tank',
@@ -217,7 +221,7 @@ export const BIKE = {
       title: 'The narrow line.',
       text: 'A narrow tank, clip-on bars and a short screen keep the rider inside the airflow. The seat is a single piece of trimmed foam, shaped for one job.',
       note: 'Clip-on bars / 830 mm seat height',
-      camera: { position: [1.1, 1.7, 1.8], target: [0, 0.78, 0.15] },
+      camera: { position: [1.6, 1.85, 2.2], target: [0, 0.8, 0.05] },
     },
     {
       id: 'engine',
@@ -226,7 +230,7 @@ export const BIKE = {
       title: 'Mechanical honesty.',
       text: 'The engine is a stressed member of the frame. Nothing is covered that does not need to be. The mechanical parts are the most interesting parts.',
       note: 'Stressed-member 90° V-twin',
-      camera: { position: [1.7, 0.62, 1.6], target: [0, 0.45, 0.15] },
+      camera: { position: [1.9, 0.72, 0.9], target: [0, 0.48, 0] },
     },
     {
       id: 'side',
@@ -235,7 +239,7 @@ export const BIKE = {
       title: 'Mass in motion.',
       text: 'A 1,690 mm wheelbase, a high tail and a low centre of mass. The R-01 looks like it is already moving, even under studio light.',
       note: '1,436 mm wheelbase / 175 kg target',
-      camera: { position: [3.2, 0.95, 0.1], target: [0, 0.54, 0] },
+      camera: { position: [3.9, 0.95, 0.1], target: [0, 0.54, 0] },
     },
     {
       id: 'rear',

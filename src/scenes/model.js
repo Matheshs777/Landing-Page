@@ -18,7 +18,9 @@ export function usePreparedModel(vehicle) {
 
     const debadge = new Map(
       (vehicle.debadge ?? []).map((item) =>
-        typeof item === 'string' ? [item, '#0B0C0E'] : [item.name, item.color],
+        typeof item === 'string'
+          ? [item, { color: '#0B0C0E' }]
+          : [item.name, item],
       ),
     )
 
@@ -33,10 +35,12 @@ export function usePreparedModel(vehicle) {
         // decal atlas with a solid trim colour removes every trademark while
         // keeping the geometry (badge shapes, grilles, dash bezels) intact.
         if (debadge.has(cloned.name)) {
+          const trim = debadge.get(cloned.name)
           cloned.map = null
-          cloned.color.set(debadge.get(cloned.name))
-          cloned.metalness = 0.35
-          cloned.roughness = 0.42
+          cloned.color.set(trim.color)
+          cloned.metalness = trim.metalness ?? 0.35
+          cloned.roughness = trim.roughness ?? 0.42
+          cloned.needsUpdate = true
         }
         return cloned
       }

@@ -1,67 +1,85 @@
 # Asset credits
 
-All vehicle geometry in this project is genuine, downloadable glTF content. No
-vehicle is represented by primitives, and no asset is hotlinked: every file is
-served locally from `public/models/`.
+All vehicle geometry in this project is genuine glTF content supplied for this
+build. No vehicle is represented by primitives, and no asset is hotlinked:
+every file is served locally from `public/models/`.
 
-Downloaded: **24 November 2026**.
+Models installed: **24 November 2026**.
 
 ---
 
-## 1. Generic mid-engine supercar
+## 1. NOVARIS VX-01 automobile
 
 - **File:** `public/models/car/supercar.glb`
-- **Asset name:** Generic mid-engine supercar
-- **Creator / publisher:** Innerscene (3D Parts Library)
-- **Source page:** https://www.innerscene.com/tools/library/3d-parts/generic-mid-engine-supercar-73f252c5
-- **Download endpoint:** https://www.innerscene.com/api/library/generic-mid-engine-supercar-73f252c5/download
-- **License:** CC0 1.0 Universal (public domain dedication)
-- **License reference:** https://creativecommons.org/publicdomain/zero/1.0/
-- **Attribution:** Not required by the licence. Credited here as a courtesy.
-- **Original size:** 3,949,472 bytes
-- **Notes:** Unbranded design study. 4,631 × 2,090 × 1,189 mm, 2,700 mm
-  wheelbase. Used as the NOVARIS VX-01 concept automobile.
+- **Supplied as:** `supercar.glb` (project owner upload)
+- **Creator / publisher:** Not stated in the file metadata
+- **Licence:** Not stated in the file metadata. Confirm redistribution rights
+  with the project owner before publishing the model publicly.
+- **Original size:** 39,967,176 bytes
+- **Source generator metadata:** `Sketchfab-0.6.0`
+- **Notes:** Race-derived GT study. The source model carries a real-world
+  motorsport livery and manufacturer badge textures; these are replaced at
+  runtime with the fictional NOVARIS identity. Dimensions after normalisation:
+  4,601 × 1,981 × 1,211 mm (length × width × height), 2,457 mm wheelbase.
 
-## 2. Race-replica superbike, fully faired
+## 2. NOVARIS R-01 superbike
 
 - **File:** `public/models/bike/superbike.glb`
-- **Asset name:** Race-replica superbike, fully faired
-- **Creator / publisher:** Innerscene (3D Parts Library)
-- **Source page:** https://www.innerscene.com/tools/library/3d-parts/race-replica-superbike-fully-faired-badbd83b
-- **Download endpoint:** https://www.innerscene.com/api/library/race-replica-superbike-fully-faired-badbd83b/download
-- **License:** CC0 1.0 Universal (public domain dedication)
-- **License reference:** https://creativecommons.org/publicdomain/zero/1.0/
-- **Attribution:** Not required by the licence. Credited here as a courtesy.
-- **Original size:** 21,033,196 bytes
-- **Notes:** Unbranded race-replica study, 874 × 2,036 × 1,030 mm. Used as the
-  NOVARIS R-01 concept superbike.
+- **Supplied as:** `superbike.glb` (project owner upload)
+- **Creator / publisher:** Not stated in the file metadata
+- **Licence:** Not stated in the file metadata. Confirm redistribution rights
+  with the project owner before publishing the model publicly.
+- **Original size:** 41,409,232 bytes
+- **Source generator metadata:** `Sketchfab-15.25.0`
+- **Notes:** Fully faired race-replica superbike. Manufacturer decal textures
+  are removed at runtime and replaced with the fictional NOVARIS identity.
+  Dimensions after normalisation: 2,075 × 810 × 1,110 mm, 1,436 mm wheelbase.
 
 ---
 
 ## Processing
 
-Both models were optimised locally with `@gltf-transform/cli` 4.5.1:
+Both supplied files were optimised locally with `@gltf-transform/cli` 4.5.1.
+
+The automobile was authored at 1:96.5 scale and was first normalised to metres
+(`scripts/scale-model.mjs`) so the welder and simplifier used sane tolerances.
 
 ```
 gltf-transform optimize <input> <output> \
-  --compress meshopt --texture-compress webp --texture-size 1024 \
-  --simplify false --palette false
+  --compress meshopt --texture-compress webp --texture-size 2048 \
+  --simplify true --simplify-ratio 0.45 --simplify-error 0.001 \
+  --palette false
 ```
 
 - Geometry compression: `EXT_meshopt_compression` + `KHR_mesh_quantization`
   (decoded at runtime by drei's `useGLTF`).
-- Textures re-encoded to WebP, capped at 1024 px.
-- No mesh simplification and no palette reduction, so silhouette and material
-  separation are preserved.
-- Original files are not redistributed; only the optimised versions are served.
-- Final sizes: car 1,049,100 bytes; bike 1,608,104 bytes.
+- Textures re-encoded to WebP, capped at 2048 px.
+- Palette merging disabled so individual paint, glass, rubber and metal
+  materials keep their names and can be addressed by the configurator.
+- Final served sizes: car 3,277,896 bytes; bike 3,135,464 bytes.
+- The original uploads are not redistributed; only the optimised versions are
+  served from `public/models/`.
+
+## Branding and livery
+
+The supplied models contain real-world manufacturer badges, decals and tyre
+lettering. For this fictional marque build, the following are overridden at
+runtime (see `src/scenes/model.js`):
+
+- body paint textures are replaced with the selected NOVARIS paint;
+- badge, banner and decal atlases are replaced with solid trim colours;
+- tyre sidewall textures are replaced with a plain rubber colour.
+
+No manufacturer logo is rendered in the live 3D scenes or in the site imagery.
+The underlying geometry is still a representation of a real-world road/race
+vehicle and is used here as a design-study stand-in at the project owner's
+direction.
 
 ## Imagery
 
-All vehicle photography on this site is rendered in-house from the two CC0
-models above, using the same studio lighting rig as the live 3D scenes. The
-renders are released as part of this design study. No third-party photography
-is used, and no manufacturer trademarks are present in the 3D assets.
+All vehicle photography on this site is rendered in-house from the two models
+above, using the same studio lighting rig as the live 3D scenes. The renders
+are released as part of this design study. No third-party photography is used.
 
 ## Typography
 

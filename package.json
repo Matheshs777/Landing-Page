@@ -1,9 +1,9 @@
 {
-  "name": "pulsar-audio",
+  "name": "novaris-concept-studies",
   "private": true,
   "version": "1.0.0",
   "type": "module",
-  "description": "PULSAR — Pulsar Buds One premium 3D product landing page",
+  "description": "NOVARIS — cinematic 3D concept studies for a fictional luxury performance marque",
   "scripts": {
     "dev": "vite",
     "build": "vite build",

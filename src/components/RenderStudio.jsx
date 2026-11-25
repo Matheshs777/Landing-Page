@@ -9,12 +9,12 @@ import { VehicleCanvas } from '../scenes/lazy'
 
 const CAPTURES = {
   car: {
-    hero: { position: [6.9, 1.4, 5.9], target: [0, 0.52, 0] },
-    brand: { position: [-4.9, 1.12, 3.1], target: [-1.1, 0.6, 0] },
-    finale: { position: [-5.7, 1.5, 4.7], target: [0, 0.55, 0] },
+    hero: { position: [6.4, 1.35, 5.5], target: [0, 0.6, 0] },
+    brand: { position: [-4.9, 1.12, 3.1], target: [-1.1, 0.62, 0] },
+    finale: { position: [-5.7, 1.5, 4.7], target: [0, 0.58, 0] },
   },
   bike: {
-    hero: { position: [2.8, 1.25, 3.1], target: [0, 0.55, 0] },
+    hero: { position: [2.8, 1.25, 3.1], target: [0, 0.6, 0] },
     philosophy: { position: [3.3, 1.45, 3.2], target: [0, 0.56, 0] },
   },
 }
