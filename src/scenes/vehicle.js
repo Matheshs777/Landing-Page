@@ -14,7 +14,8 @@ import { VEHICLES } from '../config/vehicles'
  * exactly as authored in the GLB.
  */
 export function useVehicleModel(id) {
-  const vehicle = VEHICLES[id]
+  const key = id === 'vx01' ? 'car' : id === 'r01' ? 'bike' : id
+  const vehicle = VEHICLES[key] ?? VEHICLES.car
   useGLTF.preload(vehicle.modelUrl, '/draco/')
   const { scene } = useGLTF(vehicle.modelUrl, '/draco/')
 
@@ -50,15 +51,3 @@ export function useVehicleModel(id) {
 }
 
 useGLTF.preload(VEHICLES.car.modelUrl, '/draco/')
-
-/** Resolve a named view against the vehicle's authored camera list. */
-export function resolveCamera(vehicle, view) {
-  if (!view) return null
-  if (typeof view === 'object') return view
-  if (vehicle.views?.[view]) return vehicle.views[view]
-  const preset = vehicle.presets.find((item) => item.id === view)
-  if (preset) return preset.camera
-  const chapter = vehicle.chapters.find((item) => item.id === view)
-  if (chapter) return chapter.camera
-  return vehicle.presets[0]?.camera ?? null
-}
