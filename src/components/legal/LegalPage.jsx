@@ -1,9 +1,12 @@
 import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { BRAND } from '../../config/brand'
+import { useDocumentTitle } from '../../hooks/useDocumentTitle'
 
 /** Shared shell for Privacy, Cookies and Asset Credits. */
 export function LegalPage({ eyebrow, title, intro, updated, children }) {
+  useDocumentTitle(title)
+
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [])

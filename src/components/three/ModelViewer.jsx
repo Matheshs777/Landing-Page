@@ -58,7 +58,7 @@ export function ModelViewer({
   )
   const shouldRotate = autoRotate && !reduced
   const shouldFloat = (interactive || shouldRotate || scroll) && !reduced
-  const live = visible && !reduced
+  const live = visible && (shouldFloat || scroll)
 
   useEffect(() => {
     setLoaded(false)

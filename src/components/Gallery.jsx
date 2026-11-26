@@ -77,7 +77,6 @@ export function Gallery() {
               <ModelViewer
                 id={item.id}
                 view={item.view}
-                interactive
                 className="gallery__viewer"
                 label={item.label}
               />

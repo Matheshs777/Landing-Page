@@ -81,7 +81,7 @@ function Vehicle({ id, controls, autoRotate }) {
     <group ref={group}>
       <group rotation-y={vehicle.baseYaw ?? 0}>
         <group position={offset}>
-          <primitive object={root} />
+          <primitive object={root} dispose={null} />
         </group>
       </group>
     </group>

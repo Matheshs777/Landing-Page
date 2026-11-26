@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { BrandMark } from '../components/ui/BrandMark'
+import { useDocumentTitle } from '../hooks/useDocumentTitle'
 
 export function ErrorPage({
   code = '404',
@@ -8,6 +9,8 @@ export function ErrorPage({
   message = 'The page you asked for does not exist, or it has moved since the last studio update.',
   showReload = false,
 }) {
+  useDocumentTitle(code === '404' ? 'Page not found' : 'Unexpected error')
+
   return (
     <main id="main" className="status-page">
       <div className="container status-page__inner">

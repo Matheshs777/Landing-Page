@@ -24,7 +24,6 @@ export function Stage({ vehicle }) {
   const { progress, index } = useScrollStage(
     stageRef,
     vehicle.chapters.length,
-    () => setPresetId(null),
   )
 
   const reduced = usePrefersReducedMotion()
@@ -37,6 +36,11 @@ export function Stage({ vehicle }) {
   const chapter = vehicle.chapters[index]
   const preset = vehicle.presets.find((item) => item.id === presetId)?.camera ?? null
 
+  // Scrolling into a new chapter hands the camera back to the scroll sequence.
+  useEffect(() => {
+    setPresetId(null)
+  }, [index])
+
   useEffect(() => {
     if (loaded) return undefined
     const timer = window.setTimeout(() => setLoaded(true), 12000)
@@ -48,10 +52,13 @@ export function Stage({ vehicle }) {
     if (!element) return
     const top = element.getBoundingClientRect().top + window.scrollY
     const distance = element.offsetHeight - window.innerHeight
-    window.scrollTo({
-      top: top + ((chapterIndex + 0.5) / vehicle.chapters.length) * distance,
-      behavior: reduced ? 'auto' : 'smooth',
-    })
+    const target = top + ((chapterIndex + 0.5) / vehicle.chapters.length) * distance
+    setPresetId(null)
+    if (window.__lenis) {
+      window.__lenis.scrollTo(target, { immediate: reduced })
+    } else {
+      window.scrollTo({ top: target, behavior: reduced ? 'auto' : 'smooth' })
+    }
   }
 
   const choosePreset = (id) => {

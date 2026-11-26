@@ -1,3 +1,4 @@
+import { useDocumentTitle } from '../hooks/useDocumentTitle'
 import { Hero } from '../components/Hero'
 import { Ticker } from '../components/ui/Ticker'
 import { BrandIntro } from '../components/BrandIntro'
@@ -9,6 +10,8 @@ import { Philosophy } from '../components/Philosophy'
 import { Finale } from '../components/Finale'
 
 export function HomePage() {
+  useDocumentTitle()
+
   return (
     <main id="main">
       <Hero />
