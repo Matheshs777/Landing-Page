@@ -95,8 +95,8 @@ placeholder social image from the same studio.
 
 ## Typography and software
 
-- **Bodoni Moda** — SIL Open Font License 1.1, via Google Fonts.
-- **Inter Tight** — SIL Open Font License 1.1, via Google Fonts.
+- **Bodoni Moda** — SIL Open Font License 1.1, self-hosted.
+- **Inter Tight** — SIL Open Font License 1.1, self-hosted.
 - **three.js**, **React Three Fiber**, **drei** — MIT.
 - **GSAP**, **Framer Motion**, **Lenis** — their respective licences.
 
