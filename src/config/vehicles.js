@@ -17,9 +17,12 @@ export const CAR = {
   modelUrl: '/models/car/supercar.glb',
   length: 4.601,
   baseYaw: Math.PI / 2,
-  paints: CAR_PAINTS,
-  defaultPaint: 'original',
-  paintMaterials: [{ name: 'EXT_Carpaint_Inst', role: 'main' }],
+  views: {
+    hero: { position: [6.9, 1.5, 5.9], target: [0, 0.55, 0] },
+    brand: { position: [2.6, 1.0, 2.4], target: [0.55, 0.5, 0.1] },
+    performance: { position: [2.9, 0.8, 3.4], target: [1.3, 0.42, 0.6] },
+    finale: { position: [-5.7, 1.6, 4.7], target: [0, 0.55, 0] },
+  },
   poster: '/images/car-stage.webp',
   heroCamera: { position: [6.6, 1.45, 5.7], target: [0, 0.55, 0] },
   presets: [
@@ -144,12 +147,12 @@ export const BIKE = {
   modelUrl: '/models/bike/superbike.glb',
   length: 2.075,
   baseYaw: 0,
-  paints: BIKE_PAINTS,
-  defaultPaint: 'original',
-  paintMaterials: [
-    { name: 'carpaint_red', role: 'main' },
-    { name: 'paintRed', role: 'accent' },
-  ],
+  views: {
+    hero: { position: [2.4, 1.2, 2.6], target: [0, 0.56, 0] },
+    philosophy: { position: [3.1, 1.35, 3.0], target: [0, 0.54, 0] },
+    engineering: { position: [2.0, 0.78, 1.4], target: [0, 0.48, 0] },
+    finale: { position: [-2.4, 1.2, -2.4], target: [0, 0.55, -0.4] },
+  },
   poster: '/images/bike-stage.webp',
   heroCamera: { position: [2.2, 1.15, 2.4], target: [0, 0.55, 0] },
   presets: [

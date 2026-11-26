@@ -1,11 +1,11 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from '../lib/gsap'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
+import { ModelViewer } from './three/ModelViewer'
 
 export function Hero() {
   const root = useRef(null)
   const media = useRef(null)
-  const image = useRef(null)
   const content = useRef(null)
   const reduced = usePrefersReducedMotion()
 
@@ -45,17 +45,7 @@ export function Hero() {
           { scaleY: 0, duration: 1.4, transformOrigin: 'top' },
           '-=0.9',
         )
-        .from(media.current, { scale: 1.07, duration: 2.2 }, 0)
-
-      // A very slow breath on the still, so the frame never feels frozen.
-      gsap.to(image.current, {
-        scale: 1.055,
-        duration: 18,
-        delay: 2.2,
-        ease: 'sine.inOut',
-        yoyo: true,
-        repeat: -1,
-      })
+        .from(media.current, { scale: 1.06, autoAlpha: 0, duration: 1.6 }, 0)
 
       gsap.to(content.current, {
         yPercent: -7,
@@ -80,6 +70,17 @@ export function Hero() {
           scrub: true,
         },
       })
+
+      gsap.to('.hero__title', {
+        yPercent: -10,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: root.current,
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 0.6,
+        },
+      })
     }, root)
 
     return () => context.revert()
@@ -88,22 +89,23 @@ export function Hero() {
   const onPointerMove = (event) => {
     if (reduced || !root.current || event.pointerType !== 'mouse') return
     const rect = root.current.getBoundingClientRect()
-    root.current.style.setProperty('--gx', `${((event.clientX - rect.left) / rect.width) * 100}%`)
-    root.current.style.setProperty('--gy', `${((event.clientY - rect.top) / rect.height) * 100}%`)
+    const x = (event.clientX - rect.left) / rect.width
+    const y = (event.clientY - rect.top) / rect.height
+    root.current.style.setProperty('--gx', `${x * 100}%`)
+    root.current.style.setProperty('--gy', `${y * 100}%`)
+    root.current.style.setProperty('--px', `${(x - 0.5) * 2}`)
+    root.current.style.setProperty('--py', `${(y - 0.5) * 2}`)
   }
 
   return (
     <section className="hero" id="home" ref={root} onPointerMove={onPointerMove}>
       <div className="hero__media" ref={media}>
-        <img
-          ref={image}
-          className="hero__image"
-          src="/images/hero-car.webp"
-          alt="The NOVARIS VX-01 concept automobile, lit in a dark photographic studio."
-          width="1920"
-          height="1200"
-          fetchPriority="high"
-          decoding="async"
+        <ModelViewer
+          id="vx01"
+          view="hero"
+          autoRotate
+          className="hero__viewer"
+          label="The NOVARIS VX-01 concept automobile, turning slowly in a dark studio."
         />
       </div>
       <div className="hero__scrim" aria-hidden="true" />

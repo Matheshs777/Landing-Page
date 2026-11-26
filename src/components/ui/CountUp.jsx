@@ -1,17 +1,18 @@
 import { useEffect, useRef } from 'react'
-import { gsap } from '../../lib/gsap'
+import { useReveal } from '../../hooks/useReveal'
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 
 /** Counts a figure up when it enters view, preserving its formatting. */
 export function CountUp({ value, className = '' }) {
-  const ref = useRef(null)
+  const [ref, shown] = useReveal({ threshold: 0.4 })
   const reduced = usePrefersReducedMotion()
   const target = Number(value.replace(/,/g, ''))
   const decimals = value.includes('.') ? value.split('.')[1].length : 0
+  const frame = useRef(0)
 
   useEffect(() => {
     const element = ref.current
-    if (!element || reduced || !Number.isFinite(target)) return undefined
+    if (!element || !Number.isFinite(target)) return undefined
 
     const format = (number) =>
       number.toLocaleString('en-US', {
@@ -19,22 +20,22 @@ export function CountUp({ value, className = '' }) {
         maximumFractionDigits: decimals,
       })
 
-    element.textContent = format(0)
-    const counter = { value: 0 }
-    const context = gsap.context(() => {
-      gsap.to(counter, {
-        value: target,
-        duration: 1.8,
-        ease: 'power2.out',
-        onUpdate: () => {
-          element.textContent = format(counter.value)
-        },
-        scrollTrigger: { trigger: element, start: 'top 94%', once: true },
-      })
-    }, element)
+    if (reduced || !shown) return undefined
 
-    return () => context.revert()
-  }, [reduced, target, decimals])
+    const start = performance.now()
+    const duration = 1600
+    element.textContent = format(0)
+
+    const tick = (now) => {
+      const t = Math.min(1, (now - start) / duration)
+      const eased = 1 - Math.pow(1 - t, 3)
+      element.textContent = format(target * eased)
+      if (t < 1) frame.current = requestAnimationFrame(tick)
+    }
+    frame.current = requestAnimationFrame(tick)
+
+    return () => cancelAnimationFrame(frame.current)
+  }, [shown, reduced, target, decimals, ref])
 
   return (
     <span ref={ref} className={className} aria-label={value}>
