@@ -7,7 +7,7 @@ import * as THREE from 'three'
  * Warm key, cool fill, a champagne rim, and one soft overhead box.
  * Reflections are only enabled for the high-quality desktop path.
  */
-export function Studio({ quality = 'high' }) {
+export function Studio({ quality = 'high', live = true }) {
   const low = quality === 'low'
   const alphaMap = useMemo(createRadialAlpha, [])
   const edgeFade = useMemo(createEdgeFade, [])
@@ -127,7 +127,7 @@ export function Studio({ quality = 'high' }) {
         blur={2.6}
         far={4.8}
         resolution={low ? 128 : 256}
-        frames={Infinity}
+        frames={live ? Infinity : 1}
         color="#000000"
       />
 
