@@ -87,38 +87,53 @@ export function ModelViewer({
       }
     >
       {near ? (
-        <ViewerBoundary
-          key={`${id}-${attempt}`}
-          fallback={
-            <ViewerFallback
-              className="model-viewer__inline-fallback"
-              message="The 3D model could not be loaded. Check your connection and try again."
-              label={label ?? `${vehicle.fullName} 3D studio`}
-              onRetry={() => setAttempt((value) => value + 1)}
-            />
-          }
-          onError={() => setFailed(true)}
-        >
-          <Suspense fallback={null}>
-            <ViewerCanvas
-              id={id}
-              camera={camera}
-              chapters={vehicle.chapters}
-              progress={scroll ? progress : null}
-              controls={activeControls}
-              autoRotate={shouldRotate}
-              float={shouldFloat}
-              quality={resolvedQuality}
-              compact={compact}
-              live={live}
-              onError={() => setFailed(true)}
-              onReady={() => {
-                setLoaded(true)
-                onReady?.()
-              }}
-            />
-          </Suspense>
-        </ViewerBoundary>
+        failed ? (
+          <ViewerFallback
+            className="model-viewer__inline-fallback"
+            message="The 3D studio stopped responding. Check your connection and try again."
+            label={label ?? `${vehicle.fullName} 3D studio`}
+            onRetry={() => {
+              setFailed(false)
+              setAttempt((value) => value + 1)
+            }}
+          />
+        ) : (
+          <ViewerBoundary
+            key={`${id}-${attempt}`}
+            fallback={
+              <ViewerFallback
+                className="model-viewer__inline-fallback"
+                message="The 3D model could not be loaded. Check your connection and try again."
+                label={label ?? `${vehicle.fullName} 3D studio`}
+                onRetry={() => {
+                  setFailed(false)
+                  setAttempt((value) => value + 1)
+                }}
+              />
+            }
+            onError={() => setFailed(true)}
+          >
+            <Suspense fallback={null}>
+              <ViewerCanvas
+                id={id}
+                camera={camera}
+                chapters={vehicle.chapters}
+                progress={scroll ? progress : null}
+                controls={activeControls}
+                autoRotate={shouldRotate}
+                float={shouldFloat}
+                quality={resolvedQuality}
+                compact={compact}
+                live={live}
+                onError={() => setFailed(true)}
+                onReady={() => {
+                  setLoaded(true)
+                  onReady?.()
+                }}
+              />
+            </Suspense>
+          </ViewerBoundary>
+        )
       ) : (
         <div className="model-viewer__placeholder" aria-hidden="true" />
       )}
