@@ -3160,6 +3160,11 @@ ol {
     grid-template-columns: 1fr;
   }
 
+  .gallery__item--wide,
+  .gallery__item--tall {
+    grid-column: 1 / -1;
+  }
+
   .views {
     grid-template-columns: 1fr;
   }

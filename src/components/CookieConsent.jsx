@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useConsent } from '../hooks/useConsent'
 import { EASE } from '../lib/motion'
@@ -14,6 +14,15 @@ export function CookieConsent() {
     analytics: choice?.analytics ?? false,
     preferences: choice?.preferences ?? false,
   })
+
+  useEffect(() => {
+    if (!open) return
+    setCustomizing(false)
+    setDraft({
+      analytics: choice?.analytics ?? false,
+      preferences: choice?.preferences ?? false,
+    })
+  }, [open, choice])
 
   const acceptAll = () => save({ analytics: true, preferences: true })
   const essentialOnly = () => save({ analytics: false, preferences: false })

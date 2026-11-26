@@ -11,6 +11,7 @@ import { HomePage } from './pages/HomePage'
 import { Privacy } from './pages/Privacy'
 import { Cookies } from './pages/Cookies'
 import { Credits } from './pages/Credits'
+import { ErrorPage } from './pages/ErrorPage'
 import { NotFound } from './pages/NotFound'
 
 function ScrollManager() {
@@ -49,6 +50,18 @@ export default function App() {
             <Route path="/privacy" element={<Privacy />} />
             <Route path="/cookies" element={<Cookies />} />
             <Route path="/credits" element={<Credits />} />
+            <Route
+              path="/error"
+              element={
+                <ErrorPage
+                  code="500"
+                  eyebrow="Unexpected error"
+                  title="Something interrupted the studio."
+                  message="If you reached this page directly, there is nothing broken to fix — it exists as the fallback for runtime errors."
+                  showReload
+                />
+              }
+            />
             <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />
