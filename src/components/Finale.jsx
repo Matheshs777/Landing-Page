@@ -3,6 +3,7 @@ import { gsap } from '../lib/gsap'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 import { Reveal } from './ui/Reveal'
 import { LineReveal } from './ui/LineReveal'
+import { ModelViewer } from './three/ModelViewer'
 
 export function Finale() {
   const root = useRef(null)
@@ -15,7 +16,7 @@ export function Finale() {
     const context = gsap.context(() => {
       gsap.fromTo(
         media.current,
-        { scale: 1.12, yPercent: -2 },
+        { scale: 1.1, yPercent: -2 },
         {
           scale: 1,
           yPercent: 2,
@@ -52,13 +53,11 @@ export function Finale() {
   return (
     <section className="finale" id="finale" ref={root}>
       <div className="finale__media" ref={media}>
-        <img
-          src="/images/finale.webp"
-          alt="The VX-01 concept automobile seen from the rear three-quarter in a dark studio."
-          loading="lazy"
-          decoding="async"
-          width="1920"
-          height="1080"
+        <ModelViewer
+          id="vx01"
+          view="finale"
+          className="finale__viewer"
+          label="The VX-01 concept automobile seen from the rear three-quarter in a dark studio."
         />
       </div>
       <div className="finale__scrim" aria-hidden="true" />
@@ -73,10 +72,10 @@ export function Finale() {
         />
         <Reveal className="finale__actions" delay={0.1}>
           <a className="btn btn--solid" href="#configurator">
-            Configure the VX-01
+            View the VX-01
           </a>
           <a className="btn btn--ghost" href="#bike-configurator">
-            Configure the R-01
+            View the R-01
           </a>
         </Reveal>
       </div>
