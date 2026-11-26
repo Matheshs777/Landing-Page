@@ -83,9 +83,16 @@ export function Specs() {
           id={`${baseId}-panel-${active}`}
           aria-labelledby={`${baseId}-tab-${active}`}
           key={active}
-          initial={{ opacity: 0, y: 14 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.55, ease: EASE }}
+          initial="hidden"
+          animate="show"
+          variants={{
+            hidden: { opacity: 0, y: 14 },
+            show: {
+              opacity: 1,
+              y: 0,
+              transition: { duration: 0.5, ease: EASE, staggerChildren: 0.035 },
+            },
+          }}
         >
           <div className="specs__heading">
             <h3>{vehicle.fullName}</h3>
@@ -96,17 +103,35 @@ export function Specs() {
 
           <div className="specs__groups">
             {groups.map(([group, items]) => (
-              <div className="specs__group" key={group}>
+              <motion.div
+                className="specs__group"
+                key={group}
+                variants={{
+                  hidden: { opacity: 0, y: 12 },
+                  show: { opacity: 1, y: 0, transition: { duration: 0.5, ease: EASE } },
+                }}
+              >
                 <h4 className="specs__group-title">{group}</h4>
                 <dl className="specs__list">
                   {items.map((item) => (
-                    <div className="specs__row" key={`${group}-${item.label}`}>
+                    <motion.div
+                      className="specs__row"
+                      key={`${group}-${item.label}`}
+                      variants={{
+                        hidden: { opacity: 0, x: -8 },
+                        show: {
+                          opacity: 1,
+                          x: 0,
+                          transition: { duration: 0.4, ease: EASE },
+                        },
+                      }}
+                    >
                       <dt>{item.label}</dt>
                       <dd>{item.value}</dd>
-                    </div>
+                    </motion.div>
                   ))}
                 </dl>
-              </div>
+              </motion.div>
             ))}
           </div>
 

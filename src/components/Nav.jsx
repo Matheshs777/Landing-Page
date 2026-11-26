@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { AnimatePresence, motion, useScroll, useSpring } from 'framer-motion'
 import { BRAND } from '../config/brand'
 import { useActiveSection } from '../hooks/useActiveSection'
@@ -17,18 +18,24 @@ const OBSERVED = [
 ]
 
 const NAV_ITEMS = BRAND.nav
+const toSection = (href) => (href === '#home' ? '/' : `/${href}`)
 
 export function Nav() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const active = useActiveSection(OBSERVED)
   const { scrollYProgress } = useScroll()
+  const location = useLocation()
   const progress = useSpring(scrollYProgress, {
     stiffness: 140,
     damping: 30,
     mass: 0.25,
   })
   useBodyScrollLock(open)
+
+  useEffect(() => {
+    setOpen(false)
+  }, [location.pathname, location.hash])
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 24)
@@ -57,29 +64,29 @@ export function Nav() {
     <>
       <header className={`nav ${scrolled || open ? 'nav--solid' : ''}`}>
         <div className="nav__inner">
-          <a className="nav__brand" href="#home" aria-label="NOVARIS, back to top">
+          <Link className="nav__brand" to="/" aria-label="NOVARIS, back to top">
             <BrandMark height={24} />
             <span className="nav__wordmark">{BRAND.name}</span>
-          </a>
+          </Link>
 
           <nav className="nav__links" aria-label="Primary">
             {NAV_ITEMS.map((item) => (
-              <a
+              <Link
                 key={item.id}
                 className={`nav__link ${activeId === item.id ? 'is-active' : ''}`}
-                href={item.href}
+                to={toSection(item.href)}
                 aria-current={activeId === item.id ? 'true' : undefined}
               >
                 {item.label}
-              </a>
+              </Link>
             ))}
           </nav>
 
           <div className="nav__aside">
-            <a className="nav__cta" href="#footer">
+            <Link className="nav__cta" to="/#footer">
               Enquire
               <span aria-hidden="true">↗</span>
-            </a>
+            </Link>
             <button
               type="button"
               className="nav__toggle"
@@ -113,18 +120,21 @@ export function Nav() {
           >
             <nav className="menu__nav" aria-label="Mobile">
               {NAV_ITEMS.map((item, index) => (
-                <motion.a
+                <motion.div
                   key={item.id}
-                  href={item.href}
-                  className={`menu__link ${activeId === item.id ? 'is-active' : ''}`}
-                  onClick={() => setOpen(false)}
                   initial={{ opacity: 0, y: 18 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.06 + index * 0.05, duration: 0.5 }}
                 >
-                  <span className="menu__index">0{index + 1}</span>
-                  {item.label}
-                </motion.a>
+                  <Link
+                    to={toSection(item.href)}
+                    className={`menu__link ${activeId === item.id ? 'is-active' : ''}`}
+                    onClick={() => setOpen(false)}
+                  >
+                    <span className="menu__index">0{index + 1}</span>
+                    {item.label}
+                  </Link>
+                </motion.div>
               ))}
             </nav>
             <div className="menu__foot">

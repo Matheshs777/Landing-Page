@@ -1,20 +1,26 @@
+import { Link } from 'react-router-dom'
 import { BRAND } from '../config/brand'
+import { useConsent } from '../hooks/useConsent'
 import { BrandMark } from './ui/BrandMark'
 
 const EXPLORE = [
-  { label: 'Automobile', href: '#automobile' },
-  { label: 'Superbike', href: '#superbike' },
-  { label: 'Configurator', href: '#configurator' },
-  { label: 'Engineering', href: '#engineering' },
+  { label: 'Automobile', to: '/#automobile' },
+  { label: 'Superbike', to: '/#superbike' },
+  { label: 'Configurator', to: '/#configurator' },
+  { label: 'Engineering', to: '/#engineering' },
 ]
 
 const DETAILS = [
-  { label: 'Philosophy', href: '#philosophy' },
-  { label: 'Gallery', href: '#gallery' },
-  { label: 'Asset credits', href: '/models/ASSET_CREDITS.md', external: true },
+  { label: 'Philosophy', to: '/#philosophy' },
+  { label: 'Gallery', to: '/#gallery' },
+  { label: 'Asset credits', to: '/credits' },
+  { label: 'Privacy policy', to: '/privacy' },
+  { label: 'Cookie policy', to: '/cookies' },
 ]
 
 export function Footer() {
+  const { openSettings } = useConsent()
+
   return (
     <footer className="footer" id="footer">
       <div className="container footer__top">
@@ -33,9 +39,9 @@ export function Footer() {
           <div className="footer__column">
             <h3>Explore</h3>
             {EXPLORE.map((item) => (
-              <a key={item.href} href={item.href}>
+              <Link key={item.to} to={item.to}>
                 {item.label}
-              </a>
+              </Link>
             ))}
           </div>
 
@@ -49,16 +55,13 @@ export function Footer() {
           <div className="footer__column">
             <h3>Details</h3>
             {DETAILS.map((item) => (
-              <a
-                key={item.href}
-                href={item.href}
-                {...(item.external
-                  ? { target: '_blank', rel: 'noreferrer noopener' }
-                  : {})}
-              >
+              <Link key={item.to} to={item.to}>
                 {item.label}
-              </a>
+              </Link>
             ))}
+            <button type="button" className="footer__link-button" onClick={openSettings}>
+              Cookie settings
+            </button>
           </div>
         </div>
       </div>
@@ -68,9 +71,9 @@ export function Footer() {
           © 2026 {BRAND.legal}. A fictional marque. Vehicles, specifications and
           availability are illustrative design studies, not a production programme.
         </p>
-        <a className="footer__top-link" href="#home">
+        <Link className="footer__top-link" to="/#home">
           Back to top <span aria-hidden="true">↑</span>
-        </a>
+        </Link>
       </div>
     </footer>
   )
