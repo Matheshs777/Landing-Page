@@ -8,7 +8,7 @@ import {
   useState,
 } from 'react'
 import { BIKE, CAR } from '../../config/vehicles'
-import { resolveCamera } from '../../scenes/vehicle'
+import { resolveCamera } from '../../config/views'
 import { useOnScreen } from '../../hooks/useNearViewport'
 import { useMediaQuery } from '../../hooks/useMediaQuery'
 import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'

@@ -90,9 +90,13 @@ function CameraRig({ camera: view, chapters, progress, controls, float }) {
   const desiredPosition = useMemo(() => new THREE.Vector3(), [])
   const desiredTarget = useMemo(() => new THREE.Vector3(), [])
   const clock = useRef(0)
+  const primed = useRef(false)
 
+  // Seat the first frame exactly on the requested view, then let the rig
+  // interpolate smoothly whenever the view changes.
   useLayoutEffect(() => {
-    camera.position.set(...view.position)
+    if (primed.current) return
+    primed.current = true
     target.current.set(...view.target)
     camera.lookAt(target.current)
   }, [camera, view])
