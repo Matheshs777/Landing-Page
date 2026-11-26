@@ -123,8 +123,8 @@ export function Credits() {
 
       <h2>Typography and software</h2>
       <ul>
-        <li>Bodoni Moda — SIL Open Font License 1.1, via Google Fonts.</li>
-        <li>Inter Tight — SIL Open Font License 1.1, via Google Fonts.</li>
+        <li>Bodoni Moda — SIL Open Font License 1.1, self-hosted.</li>
+        <li>Inter Tight — SIL Open Font License 1.1, self-hosted.</li>
         <li>three.js, React Three Fiber, drei — MIT licence.</li>
         <li>GSAP, Framer Motion, Lenis — their respective licences.</li>
       </ul>

@@ -55,8 +55,8 @@ export function Privacy() {
 
       <h2>Third parties</h2>
       <p>
-        The site loads two typefaces from Google Fonts. Model files, imagery and
-        scripts are served from this site's own origin. No social embeds, trackers or
+        The site serves its two typefaces from its own origin. Model files and scripts
+        are served from this site's own origin as well. No social embeds, trackers or
         advertising pixels are present.
       </p>
 
