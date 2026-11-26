@@ -15,6 +15,7 @@ import { VEHICLES } from '../config/vehicles'
  */
 export function useVehicleModel(id) {
   const vehicle = VEHICLES[id]
+  useGLTF.preload(vehicle.modelUrl, '/draco/')
   const { scene } = useGLTF(vehicle.modelUrl, '/draco/')
 
   return useMemo(() => {
@@ -49,13 +50,12 @@ export function useVehicleModel(id) {
 }
 
 useGLTF.preload(VEHICLES.car.modelUrl, '/draco/')
-useGLTF.preload(VEHICLES.bike.modelUrl, '/draco/')
 
 /** Resolve a named view against the vehicle's authored camera list. */
 export function resolveCamera(vehicle, view) {
   if (!view) return null
   if (typeof view === 'object') return view
-  if (view === 'hero') return vehicle.heroCamera
+  if (vehicle.views?.[view]) return vehicle.views[view]
   const preset = vehicle.presets.find((item) => item.id === view)
   if (preset) return preset.camera
   const chapter = vehicle.chapters.find((item) => item.id === view)

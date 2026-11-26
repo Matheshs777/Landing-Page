@@ -1,6 +1,6 @@
-import { ParallaxImage } from './ui/ParallaxImage'
 import { Reveal } from './ui/Reveal'
 import { LineReveal } from './ui/LineReveal'
+import { ModelViewer } from './three/ModelViewer'
 
 const PRINCIPLES = [
   {
@@ -50,13 +50,14 @@ export function BrandIntro() {
 
         <div className="brand-intro__grid">
           <Reveal className="brand-intro__media">
-            <ParallaxImage
-              src="/images/brand-detail.webp"
-              alt="Close studio view of the VX-01 rear deck, carbon diffuser and titanium exhaust."
-              amount={4}
+            <ModelViewer
+              id="vx01"
+              view="brand"
+              className="brand-intro__viewer"
+              label="Close studio view of the VX-01 rear deck and bodywork."
             />
             <p className="brand-intro__caption">
-              VX-01, rear deck. Exposed carbon, hand-finished titanium.
+              VX-01, rear deck. Original livery, lit in the NOVARIS studio.
             </p>
           </Reveal>
 

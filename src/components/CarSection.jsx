@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { CAR } from '../config/vehicles'
 import { VehicleIntro } from './VehicleIntro'
 import { Stage } from './Stage'
@@ -11,6 +12,8 @@ const FACTS = [
 ]
 
 export function CarSection() {
+  const [viewId, setViewId] = useState('three-quarter')
+
   return (
     <section id="automobile" className="vehicle-block">
       <VehicleIntro vehicle={CAR} number="01" facts={FACTS} />
@@ -21,8 +24,9 @@ export function CarSection() {
         label="Performance"
         title="The numbers follow the form."
         text="A naturally aspirated flat-six, a six-speed sequential gearbox and a chassis tuned around a single idea: the car should feel smaller the faster it goes. Everything below is a concept target, stated without theatre."
-        image="/images/car-wheel.webp"
-        alt="Forged centre-lock wheel and carbon-ceramic brake of the VX-01."
+        viewerId="vx01"
+        view="performance"
+        mediaLabel="The VX-01 front wheel, brake and lower bodywork in the studio."
         stats={CAR.stats}
         footnote="VX-01 concept targets. Not measured production figures."
       />
@@ -31,9 +35,11 @@ export function CarSection() {
         id="configurator"
         index="03"
         vehicle={CAR}
-        title="Original model finish."
-        lead="The VX-01 keeps the colors and materials authored in its 3D model in every view."
-        note="Bodywork, carbon, glass, lenses and hardware are shown as supplied."
+        viewId={viewId}
+        onSelect={setViewId}
+        title="Original finish. Five views."
+        lead="The VX-01 is shown exactly as the model was authored — livery, materials and surface detail included. Choose a camera, not a colour."
+        note="No material is overridden anywhere on this site. Glass, carbon, rubber, lamps and interior trim render from the GLB's own textures."
       />
     </section>
   )

@@ -1,6 +1,6 @@
-import { ParallaxImage } from './ui/ParallaxImage'
 import { Reveal } from './ui/Reveal'
 import { LineReveal } from './ui/LineReveal'
+import { ModelViewer } from './three/ModelViewer'
 
 export function Philosophy() {
   return (
@@ -21,10 +21,11 @@ export function Philosophy() {
 
         <div className="philosophy__grid">
           <Reveal className="philosophy__media">
-            <ParallaxImage
-              src="/images/philosophy.webp"
-              alt="The R-01 concept superbike in a low three-quarter studio view."
-              amount={5}
+            <ModelViewer
+              id="r01"
+              view="philosophy"
+              className="philosophy__viewer"
+              label="The R-01 concept superbike in a low three-quarter studio view."
             />
           </Reveal>
 

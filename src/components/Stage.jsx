@@ -1,14 +1,14 @@
-import { Suspense, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useScrollStage } from '../hooks/useScrollStage'
-import { useNearViewport, useOnScreen } from '../hooks/useNearViewport'
 import { useMediaQuery } from '../hooks/useMediaQuery'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 import { useDragControls } from '../hooks/useDragControls'
 import { useViewControls } from '../hooks/useViewControls'
-import { VehicleCanvas } from '../scenes/lazy'
+import { ModelViewer } from './three/ModelViewer'
 import { EASE } from '../lib/motion'
-import { ErrorBoundary } from './ui/ErrorBoundary'
+
+const viewerId = (vehicle) => (vehicle.id === 'car' ? 'vx01' : 'r01')
 
 /**
  * The scroll-linked studio. A tall section with a sticky viewport: scroll
@@ -17,11 +17,9 @@ import { ErrorBoundary } from './ui/ErrorBoundary'
  */
 export function Stage({ vehicle }) {
   const stageRef = useRef(null)
-  const stickyRef = useRef(null)
   const controls = useRef({ yaw: 0, zoom: 1 })
   const [presetId, setPresetId] = useState(null)
   const [loaded, setLoaded] = useState(false)
-  const [timedOut, setTimedOut] = useState(false)
 
   const { progress, index } = useScrollStage(
     stageRef,
@@ -31,8 +29,6 @@ export function Stage({ vehicle }) {
 
   const reduced = usePrefersReducedMotion()
   const compact = useMediaQuery('(max-width: 820px)')
-  const near = useNearViewport(stageRef, '900px')
-  const visible = useOnScreen(stickyRef, '140px')
   const quality = compact ? 'low' : 'high'
 
   const { handlers, dragging } = useDragControls(controls)
@@ -43,7 +39,7 @@ export function Stage({ vehicle }) {
 
   useEffect(() => {
     if (loaded) return undefined
-    const timer = window.setTimeout(() => setTimedOut(true), 15000)
+    const timer = window.setTimeout(() => setLoaded(true), 12000)
     return () => window.clearTimeout(timer)
   }, [loaded])
 
@@ -72,13 +68,14 @@ export function Stage({ vehicle }) {
     return (
       <div className="stage stage--static" ref={stageRef}>
         <div className="container stage__static-inner">
-          <img
-            className="stage__static-image"
-            src={vehicle.poster}
-            alt={`${vehicle.fullName} in the NOVARIS studio.`}
-            width="1600"
-            height="1000"
-          />
+          <div className="stage__static-image">
+            <ModelViewer
+              id={viewerId(vehicle)}
+              view="three-quarter"
+              className="model-viewer--static"
+              label={`${vehicle.fullName}, three-quarter studio view.`}
+            />
+          </div>
           <ol className="stage__static-list">
             {vehicle.chapters.map((item) => (
               <li key={item.id} className="stage__static-item">
@@ -92,8 +89,8 @@ export function Stage({ vehicle }) {
             ))}
           </ol>
           <p className="stage__static-note">
-            Reduced motion is on, so the studio is presented as stills rather than a
-            moving camera.
+            Reduced motion is on, so the studio is presented as a still camera rather
+            than a moving one.
           </p>
         </div>
       </div>
@@ -108,50 +105,27 @@ export function Stage({ vehicle }) {
     >
       <div
         className={`stage__sticky ${dragging ? 'is-dragging' : ''}`}
-        ref={stickyRef}
         tabIndex={0}
         data-loaded={loaded}
         onKeyDown={view.onKeyDown}
         {...handlers}
         aria-label={`${vehicle.fullName} interactive 3D model. Drag horizontally to rotate, use arrow keys to rotate, plus and minus to zoom.`}
       >
-        <div className="stage__poster">
-          <img
-            src={vehicle.poster}
-            alt={`${vehicle.fullName} studio view.`}
-            loading="lazy"
-            decoding="async"
-            width="1600"
-            height="1000"
+        <div className="stage__canvas">
+          <ModelViewer
+            id={viewerId(vehicle)}
+            view={preset ?? chapter.camera}
+            scroll={!preset}
+            progress={progress}
+            controls={controls}
+            interactive
+            quality={quality}
+            onReady={() => setLoaded(true)}
+            label={`${vehicle.fullName}, scroll-driven studio view.`}
           />
         </div>
 
-        {near ? (
-          <div className="stage__canvas" data-ready={loaded}>
-            <ErrorBoundary fallback={null}>
-              <Suspense fallback={null}>
-                <VehicleCanvas
-                  vehicle={vehicle}
-                  progress={progress}
-                  preset={preset}
-                  controls={controls}
-                  active={visible}
-                  quality={quality}
-                  onReady={() => setLoaded(true)}
-                />
-              </Suspense>
-            </ErrorBoundary>
-          </div>
-        ) : null}
-
         <div className="stage__shade" aria-hidden="true" />
-
-        {!loaded && !timedOut ? (
-          <div className="stage__loading" role="status" aria-live="polite">
-            <span>Preparing the studio</span>
-            <span className="stage__loading-line" />
-          </div>
-        ) : null}
 
         <div className="stage__hud">
           <div className="stage__id">

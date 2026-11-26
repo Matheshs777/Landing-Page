@@ -1,5 +1,3 @@
-import { BIKE_PAINTS, CAR_PAINTS } from './paints'
-
 /**
  * Vehicle content and camera choreography.
  *
@@ -23,8 +21,6 @@ export const CAR = {
     performance: { position: [2.9, 0.8, 3.4], target: [1.3, 0.42, 0.6] },
     finale: { position: [-5.7, 1.6, 4.7], target: [0, 0.55, 0] },
   },
-  poster: '/images/car-stage.webp',
-  heroCamera: { position: [6.6, 1.45, 5.7], target: [0, 0.55, 0] },
   presets: [
     {
       id: 'front',
@@ -153,8 +149,6 @@ export const BIKE = {
     engineering: { position: [2.0, 0.78, 1.4], target: [0, 0.48, 0] },
     finale: { position: [-2.4, 1.2, -2.4], target: [0, 0.55, -0.4] },
   },
-  poster: '/images/bike-stage.webp',
-  heroCamera: { position: [2.2, 1.15, 2.4], target: [0, 0.55, 0] },
   presets: [
     {
       id: 'front',

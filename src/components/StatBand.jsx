@@ -1,8 +1,18 @@
-import { ParallaxImage } from './ui/ParallaxImage'
 import { Reveal } from './ui/Reveal'
 import { CountUp } from './ui/CountUp'
+import { ModelViewer } from './three/ModelViewer'
 
-export function StatBand({ index, label, title, text, image, alt, stats, footnote }) {
+export function StatBand({
+  index,
+  label,
+  title,
+  text,
+  viewerId,
+  view,
+  mediaLabel,
+  stats,
+  footnote,
+}) {
   return (
     <section className="band section" aria-label={`${label} of the concept`}>
       <div className="container">
@@ -21,7 +31,12 @@ export function StatBand({ index, label, title, text, image, alt, stats, footnot
             </Reveal>
           </div>
           <Reveal className="band__media" delay={0.08}>
-            <ParallaxImage src={image} alt={alt} amount={4} />
+            <ModelViewer
+              id={viewerId}
+              view={view}
+              className="band__viewer"
+              label={mediaLabel}
+            />
           </Reveal>
         </div>
 
