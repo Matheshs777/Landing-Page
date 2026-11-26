@@ -20,6 +20,7 @@ export default function ViewerCanvas({
   compact = false,
   live = true,
   onReady,
+  onError,
 }) {
   return (
     <Canvas
@@ -37,6 +38,10 @@ export default function ViewerCanvas({
       onCreated={({ gl }) => {
         gl.toneMapping = THREE.ACESFilmicToneMapping
         gl.toneMappingExposure = 1.06
+        gl.domElement.addEventListener('webglcontextlost', (event) => {
+          event.preventDefault()
+          onError?.()
+        })
       }}
     >
       <Suspense fallback={null}>

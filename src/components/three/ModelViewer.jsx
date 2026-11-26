@@ -111,6 +111,7 @@ export function ModelViewer({
               quality={resolvedQuality}
               compact={compact}
               live={live}
+              onError={() => setFailed(true)}
               onReady={() => {
                 setLoaded(true)
                 onReady?.()
@@ -122,22 +123,13 @@ export function ModelViewer({
         <div className="model-viewer__placeholder" aria-hidden="true" />
       )}
 
-      {!loaded && !failed ? (
+      {!loaded && !failed && near ? (
         <div className="model-viewer__loader" role="status" aria-live="polite">
           <span className="model-viewer__loader-label">Preparing the studio</span>
           <span className="model-viewer__loader-track" aria-hidden="true">
             <span />
           </span>
         </div>
-      ) : null}
-
-      {failed ? (
-        <ViewerFallback
-          className="model-viewer__inline-fallback"
-          message="The 3D studio stopped responding."
-          label={label ?? `${vehicle.fullName} 3D studio`}
-          onRetry={() => setAttempt((value) => value + 1)}
-        />
       ) : null}
     </div>
   )
