@@ -2840,11 +2840,13 @@ ol {
 
 .consent {
   position: fixed;
-  left: 50%;
+  left: 0;
+  right: 0;
   bottom: 18px;
-  transform: translateX(-50%);
+  margin-inline: auto;
   z-index: 200;
   width: min(100% - 32px, 880px);
+  /* Framer Motion owns `transform`; keep centring on auto margins. */
 }
 
 .consent__inner {
