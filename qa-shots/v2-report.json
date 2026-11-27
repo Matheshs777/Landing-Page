@@ -1,0 +1,212 @@
+[
+  {
+    "size": "360",
+    "scrollWidth": 360,
+    "innerWidth": 360,
+    "scrollHeight": 22709,
+    "overflowX": false,
+    "missingAnchors": [],
+    "hidden": [],
+    "viewers": 16,
+    "fallbacks": 16,
+    "navToggle": "flex",
+    "navLinks": "none",
+    "galleryCols": "320px",
+    "specsCols": "320px",
+    "viewsCols": "320px",
+    "heroTitleSize": "48.6px",
+    "consent": {
+      "left": 0,
+      "right": 360,
+      "top": 505,
+      "bottom": 780,
+      "fitsX": true,
+      "fitsY": true
+    },
+    "errors": [],
+    "failed": []
+  },
+  {
+    "size": "390",
+    "scrollWidth": 390,
+    "innerWidth": 390,
+    "scrollHeight": 23664,
+    "overflowX": false,
+    "missingAnchors": [],
+    "hidden": [],
+    "viewers": 16,
+    "fallbacks": 16,
+    "navToggle": "flex",
+    "navLinks": "none",
+    "galleryCols": "350px",
+    "specsCols": "350px",
+    "viewsCols": "350px",
+    "heroTitleSize": "52.65px",
+    "consent": {
+      "left": 0,
+      "right": 390,
+      "top": 569,
+      "bottom": 844,
+      "fitsX": true,
+      "fitsY": true
+    },
+    "errors": [],
+    "failed": []
+  },
+  {
+    "size": "768",
+    "scrollWidth": 768,
+    "innerWidth": 768,
+    "scrollHeight": 25241,
+    "overflowX": false,
+    "missingAnchors": [],
+    "hidden": [],
+    "viewers": 16,
+    "fallbacks": 16,
+    "navToggle": "flex",
+    "navLinks": "none",
+    "galleryCols": "46.5938px 46.5938px 46.5938px 46.5938px 46.5938px 46.5938px 46.5938px 46.5938px 46.5938px 46.5938px 46.5938px 46.5938px",
+    "specsCols": "318.719px 318.719px",
+    "viewsCols": "341.594px 341.594px",
+    "heroTitleSize": "66.048px",
+    "consent": {
+      "left": 16,
+      "right": 752,
+      "top": 807,
+      "bottom": 1006,
+      "fitsX": true,
+      "fitsY": true
+    },
+    "errors": [],
+    "failed": []
+  },
+  {
+    "size": "1024",
+    "scrollWidth": 1024,
+    "innerWidth": 1024,
+    "scrollHeight": 20251,
+    "overflowX": false,
+    "missingAnchors": [],
+    "hidden": [],
+    "viewers": 16,
+    "fallbacks": 16,
+    "navToggle": "none",
+    "navLinks": "flex",
+    "galleryCols": "65.7969px 65.7969px 65.7969px 65.7969px 65.7969px 65.7969px 65.7969px 65.7969px 65.7969px 65.7969px 65.7969px 65.7969px",
+    "specsCols": "424.953px 424.969px",
+    "viewsCols": "191.469px 191.484px",
+    "heroTitleSize": "88.064px",
+    "consent": {
+      "left": 72,
+      "right": 952,
+      "top": 551,
+      "bottom": 750,
+      "fitsX": true,
+      "fitsY": true
+    },
+    "errors": [],
+    "failed": []
+  },
+  {
+    "size": "1440",
+    "scrollWidth": 1440,
+    "innerWidth": 1440,
+    "scrollHeight": 24230,
+    "overflowX": false,
+    "missingAnchors": [],
+    "hidden": [],
+    "viewers": 16,
+    "fallbacks": 16,
+    "navToggle": "none",
+    "navLinks": "flex",
+    "galleryCols": "97px 97px 97px 97px 97px 97px 97px 97px 97px 97px 97px 97px",
+    "specsCols": "597.594px 597.609px",
+    "viewsCols": "271.078px 271.078px",
+    "heroTitleSize": "123.84px",
+    "consent": {
+      "left": 280,
+      "right": 1160,
+      "top": 683,
+      "bottom": 882,
+      "fitsX": true,
+      "fitsY": true
+    },
+    "errors": [],
+    "failed": []
+  },
+  {
+    "size": "1920",
+    "scrollWidth": 1920,
+    "innerWidth": 1920,
+    "scrollHeight": 27618,
+    "overflowX": false,
+    "missingAnchors": [],
+    "hidden": [],
+    "viewers": 16,
+    "fallbacks": 16,
+    "navToggle": "none",
+    "navLinks": "flex",
+    "galleryCols": "119px 119px 119px 119px 119px 119px 119px 119px 119px 119px 119px 119px",
+    "specsCols": "725px 725px",
+    "viewsCols": "331.797px 331.797px",
+    "heroTitleSize": "150.4px",
+    "consent": {
+      "left": 520,
+      "right": 1400,
+      "top": 863,
+      "bottom": 1062,
+      "fitsX": true,
+      "fitsY": true
+    },
+    "errors": [],
+    "failed": []
+  },
+  {
+    "flows": {
+      "bannerOnFirstVisit": true,
+      "bannerHiddenAfterChoice": true,
+      "storedChoice": {
+        "essential": true,
+        "analytics": false,
+        "preferences": false
+      },
+      "bannerHiddenAfterReload": true,
+      "analyticsOff": true,
+      "drawerOpen": true,
+      "drawerScrollLocked": true,
+      "drawerClosedAfterNav": true,
+      "bannerReopenedFromFooter": true,
+      "analyticsOnAfterAccept": true,
+      "bannerHiddenAfterAccept": true,
+      "routes": {
+        "/privacy": {
+          "h1": "Privacy Policy",
+          "overflowX": false,
+          "title": "Privacy Policy — NOVARIS"
+        },
+        "/cookies": {
+          "h1": "Cookie Policy",
+          "overflowX": false,
+          "title": "Cookie Policy — NOVARIS"
+        },
+        "/credits": {
+          "h1": "Asset Credits",
+          "overflowX": false,
+          "title": "Asset Credits — NOVARIS"
+        },
+        "/missing-page": {
+          "h1": "This road is not on the map.",
+          "overflowX": false,
+          "title": "Page not found — NOVARIS"
+        },
+        "/error": {
+          "h1": "Something interrupted the studio.",
+          "overflowX": false,
+          "title": "Unexpected error — NOVARIS"
+        }
+      },
+      "errors": [],
+      "failed": []
+    }
+  }
+]
