@@ -468,7 +468,7 @@ ol {
   z-index: 1;
   background:
     linear-gradient(90deg, rgba(6, 7, 8, 0.94) 0%, rgba(6, 7, 8, 0.62) 38%, rgba(6, 7, 8, 0.08) 72%),
-    linear-gradient(180deg, rgba(6, 7, 8, 0.72) 0%, transparent 26%, transparent 58%, rgba(6, 7, 8, 0.94) 100%);
+    linear-gradient(180deg, rgba(6, 7, 8, 0.45) 0%, transparent 26%, transparent 58%, rgba(6, 7, 8, 0.94) 100%);
 }
 
 .hero__grain {
@@ -2697,6 +2697,44 @@ ol {
 
 .hero__viewer .model-viewer__loader {
   bottom: 96px;
+}
+
+/* The hero fallback would otherwise sit on top of the headline. Keep the
+   retry affordance, but tuck it into the empty top-right of the frame. */
+.hero__viewer .model-viewer--fallback {
+  display: block;
+  border: 0;
+  padding: 0;
+  background: transparent;
+}
+
+.hero__viewer .model-viewer__fallback-inner {
+  position: absolute;
+  top: clamp(92px, 13vh, 136px);
+  right: clamp(18px, 4vw, 56px);
+  align-items: flex-end;
+  text-align: right;
+  gap: 10px;
+  max-width: min(240px, 58vw);
+  padding: 14px 16px;
+  border: 1px solid var(--line-soft);
+  background: rgba(6, 7, 8, 0.72);
+}
+
+.hero__viewer .model-viewer__fallback-inner p {
+  font-size: 10px;
+  line-height: 1.6;
+  color: var(--silver);
+}
+
+.hero__viewer .model-viewer__fallback-mark {
+  display: none;
+}
+
+.hero__viewer .model-viewer__fallback-inner .btn {
+  padding: 8px 12px;
+  font-size: 8px;
+  letter-spacing: 0.18em;
 }
 
 .hero__title {
