@@ -44,6 +44,7 @@ export function ModelViewer({
   const [loaded, setLoaded] = useState(false)
   const [failed, setFailed] = useState(false)
   const [attempt, setAttempt] = useState(0)
+  const [armed, setArmed] = useState(false)
   const near = useOnScreen(frameRef, '520px')
   const visible = useOnScreen(frameRef, '80px')
   const compact = useMediaQuery('(max-width: 820px)')
@@ -56,9 +57,28 @@ export function ModelViewer({
     () => resolveCamera(vehicle, view) ?? vehicle.presets[1].camera,
     [vehicle, view],
   )
-  const shouldRotate = autoRotate && !reduced
+  // A continuous idle rotation is a desktop luxury: on compact screens it
+  // keeps the GPU awake for no legibility gain, so the still frame wins.
+  const shouldRotate = autoRotate && !reduced && !compact
   const shouldFloat = (interactive || shouldRotate || scroll) && !reduced
   const live = visible && (shouldFloat || scroll)
+
+  useEffect(() => {
+    if (!near) return undefined
+    let frame
+    let idle
+    let timer
+    if (typeof window.requestIdleCallback === 'function') {
+      idle = window.requestIdleCallback(() => setArmed(true), { timeout: 900 })
+    } else {
+      timer = window.setTimeout(() => setArmed(true), 300)
+    }
+    return () => {
+      if (idle) window.cancelIdleCallback(idle)
+      if (frame) window.cancelAnimationFrame(frame)
+      if (timer) window.clearTimeout(timer)
+    }
+  }, [near])
 
   useEffect(() => {
     setLoaded(false)
@@ -86,7 +106,7 @@ export function ModelViewer({
         `${vehicle.fullName}, ${String(view).replace('-', ' ')} view, rendered live in the NOVARIS studio.`
       }
     >
-      {near ? (
+      {near && armed ? (
         failed ? (
           <ViewerFallback
             className="model-viewer__inline-fallback"
