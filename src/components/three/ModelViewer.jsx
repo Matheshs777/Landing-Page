@@ -154,7 +154,7 @@ function ViewerFallback({ className = '', message, label, onRetry }) {
   return (
     <div
       className={`model-viewer model-viewer--fallback ${className}`}
-      role="img"
+      role="group"
       aria-label={label}
     >
       <div className="model-viewer__fallback-inner">

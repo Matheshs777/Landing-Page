@@ -113,6 +113,7 @@ export function Stage({ vehicle }) {
       <div
         className={`stage__sticky ${dragging ? 'is-dragging' : ''}`}
         tabIndex={0}
+        role="group"
         data-loaded={loaded}
         onKeyDown={view.onKeyDown}
         {...handlers}
