@@ -16,7 +16,7 @@ export function BikeSection() {
 
   return (
     <section id="superbike" className="vehicle-block">
-      <VehicleIntro vehicle={BIKE} number="02" facts={FACTS} />
+      <VehicleIntro vehicle={BIKE} number="04" facts={FACTS} />
       <Stage vehicle={BIKE} />
 
       <StatBand

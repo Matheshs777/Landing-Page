@@ -43,7 +43,7 @@ export function Specs() {
         <div className="specs__top">
           <Reveal>
             <SectionHead
-              index="05"
+              index="07"
               label="Engineering"
               title="Two machines, one set of rules."
               text="Every figure below is a concept target for a design study. They are stated plainly, because a concept should be able to explain itself."

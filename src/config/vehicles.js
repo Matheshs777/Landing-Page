@@ -179,7 +179,7 @@ export const BIKE = {
     },
   ],
   intro: {
-    eyebrow: 'Superbike / 02',
+    eyebrow: 'Superbike / 04',
     title: 'The same language, stripped bare.',
     text: 'The R-01 takes the principles of the VX-01 and removes everything that is not required. A race-replica study with road manners in mind.',
   },

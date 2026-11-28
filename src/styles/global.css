@@ -3308,6 +3308,31 @@ ol {
   }
 }
 
+/* ---------- display typography ---------- */
+
+/*
+ * Bodoni Moda is a variable font (wght 400–900, opsz 6–96). The automatic
+ * optical size at display sizes is what produced the hairline strokes, so the
+ * large cuts are pinned to a sturdier optical size and a half-step of weight.
+ */
+.hero__title,
+.brand-intro__title,
+.vintro__name,
+.vintro__headline,
+.stage__copy-title,
+.band__title,
+.section-head__title,
+.specs__heading h3,
+.philosophy__statement,
+.finale__title,
+.legal__head h1,
+.legal__body h2,
+.status-page h1 {
+  font-optical-sizing: none;
+  font-variation-settings: 'opsz' 24;
+  font-weight: 450;
+}
+
 @media (prefers-reduced-motion: reduce) {
   html {
     scroll-behavior: auto;

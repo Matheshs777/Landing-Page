@@ -59,7 +59,7 @@ export function Gallery() {
       <div className="container">
         <Reveal>
           <SectionHead
-            index="07"
+            index="08"
             label="Gallery"
             title="Under the same light."
             text="Both studies are rendered in one studio, with one lighting rig, from the same two model files used across the site."
