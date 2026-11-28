@@ -15,6 +15,9 @@ await page.evaluate(() => {
   b?.click()
 })
 await new Promise(r => setTimeout(r, 600))
+await page.evaluate(() => {
+  document.querySelectorAll('.gallery__caption').forEach((el) => { el.style.visibility = 'hidden' })
+})
 
 const items = [
   { sel: '.gallery__item:nth-child(1)', out: 'public/images/gallery/vx01-side.jpg' },
@@ -33,7 +36,9 @@ for (const item of items) {
     const el = document.querySelector(`${sel} .model-viewer`)
     return el && el.dataset.loaded === 'true' && el.querySelector('canvas')
   }, { timeout: 120000 }, item.sel)
-  await new Promise(r => setTimeout(r, 3500))
+  await new Promise(r => setTimeout(r, 8000))
+  await page.evaluate(() => window.dispatchEvent(new Event('resize')))
+  await new Promise(r => setTimeout(r, 1200))
   const el = await page.$(`${item.sel} .gallery__viewer`)
   if (!el) { console.log('missing', item.sel); continue }
   await el.screenshot({ path: item.out, type: 'jpeg', quality: 90 })
