@@ -2712,6 +2712,32 @@ ol {
   z-index: 6;
 }
 
+.model-viewer__still-note {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  z-index: 2;
+  padding: 6px 9px;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  line-height: 1.4;
+  text-transform: uppercase;
+  color: var(--silver);
+  background: rgba(6, 7, 8, 0.72);
+  border: 1px solid var(--line-soft);
+}
+
+.model-viewer__still-note span {
+  margin: 0 4px;
+  color: var(--champagne);
+}
+
+.hero__viewer .model-viewer__still-note {
+  top: clamp(92px, 13vh, 136px);
+  right: clamp(18px, 4vw, 56px);
+  bottom: auto;
+}
+
 /* ---------- hero ---------- */
 
 .hero__media {
