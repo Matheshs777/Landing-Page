@@ -15,15 +15,22 @@ import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 
 const ViewerCanvas = lazy(() => import('./ViewerCanvas'))
 
-const FALLBACK =
-  'This browser could not start WebGL, so the live 3D studio is unavailable.'
+const MESSAGES = {
+  unsupported:
+    'This browser could not start WebGL, so the live 3D studio is unavailable.',
+  context:
+    'The 3D studio lost its graphics context. Too many live views can exhaust the GPU; close another tab or try again.',
+  load: 'The 3D model could not be loaded. Check your connection and try again.',
+}
 
 /**
  * The single 3D viewer used everywhere on the site.
  *
- * The shell is cheap; the three.js chunk only loads once a viewer comes near
- * the viewport. Every instance shares the same GLB (useGLTF cache) and clones
- * it, uses the same studio rig, and renders the file's original materials.
+ * The shell is cheap. A Canvas is mounted only while its frame is close to the
+ * viewport and is disposed as soon as it leaves, so a long page never keeps a
+ * pile of WebGL contexts alive. Every mounted instance shares the same GLB
+ * (useGLTF cache), uses the same studio rig, and renders the file's authored
+ * materials without overrides.
  */
 export function ModelViewer({
   id,
@@ -36,16 +43,18 @@ export function ModelViewer({
   className = '',
   quality,
   label,
+  poster,
   onReady,
 }) {
   const frameRef = useRef(null)
   const localControls = useRef({ yaw: 0, zoom: 1 })
   const activeControls = controls ?? localControls
   const [loaded, setLoaded] = useState(false)
-  const [failed, setFailed] = useState(false)
+  const [failure, setFailure] = useState(null)
   const [attempt, setAttempt] = useState(0)
   const [armed, setArmed] = useState(false)
-  const near = useOnScreen(frameRef, '520px')
+  const [posterFailed, setPosterFailed] = useState(false)
+  const inView = useOnScreen(frameRef, '240px')
   const visible = useOnScreen(frameRef, '80px')
   const compact = useMediaQuery('(max-width: 820px)')
   const reduced = usePrefersReducedMotion()
@@ -62,10 +71,12 @@ export function ModelViewer({
   const shouldRotate = autoRotate && !reduced && !compact
   const shouldFloat = (interactive || shouldRotate || scroll) && !reduced
   const live = visible && (shouldFloat || scroll)
+  const posterSrc = poster ?? vehicle.poster
 
+  // Let the first paint (headline, consent copy, text) settle before three.js
+  // and the GLB compete for the main thread.
   useEffect(() => {
-    if (!near) return undefined
-    let frame
+    if (!inView) return undefined
     let idle
     let timer
     if (typeof window.requestIdleCallback === 'function') {
@@ -75,21 +86,34 @@ export function ModelViewer({
     }
     return () => {
       if (idle) window.cancelIdleCallback(idle)
-      if (frame) window.cancelAnimationFrame(frame)
       if (timer) window.clearTimeout(timer)
     }
-  }, [near])
+  }, [inView])
+
+  // A viewer that scrolls away gives its context back. The GLB stays cached,
+  // so returning to it is a rebuild, not a re-download.
+  useEffect(() => {
+    if (inView) return
+    setLoaded(false)
+    setFailure(null)
+  }, [inView])
 
   useEffect(() => {
     setLoaded(false)
-    setFailed(false)
+    setFailure(null)
   }, [id, attempt])
+
+  const retry = () => {
+    setFailure(null)
+    setLoaded(false)
+    setAttempt((value) => value + 1)
+  }
 
   if (!supported) {
     return (
       <ViewerFallback
         className={className}
-        message={FALLBACK}
+        message={MESSAGES.unsupported}
         label={label ?? `${vehicle.fullName} 3D studio`}
       />
     )
@@ -106,59 +130,63 @@ export function ModelViewer({
         `${vehicle.fullName}, ${String(view).replace('-', ' ')} view, rendered live in the NOVARIS studio.`
       }
     >
-      {near && armed ? (
-        failed ? (
-          <ViewerFallback
-            className="model-viewer__inline-fallback"
-            message="The 3D studio stopped responding. Check your connection and try again."
-            label={label ?? `${vehicle.fullName} 3D studio`}
-            onRetry={() => {
-              setFailed(false)
-              setAttempt((value) => value + 1)
-            }}
-          />
-        ) : (
-          <ViewerBoundary
-            key={`${id}-${attempt}`}
-            fallback={
-              <ViewerFallback
-                className="model-viewer__inline-fallback"
-                message="The 3D model could not be loaded. Check your connection and try again."
-                label={label ?? `${vehicle.fullName} 3D studio`}
-                onRetry={() => {
-                  setFailed(false)
-                  setAttempt((value) => value + 1)
-                }}
-              />
-            }
-            onError={() => setFailed(true)}
-          >
-            <Suspense fallback={null}>
-              <ViewerCanvas
-                id={id}
-                camera={camera}
-                chapters={vehicle.chapters}
-                progress={scroll ? progress : null}
-                controls={activeControls}
-                autoRotate={shouldRotate}
-                float={shouldFloat}
-                quality={resolvedQuality}
-                compact={compact}
-                live={live}
-                onError={() => setFailed(true)}
-                onReady={() => {
-                  setLoaded(true)
-                  onReady?.()
-                }}
-              />
-            </Suspense>
-          </ViewerBoundary>
-        )
+      {posterSrc && !posterFailed && !loaded ? (
+        <img
+          className="model-viewer__poster"
+          src={posterSrc}
+          alt=""
+          aria-hidden="true"
+          decoding="async"
+          draggable="false"
+          onError={() => setPosterFailed(true)}
+        />
       ) : (
         <div className="model-viewer__placeholder" aria-hidden="true" />
       )}
 
-      {!loaded && !failed && near ? (
+      {failure ? (
+        <ViewerFallback
+          className="model-viewer__inline-fallback"
+          message={MESSAGES[failure] ?? MESSAGES.load}
+          label={label ?? `${vehicle.fullName} 3D studio`}
+          onRetry={retry}
+        />
+      ) : inView && armed ? (
+        <ViewerBoundary
+          key={`${id}-${attempt}`}
+          fallback={
+            <ViewerFallback
+              className="model-viewer__inline-fallback"
+              message={MESSAGES.load}
+              label={label ?? `${vehicle.fullName} 3D studio`}
+              onRetry={retry}
+            />
+          }
+          onError={() => setFailure('load')}
+        >
+          <Suspense fallback={null}>
+            <ViewerCanvas
+              id={id}
+              camera={camera}
+              chapters={vehicle.chapters}
+              progress={scroll ? progress : null}
+              controls={activeControls}
+              autoRotate={shouldRotate}
+              float={shouldFloat}
+              quality={resolvedQuality}
+              compact={compact}
+              live={live}
+              onError={() => setFailure('context')}
+              onReady={() => {
+                setLoaded(true)
+                onReady?.()
+              }}
+            />
+          </Suspense>
+        </ViewerBoundary>
+      ) : null}
+
+      {inView && armed && !loaded && !failure ? (
         <div className="model-viewer__loader" role="status" aria-live="polite">
           <span className="model-viewer__loader-label">Preparing the studio</span>
           <span className="model-viewer__loader-track" aria-hidden="true">
@@ -211,15 +239,22 @@ class ViewerBoundary extends Component {
   }
 }
 
+// One probe for the whole page. Creating a canvas per viewer was itself
+// exhausting the browser's context budget before any model had loaded.
+let webglSupport = null
+
 function hasWebGL() {
+  if (webglSupport !== null) return webglSupport
   if (typeof window === 'undefined') return false
   try {
     const canvas = document.createElement('canvas')
-    return Boolean(
+    const gl =
       window.WebGLRenderingContext &&
-        (canvas.getContext('webgl2') || canvas.getContext('webgl')),
-    )
+      (canvas.getContext('webgl2') || canvas.getContext('webgl'))
+    webglSupport = Boolean(gl)
+    gl?.getExtension('WEBGL_lose_context')?.loseContext()
   } catch {
-    return false
+    webglSupport = false
   }
+  return webglSupport
 }

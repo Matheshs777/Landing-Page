@@ -1,4 +1,4 @@
-import { Suspense, useLayoutEffect, useMemo, useRef } from 'react'
+import { Suspense, useEffect, useLayoutEffect, useMemo, useRef } from 'react'
 import { Canvas, useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 import { Studio } from '../../scenes/Studio'
@@ -28,8 +28,8 @@ export default function ViewerCanvas({
       className="scene-canvas"
       gl={{
         alpha: true,
-        antialias: true,
-        powerPreference: 'high-performance',
+        antialias: !compact,
+        powerPreference: compact ? 'default' : 'high-performance',
         preserveDrawingBuffer: false,
       }}
       camera={{ fov: 32, near: 0.08, far: 90, position: camera.position }}
@@ -38,12 +38,9 @@ export default function ViewerCanvas({
       onCreated={({ gl }) => {
         gl.toneMapping = THREE.ACESFilmicToneMapping
         gl.toneMappingExposure = 1.06
-        gl.domElement.addEventListener('webglcontextlost', (event) => {
-          event.preventDefault()
-          onError?.()
-        })
       }}
     >
+      <ContextGuard onError={onError} />
       <Suspense fallback={null}>
         <Studio quality={quality} live={float} />
         <Vehicle id={id} controls={controls} autoRotate={autoRotate} />
@@ -58,6 +55,38 @@ export default function ViewerCanvas({
       </Suspense>
     </Canvas>
   )
+}
+
+/**
+ * Owns the context-loss listener and gives the GPU context back when this
+ * viewer unmounts. Without the explicit loss, a long scroll would leave the
+ * browser holding a canvas per section until it starts killing contexts.
+ */
+function ContextGuard({ onError }) {
+  const gl = useThree((state) => state.gl)
+  const callback = useRef(onError)
+  callback.current = onError
+
+  useEffect(() => {
+    const canvas = gl.domElement
+    const onLost = (event) => {
+      event.preventDefault()
+      callback.current?.()
+    }
+    canvas.addEventListener('webglcontextlost', onLost)
+
+    return () => {
+      canvas.removeEventListener('webglcontextlost', onLost)
+      try {
+        gl.dispose()
+        gl.forceContextLoss()
+      } catch {
+        /* the renderer may already be gone */
+      }
+    }
+  }, [gl])
+
+  return null
 }
 
 function Vehicle({ id, controls, autoRotate }) {

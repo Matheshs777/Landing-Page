@@ -13,6 +13,7 @@ export const CAR = {
   kind: 'Race-derived GT study',
   year: 'Concept MMXXVII',
   modelUrl: '/models/car/supercar.glb',
+  poster: '/images/car-poster.jpg',
   length: 4.601,
   baseYaw: Math.PI / 2,
   views: {
@@ -141,6 +142,7 @@ export const BIKE = {
   kind: 'Race-replica superbike',
   year: 'Concept MMXXVII',
   modelUrl: '/models/bike/superbike.glb',
+  poster: '/images/bike-poster.jpg',
   length: 2.075,
   baseYaw: 0,
   views: {
