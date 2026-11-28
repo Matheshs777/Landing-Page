@@ -111,11 +111,31 @@ export function ModelViewer({
 
   if (!supported) {
     return (
-      <ViewerFallback
-        className={className}
-        message={MESSAGES.unsupported}
-        label={label ?? `${vehicle.fullName} 3D studio`}
-      />
+      <div
+        className={`model-viewer model-viewer--still ${className}`}
+        role="img"
+        aria-label={
+          label ??
+          `${vehicle.fullName}, still studio image. Live 3D is unavailable in this browser.`
+        }
+      >
+        {posterSrc && !posterFailed ? (
+          <img
+            className="model-viewer__poster model-viewer__poster--still"
+            src={posterSrc}
+            alt=""
+            aria-hidden="true"
+            decoding="async"
+            draggable="false"
+            onError={() => setPosterFailed(true)}
+          />
+        ) : (
+          <div className="model-viewer__placeholder" aria-hidden="true" />
+        )}
+        <p className="model-viewer__still-note">
+          Still image <span aria-hidden="true">/</span> live 3D needs WebGL
+        </p>
+      </div>
     )
   }
 
