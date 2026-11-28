@@ -3335,9 +3335,4 @@ ol {
     transform: scaleX(1);
     opacity: 0.4;
   }
-
-  .gallery__item .model-viewer,
-  .gallery__item:hover .model-viewer {
-    transform: none;
-  }
 }
