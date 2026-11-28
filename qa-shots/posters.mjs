@@ -19,27 +19,29 @@ await new Promise(r => setTimeout(r, 600))
 
 async function shoot(anchor, out) {
   await page.evaluate((a) => {
-    const el = document.querySelector(`${a} .viewer`)
-    el.scrollIntoView({ block: 'center' })
+    document.querySelector(`${a} .viewer`).scrollIntoView({ block: 'center' })
   }, anchor)
   await new Promise(r => setTimeout(r, 2500))
   await page.waitForFunction((a) => {
     const el = document.querySelector(`${a} .model-viewer`)
     return el && el.dataset.loaded === 'true' && el.querySelector('canvas')
   }, { timeout: 90000 }, anchor)
-  await new Promise(r => setTimeout(r, 3500))
+  await new Promise(r => setTimeout(r, 4500))
   await page.evaluate((a) => {
     const chrome = document.querySelector(`${a} .viewer__chrome`)
-    if (chrome) chrome.style.display = 'none'
+    if (chrome) chrome.style.visibility = 'hidden'
   }, anchor)
-  await new Promise(r => setTimeout(r, 500))
-  const el = await page.$(`${anchor} .viewer__model`)
-  await el.screenshot({ path: out, type: 'jpeg', quality: 88 })
+  await new Promise(r => setTimeout(r, 400))
+  const box = await page.evaluate((a) => {
+    const r = document.querySelector(`${a} .viewer`).getBoundingClientRect()
+    return { x: Math.round(r.x), y: Math.round(r.y), width: Math.round(r.width), height: Math.round(r.height) }
+  }, anchor)
+  await page.screenshot({ path: out, type: 'jpeg', quality: 88, clip: box })
   await page.evaluate((a) => {
     const chrome = document.querySelector(`${a} .viewer__chrome`)
-    if (chrome) chrome.style.display = ''
+    if (chrome) chrome.style.visibility = ''
   }, anchor)
-  console.log('saved', out, fs.statSync(out).size)
+  console.log('saved', out, box, fs.statSync(out).size)
 }
 
 await shoot('#configurator', 'public/images/car-poster.jpg')
