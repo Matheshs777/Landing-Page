@@ -13,15 +13,15 @@ for (let i=0;i<numTables;i++){
   const transform = (flags >> 6) & 3;
   const origLength = base128();
   let transformLength = origLength;
-  if ((tagIdx === 10 || tagIdx === 11 || tagIdx === 12 || tagIdx === 13) && transform !== 3) transformLength = base128();
-  else if (transform !== 0) transformLength = base128();
+  if ((tagIdx === 10 || tagIdx === 11) && transform !== 3) transformLength = base128();
   entries.push({tag: tags[tagIdx] || String(tagIdx), origLength, transformLength, transform});
 }
+console.log(entries.map(e=>`${e.tag}:${e.transformLength}`).join(', '));
 const compressed = buf.subarray(off, off + totalCompressedSize);
 const raw = zlib.brotliDecompressSync(compressed);
 let pos = 0;
 for (const e of entries) {
-  const size = e.transformLength ?? e.origLength;
+  const size = e.transformLength;
   if (e.tag === 'fvar') {
     const t = raw.subarray(pos, pos + size);
     const axisCount = t.readUInt16BE(8);
@@ -36,4 +36,4 @@ for (const e of entries) {
   }
   pos += size;
 }
-console.log('decompressed', raw.length, 'consumed', pos);
+console.log('decompressed', raw.length, 'consumed', pos, 'compressed', compressed.length);
