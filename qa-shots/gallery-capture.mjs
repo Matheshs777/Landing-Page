@@ -15,34 +15,49 @@ await page.evaluate(() => {
   b?.click()
 })
 await new Promise(r => setTimeout(r, 600))
-await page.evaluate(() => {
-  document.querySelectorAll('.gallery__caption').forEach((el) => { el.style.visibility = 'hidden' })
-})
 
-const items = [
-  { sel: '.gallery__item:nth-child(1)', out: 'public/images/gallery/vx01-side.jpg' },
-  { sel: '.gallery__item:nth-child(2)', out: 'public/images/gallery/r01-detail.jpg' },
-  { sel: '.gallery__item:nth-child(3)', out: 'public/images/gallery/vx01-detail.jpg' },
-  { sel: '.gallery__item:nth-child(4)', out: 'public/images/gallery/r01-side.jpg' },
-  { sel: '.gallery__item:nth-child(5)', out: 'public/images/gallery/vx01-rear.jpg' },
-  { sel: '.gallery__item:nth-child(6)', out: 'public/images/gallery/r01-front.jpg' },
-]
-
-for (const item of items) {
+async function capture(section, shots) {
   await page.evaluate((sel) => {
     document.querySelector(sel).scrollIntoView({ block: 'center' })
-  }, item.sel)
+  }, section)
+  await page.evaluate((sel) => {
+    const v = document.querySelector(`${sel} .viewer`)
+    if (v) v.style.aspectRatio = '16 / 10'
+    const chrome = document.querySelector(`${sel} .viewer__chrome`)
+    if (chrome) chrome.style.visibility = 'hidden'
+    const cap = document.querySelector(`${sel} .config__caption`)
+    if (cap) cap.style.visibility = 'hidden'
+  }, section)
   await page.waitForFunction((sel) => {
     const el = document.querySelector(`${sel} .model-viewer`)
     return el && el.dataset.loaded === 'true' && el.querySelector('canvas')
-  }, { timeout: 120000 }, item.sel)
-  await new Promise(r => setTimeout(r, 8000))
-  await page.evaluate(() => window.dispatchEvent(new Event('resize')))
-  await new Promise(r => setTimeout(r, 1200))
-  const el = await page.$(`${item.sel} .gallery__viewer`)
-  if (!el) { console.log('missing', item.sel); continue }
-  await el.screenshot({ path: item.out, type: 'jpeg', quality: 90 })
-  console.log('saved', item.out, fs.statSync(item.out).size)
+  }, { timeout: 120000 }, section)
+  await new Promise(r => setTimeout(r, 2500))
+
+  for (const shot of shots) {
+    await page.evaluate((sel, label) => {
+      const buttons = [...document.querySelectorAll(`${sel} .view-chip`)]
+      const btn = buttons.find((b) => b.textContent.trim().toLowerCase().includes(label.toLowerCase()))
+      btn?.click()
+    }, section, shot.label)
+    await new Promise(r => setTimeout(r, 3200))
+    const el = await page.$(`${section} .viewer__model`)
+    if (!el) { console.log('missing viewer', section); continue }
+    await el.screenshot({ path: shot.out, type: 'jpeg', quality: 90 })
+    console.log('saved', shot.out, fs.statSync(shot.out).size)
+  }
 }
+
+await capture('#configurator', [
+  { label: 'Side', out: 'public/images/gallery/vx01-side.jpg' },
+  { label: 'Detail', out: 'public/images/gallery/vx01-detail.jpg' },
+  { label: 'Rear', out: 'public/images/gallery/vx01-rear.jpg' },
+])
+
+await capture('#bike-configurator', [
+  { label: 'Detail', out: 'public/images/gallery/r01-detail.jpg' },
+  { label: 'Side', out: 'public/images/gallery/r01-side.jpg' },
+  { label: 'Front', out: 'public/images/gallery/r01-front.jpg' },
+])
 
 await browser.close()
