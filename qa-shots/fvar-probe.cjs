@@ -9,12 +9,15 @@ function base128() { let v = 0; for (let i=0;i<5;i++){ const b = buf[off++]; v =
 const entries = [];
 for (let i=0;i<numTables;i++){
   const flags = buf[off++];
-  const tagIdx = flags & 0x3f;
+  let tagIdx = flags & 0x3f;
   const transform = (flags >> 6) & 3;
+  let tag;
+  if (tagIdx === 63) { tag = buf.toString('ascii', off, off+4); off += 4; }
+  else tag = tags[tagIdx];
   const origLength = base128();
   let transformLength = origLength;
-  if ((tagIdx === 10 || tagIdx === 11) && transform !== 3) transformLength = base128();
-  entries.push({tag: tags[tagIdx] || String(tagIdx), origLength, transformLength, transform});
+  if ((tag === 'glyf' || tag === 'loca') && transform !== 3) transformLength = base128();
+  entries.push({tag, origLength, transformLength, transform});
 }
 console.log(entries.map(e=>`${e.tag}:${e.transformLength}`).join(', '));
 const compressed = buf.subarray(off, off + totalCompressedSize);
