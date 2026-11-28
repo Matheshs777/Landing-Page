@@ -6,7 +6,7 @@ const browser = await puppeteer.launch({
   args: ['--enable-unsafe-swiftshader','--use-gl=angle','--use-angle=swiftshader','--no-sandbox','--disable-dev-shm-usage'],
 })
 const page = await browser.newPage()
-await page.setViewport({ width: 900, height: 1200, deviceScaleFactor: 1 })
+await page.setViewport({ width: 390, height: 844, deviceScaleFactor: 2 })
 await page.goto('http://localhost:4173/', { waitUntil: 'domcontentloaded' })
 await new Promise(r => setTimeout(r, 1000))
 await page.evaluate(() => {
