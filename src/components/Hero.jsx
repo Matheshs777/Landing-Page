@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react'
 import { gsap } from '../lib/gsap'
 import { usePrefersReducedMotion } from '../hooks/usePrefersReducedMotion'
 import { ModelViewer } from './three/ModelViewer'
+import { CAR } from '../config/vehicles'
 
 export function Hero() {
   const root = useRef(null)
@@ -103,6 +104,7 @@ export function Hero() {
         <ModelViewer
           id="vx01"
           view="hero"
+          poster={CAR.heroPoster}
           autoRotate
           className="hero__viewer"
           label="The NOVARIS VX-01 concept automobile, turning slowly in a dark studio."

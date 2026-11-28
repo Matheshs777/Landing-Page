@@ -14,10 +14,11 @@ export const CAR = {
   year: 'Concept MMXXVII',
   modelUrl: '/models/car/supercar.glb',
   poster: '/images/car-poster.jpg',
+  heroPoster: '/images/hero-poster.jpg',
   length: 4.601,
   baseYaw: Math.PI / 2,
   views: {
-    hero: { position: [6.9, 1.5, 5.9], target: [0, 0.55, 0] },
+    hero: { position: [7.4, 1.6, 6.4], target: [-1.2, 0.55, 0] },
     brand: { position: [4.2, 1.3, 3.9], target: [0.3, 0.5, 0.1] },
     performance: { position: [2.9, 0.8, 3.4], target: [1.3, 0.42, 0.6] },
     finale: { position: [-5.7, 1.6, 4.7], target: [0, 0.55, 0] },
