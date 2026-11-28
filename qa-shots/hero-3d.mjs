@@ -12,10 +12,7 @@ await page.evaluate(() => {
   const b = [...document.querySelectorAll('.consent button')].find(e => e.textContent.trim().toLowerCase().startsWith('essential'))
   b?.click()
 })
-await page.waitForFunction(() => {
-  const el = document.querySelector('.hero__viewer .model-viewer')
-  return el && el.dataset.loaded === 'true'
-}, { timeout: 120000 })
+await page.waitForFunction(() => document.querySelector('.hero__viewer')?.dataset.loaded === 'true', { timeout: 120000 })
 await new Promise(r => setTimeout(r, 3000))
 await page.screenshot({ path: 'qa-shots/final-hero-3d.png' })
 console.log('done')
