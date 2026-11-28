@@ -105,6 +105,7 @@ export function Hero() {
           id="vx01"
           view="hero"
           poster={CAR.heroPoster}
+          posterMobile={CAR.heroPosterMobile}
           autoRotate
           className="hero__viewer"
           label="The NOVARIS VX-01 concept automobile, turning slowly in a dark studio."

@@ -2613,6 +2613,10 @@ ol {
     linear-gradient(180deg, #0d0f11, #060708);
 }
 
+.model-viewer__picture {
+  display: contents;
+}
+
 .model-viewer__poster {
   position: absolute;
   inset: 0;

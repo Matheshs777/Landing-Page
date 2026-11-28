@@ -137,19 +137,7 @@ export function ModelViewer({
           `${vehicle.fullName}, still studio image. Live 3D is unavailable in this browser.`
         }
       >
-        {posterSrc && !posterFailed ? (
-          <img
-            className="model-viewer__poster model-viewer__poster--still"
-            src={posterSrc}
-            alt=""
-            aria-hidden="true"
-            decoding="async"
-            draggable="false"
-            onError={() => setPosterFailed(true)}
-          />
-        ) : (
-          <div className="model-viewer__placeholder" aria-hidden="true" />
-        )}
+        {renderPoster('model-viewer__poster model-viewer__poster--still')}
         <p className="model-viewer__still-note">
           Still image <span aria-hidden="true">/</span> live 3D needs WebGL
         </p>
@@ -168,19 +156,7 @@ export function ModelViewer({
         `${vehicle.fullName}, ${String(view).replace('-', ' ')} view, rendered live in the NOVARIS studio.`
       }
     >
-      {posterSrc && !posterFailed && !loaded ? (
-        <img
-          className="model-viewer__poster"
-          src={posterSrc}
-          alt=""
-          aria-hidden="true"
-          decoding="async"
-          draggable="false"
-          onError={() => setPosterFailed(true)}
-        />
-      ) : (
-        <div className="model-viewer__placeholder" aria-hidden="true" />
-      )}
+      {renderPoster()}
 
       {failure ? (
         <ViewerFallback

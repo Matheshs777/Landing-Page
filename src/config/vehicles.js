@@ -15,6 +15,7 @@ export const CAR = {
   modelUrl: '/models/car/supercar.glb',
   poster: '/images/car-poster.jpg',
   heroPoster: '/images/hero-poster.jpg',
+  heroPosterMobile: '/images/hero-poster-mobile.jpg',
   length: 4.601,
   baseYaw: Math.PI / 2,
   views: {
