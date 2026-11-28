@@ -1760,7 +1760,9 @@ ol {
   position: relative;
   overflow: hidden;
   margin: 0;
-  background: var(--graphite);
+  background:
+    radial-gradient(120% 90% at 50% 40%, rgba(198, 169, 126, 0.05), transparent 65%),
+    var(--graphite);
 }
 
 .gallery__item--wide {
@@ -1774,9 +1776,12 @@ ol {
 }
 
 .gallery__item img {
+  position: relative;
+  z-index: 1;
   width: 100%;
   height: 100%;
   object-fit: cover;
+  background: var(--graphite);
   transition: transform 1.4s var(--ease);
 }
 
@@ -2781,21 +2786,8 @@ ol {
   border: 1px solid var(--line-soft);
 }
 
-.gallery__viewer {
-  position: absolute;
-  inset: 0;
-}
-
 .gallery__item {
   will-change: transform;
-}
-
-.gallery__item .model-viewer {
-  transition: transform 1.4s var(--ease);
-}
-
-.gallery__item:hover .model-viewer {
-  transform: scale(1.02);
 }
 
 .finale__viewer {
