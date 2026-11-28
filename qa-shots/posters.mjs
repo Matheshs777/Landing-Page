@@ -11,33 +11,40 @@ const page = await browser.newPage()
 await page.setViewport({ width: 1440, height: 900, deviceScaleFactor: 1 })
 await page.goto('http://localhost:4173/', { waitUntil: 'domcontentloaded' })
 await new Promise(r => setTimeout(r, 1200))
-// Dismiss consent so it does not overlay the viewers.
 await page.evaluate(() => {
   const b = [...document.querySelectorAll('.consent button')].find(e => e.textContent.trim().toLowerCase().startsWith('essential'))
   b?.click()
 })
 await new Promise(r => setTimeout(r, 600))
 
-async function shoot(anchor, selector, out) {
+async function shoot(anchor, out) {
   await page.evaluate((a) => {
-    const el = document.querySelector(a)
-    window.scrollTo(0, el.getBoundingClientRect().top + scrollY)
+    const el = document.querySelector(`${a} .viewer`)
+    el.scrollIntoView({ block: 'center' })
   }, anchor)
-  await new Promise(r => setTimeout(r, 1500))
-  await page.waitForFunction((s) => {
-    const el = document.querySelector(s)
-    return el && el.dataset.loaded === 'true'
-  }, { timeout: 45000 }, selector).catch(() => console.log('timeout', selector))
-  await new Promise(r => setTimeout(r, 1200))
-  const el = await page.$(selector)
-  if (!el) { console.log('missing', selector); return }
-  await el.screenshot({ path: out, type: 'jpeg', quality: 86 })
-  console.log('saved', out)
+  await new Promise(r => setTimeout(r, 2500))
+  await page.waitForFunction((a) => {
+    const el = document.querySelector(`${a} .model-viewer`)
+    return el && el.dataset.loaded === 'true' && el.querySelector('canvas')
+  }, { timeout: 90000 }, anchor)
+  await new Promise(r => setTimeout(r, 3500))
+  await page.evaluate((a) => {
+    const chrome = document.querySelector(`${a} .viewer__chrome`)
+    if (chrome) chrome.style.display = 'none'
+  }, anchor)
+  await new Promise(r => setTimeout(r, 500))
+  const el = await page.$(`${anchor} .viewer__model`)
+  await el.screenshot({ path: out, type: 'jpeg', quality: 88 })
+  await page.evaluate((a) => {
+    const chrome = document.querySelector(`${a} .viewer__chrome`)
+    if (chrome) chrome.style.display = ''
+  }, anchor)
+  console.log('saved', out, fs.statSync(out).size)
 }
 
-await shoot('#configurator', '#configurator .viewer__model', 'public/images/car-poster.jpg')
-await shoot('#bike-configurator', '#bike-configurator .viewer__model', 'public/images/bike-poster.jpg')
+await shoot('#configurator', 'public/images/car-poster.jpg')
+await shoot('#bike-configurator', 'public/images/bike-poster.jpg')
 await browser.close()
 
-await sharp('public/images/car-poster.jpg').resize(1200, 630, { fit: 'cover', position: 'centre' }).jpeg({ quality: 82 }).toFile('public/images/og.jpg')
-console.log('og done', fs.statSync('public/images/car-poster.jpg').size, fs.statSync('public/images/bike-poster.jpg').size, fs.statSync('public/images/og.jpg').size)
+await sharp('public/images/car-poster.jpg').resize(1200, 630, { fit: 'cover', position: 'centre' }).jpeg({ quality: 84 }).toFile('public/images/og.jpg')
+console.log('og', fs.statSync('public/images/og.jpg').size)
