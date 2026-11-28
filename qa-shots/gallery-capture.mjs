@@ -8,50 +8,42 @@ const browser = await puppeteer.launch({
   args: ['--enable-unsafe-swiftshader','--use-gl=angle','--use-angle=swiftshader','--no-sandbox','--disable-dev-shm-usage'],
 })
 
-const shots = [
-  { section: '#configurator', label: 'Side', out: 'public/images/gallery/vx01-side.jpg' },
-  { section: '#configurator', label: 'Detail', out: 'public/images/gallery/vx01-detail.jpg' },
-  { section: '#configurator', label: 'Rear', out: 'public/images/gallery/vx01-rear.jpg' },
-  { section: '#bike-configurator', label: 'Detail', out: 'public/images/gallery/r01-detail.jpg' },
-  { section: '#bike-configurator', label: 'Side', out: 'public/images/gallery/r01-side.jpg' },
-  { section: '#bike-configurator', label: 'Front', out: 'public/images/gallery/r01-front.jpg' },
+const items = [
+  { n: 1, out: 'public/images/gallery/vx01-side.jpg' },
+  { n: 2, out: 'public/images/gallery/r01-detail.jpg' },
+  { n: 3, out: 'public/images/gallery/vx01-detail.jpg' },
+  { n: 4, out: 'public/images/gallery/r01-side.jpg' },
+  { n: 5, out: 'public/images/gallery/vx01-rear.jpg' },
+  { n: 6, out: 'public/images/gallery/r01-front.jpg' },
 ]
 
-for (const shot of shots) {
-  const page = await browser.newPage()
-  await page.setViewport({ width: 1440, height: 900, deviceScaleFactor: 2 })
-  await page.goto('http://localhost:4173/', { waitUntil: 'domcontentloaded' })
-  await new Promise(r => setTimeout(r, 900))
-  await page.evaluate(() => {
-    const b = [...document.querySelectorAll('.consent button')].find(e => e.textContent.trim().toLowerCase().startsWith('essential'))
-    b?.click()
-  })
-  await new Promise(r => setTimeout(r, 500))
-  await page.evaluate((sel) => {
-    document.querySelector(sel).scrollIntoView({ block: 'center' })
-    const v = document.querySelector(`${sel} .viewer`)
-    if (v) v.style.aspectRatio = '16 / 10'
-    const chrome = document.querySelector(`${sel} .viewer__chrome`)
-    if (chrome) chrome.style.visibility = 'hidden'
-    const cap = document.querySelector(`${sel} .config__caption`)
-    if (cap) cap.style.visibility = 'hidden'
-  }, shot.section)
-  await page.waitForFunction((sel) => {
-    const el = document.querySelector(`${sel} .model-viewer`)
+const page = await browser.newPage()
+await page.setViewport({ width: 1440, height: 900, deviceScaleFactor: 2 })
+await page.goto('http://localhost:4173/', { waitUntil: 'domcontentloaded' })
+await new Promise(r => setTimeout(r, 1000))
+await page.evaluate(() => {
+  const b = [...document.querySelectorAll('.consent button')].find(e => e.textContent.trim().toLowerCase().startsWith('essential'))
+  b?.click()
+})
+await new Promise(r => setTimeout(r, 500))
+await page.evaluate(() => {
+  document.querySelectorAll('.gallery__caption').forEach((el) => { el.style.visibility = 'hidden' })
+})
+
+for (const item of items) {
+  await page.evaluate((n) => {
+    document.querySelector(`.gallery__item:nth-child(${n})`).scrollIntoView({ block: 'center' })
+  }, item.n)
+  await page.waitForFunction((n) => {
+    const el = document.querySelector(`.gallery__item:nth-child(${n}) .model-viewer`)
     return el && el.dataset.loaded === 'true' && el.querySelector('canvas')
-  }, { timeout: 120000 }, shot.section)
-  await new Promise(r => setTimeout(r, 2000))
-  await page.evaluate((sel, label) => {
-    const buttons = [...document.querySelectorAll(`${sel} .view-chip`)]
-    const btn = buttons.find((b) => b.textContent.trim().toLowerCase().includes(label.toLowerCase()))
-    btn?.click()
-  }, shot.section, shot.label)
-  await new Promise(r => setTimeout(r, 4500))
-  const rect = await page.evaluate((sel) => {
-    const r = document.querySelector(`${sel} .viewer__model`).getBoundingClientRect()
+  }, { timeout: 120000 }, item.n)
+  await new Promise(r => setTimeout(r, 8000))
+  const rect = await page.evaluate((n) => {
+    const r = document.querySelector(`.gallery__item:nth-child(${n}) .gallery__viewer`).getBoundingClientRect()
     return { x: r.x, y: r.y, width: r.width, height: r.height }
-  }, shot.section)
-  const tmp = `qa-shots/tmp-${shot.label.toLowerCase()}-${shot.section.includes('bike') ? 'bike' : 'car'}.png`
+  }, item.n)
+  const tmp = `qa-shots/tmp-gallery-${item.n}.png`
   await page.screenshot({ path: tmp })
   const meta = await sharp(tmp).metadata()
   const sx = meta.width / 1440
@@ -59,9 +51,8 @@ for (const shot of shots) {
     .extract({ left: Math.round(rect.x * sx), top: Math.round(rect.y * sx), width: Math.round(rect.width * sx), height: Math.round(rect.height * sx) })
     .resize(1280, 800, { fit: 'cover' })
     .jpeg({ quality: 90 })
-    .toFile(shot.out)
-  console.log('saved', shot.out, fs.statSync(shot.out).size, rect)
-  await page.close()
+    .toFile(item.out)
+  console.log('saved', item.out, fs.statSync(item.out).size, rect)
 }
 
 await browser.close()
