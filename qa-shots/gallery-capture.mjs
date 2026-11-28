@@ -1,4 +1,5 @@
 ﻿import puppeteer from 'puppeteer-core'
+import sharp from 'sharp'
 import fs from 'node:fs'
 
 const browser = await puppeteer.launch({
@@ -46,12 +47,20 @@ for (const shot of shots) {
     btn?.click()
   }, shot.section, shot.label)
   await new Promise(r => setTimeout(r, 4500))
-  const box = await page.evaluate((sel) => {
+  const rect = await page.evaluate((sel) => {
     const r = document.querySelector(`${sel} .viewer__model`).getBoundingClientRect()
-    return { x: Math.round(r.x), y: Math.round(r.y + window.scrollY), width: Math.round(r.width), height: Math.round(r.height) }
+    return { x: r.x, y: r.y, width: r.width, height: r.height }
   }, shot.section)
-  await page.screenshot({ path: shot.out, type: 'jpeg', quality: 90, clip: box })
-  console.log('saved', shot.out, fs.statSync(shot.out).size, box)
+  const tmp = `qa-shots/tmp-${shot.label.toLowerCase()}-${shot.section.includes('bike') ? 'bike' : 'car'}.png`
+  await page.screenshot({ path: tmp })
+  const meta = await sharp(tmp).metadata()
+  const sx = meta.width / 1440
+  await sharp(tmp)
+    .extract({ left: Math.round(rect.x * sx), top: Math.round(rect.y * sx), width: Math.round(rect.width * sx), height: Math.round(rect.height * sx) })
+    .resize(1280, 800, { fit: 'cover' })
+    .jpeg({ quality: 90 })
+    .toFile(shot.out)
+  console.log('saved', shot.out, fs.statSync(shot.out).size, rect)
   await page.close()
 }
 
