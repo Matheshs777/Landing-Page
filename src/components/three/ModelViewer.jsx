@@ -16,8 +16,6 @@ import { usePrefersReducedMotion } from '../../hooks/usePrefersReducedMotion'
 const ViewerCanvas = lazy(() => import('./ViewerCanvas'))
 
 const MESSAGES = {
-  unsupported:
-    'This browser could not start WebGL, so the live 3D studio is unavailable.',
   context:
     'The 3D studio lost its graphics context. Too many live views can exhaust the GPU; close another tab or try again.',
   load: 'The 3D model could not be loaded. Check your connection and try again.',
