@@ -19,9 +19,11 @@ await new Promise(r => setTimeout(r, 600))
 
 async function shoot(anchor, out) {
   await page.evaluate((a) => {
-    document.querySelector(`${a} .viewer`).scrollIntoView({ block: 'center' })
+    const el = document.querySelector(`${a} .viewer`)
+    const top = el.getBoundingClientRect().top + window.scrollY
+    window.scrollTo(0, top - 120)
   }, anchor)
-  await new Promise(r => setTimeout(r, 2500))
+  await new Promise(r => setTimeout(r, 3000))
   await page.waitForFunction((a) => {
     const el = document.querySelector(`${a} .model-viewer`)
     return el && el.dataset.loaded === 'true' && el.querySelector('canvas')
@@ -34,9 +36,9 @@ async function shoot(anchor, out) {
   await new Promise(r => setTimeout(r, 400))
   const box = await page.evaluate((a) => {
     const r = document.querySelector(`${a} .viewer`).getBoundingClientRect()
-    return { x: Math.round(r.x), y: Math.round(r.y), width: Math.round(r.width), height: Math.round(r.height) }
+    return { x: Math.round(r.x), y: Math.round(r.y + window.scrollY), width: Math.round(r.width), height: Math.round(r.height), scroll: Math.round(window.scrollY) }
   }, anchor)
-  await page.screenshot({ path: out, type: 'jpeg', quality: 88, clip: box })
+  await page.screenshot({ path: out, type: 'jpeg', quality: 88, clip: { x: box.x, y: box.y, width: box.width, height: box.height } })
   await page.evaluate((a) => {
     const chrome = document.querySelector(`${a} .viewer__chrome`)
     if (chrome) chrome.style.visibility = ''
