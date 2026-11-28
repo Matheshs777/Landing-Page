@@ -42,6 +42,7 @@ export function ModelViewer({
   quality,
   label,
   poster,
+  posterMobile,
   onReady,
 }) {
   const frameRef = useRef(null)
@@ -70,6 +71,25 @@ export function ModelViewer({
   const shouldFloat = (interactive || shouldRotate || scroll) && !reduced
   const live = visible && (shouldFloat || scroll)
   const posterSrc = poster ?? vehicle.poster
+  const mobilePosterSrc = posterMobile ?? posterSrc
+
+  const renderPoster = (className = 'model-viewer__poster') =>
+    posterSrc && !posterFailed ? (
+      <picture className="model-viewer__picture">
+        <source media="(max-width: 820px)" srcSet={mobilePosterSrc} />
+        <img
+          className={className}
+          src={posterSrc}
+          alt=""
+          aria-hidden="true"
+          decoding="async"
+          draggable="false"
+          onError={() => setPosterFailed(true)}
+        />
+      </picture>
+    ) : (
+      <div className="model-viewer__placeholder" aria-hidden="true" />
+    )
 
   // Let the first paint (headline, consent copy, text) settle before three.js
   // and the GLB compete for the main thread.
